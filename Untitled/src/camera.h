@@ -1,0 +1,5 @@
+#include "common.h"
+
+extern Entity *player;
+extern Stage stage;
+extern Game game;

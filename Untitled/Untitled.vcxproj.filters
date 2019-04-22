@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\camera.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\init.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\item.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\map.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\player.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sound.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stage.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\textures.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\portal.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\camera.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\draw.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\init.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\item.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sound.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stage.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\textures.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\portal.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img\item.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\player1.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\player2.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\tile1.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\tile2.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\tile3.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\platform.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\portal.png">
+      <Filter>img</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dat\e1.dat">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\m1.dat">
+      <Filter>dat</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4cb8e783-f01c-4aba-a8fb-ef486b897a86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dat">
+      <UniqueIdentifier>{1e45fa15-a2d1-4eb1-a564-db35df811840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="img">
+      <UniqueIdentifier>{a95a6e14-472b-44cd-9bd6-b87d5939751a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
