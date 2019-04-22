@@ -29,7 +29,7 @@ static void tick(void) {
 static void touch(Entity *other) {
 	if (self->hp > 0 && other == player) {
 		//activate
-		//check if player presses up. if so, tele
+		//check if player presses up. if so, teleport
 		//playSound(SND_PORTAL, CH_PORTAL);
 	}
 }
