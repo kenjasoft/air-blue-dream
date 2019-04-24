@@ -1,4 +1,4 @@
-#include "entities.h"
+#include "entity.h"
 
 static void move(Entity *e);
 static void push(Entity *e, float dx, float dy);

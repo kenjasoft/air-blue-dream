@@ -22,7 +22,7 @@
     <ClCompile Include="src\platform.c" />
     <ClCompile Include="src\camera.c" />
     <ClCompile Include="src\draw.c" />
-    <ClCompile Include="src\entities.c" />
+    <ClCompile Include="src\entity.c" />
     <ClCompile Include="src\init.c" />
     <ClCompile Include="src\input.c" />
     <ClCompile Include="src\common.c" />
@@ -40,7 +40,7 @@
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\draw.h" />
-    <ClInclude Include="src\entities.h" />
+    <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\init.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\main.h" />

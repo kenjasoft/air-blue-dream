@@ -7,9 +7,6 @@
     <ClCompile Include="src\draw.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\entities.c">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\init.c">
       <Filter>src</Filter>
     </ClCompile>
@@ -46,6 +43,9 @@
     <ClCompile Include="src\portal.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\entity.c">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\camera.h">
@@ -55,9 +55,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\draw.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entities.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\init.h">
@@ -91,6 +88,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\portal.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entity.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
