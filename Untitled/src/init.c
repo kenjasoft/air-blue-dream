@@ -33,16 +33,12 @@ void initGame(void) {
 	loadTextures();
 
 	//initSounds();
-
 	//loadMusic("snd\\title.mp3");
-
 	//playMusic(1);
 }
 
 void cleanup(void) {
 	SDL_DestroyRenderer(game.renderer);
-
 	SDL_DestroyWindow(game.window);
-
 	SDL_Quit();
 }

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\light.c" />
+    <ClCompile Include="src\particle.c" />
     <ClCompile Include="src\platform.c" />
     <ClCompile Include="src\camera.c" />
     <ClCompile Include="src\draw.c" />
@@ -36,6 +38,8 @@
     <ClCompile Include="src\textures.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\light.h" />
+    <ClInclude Include="src\particle.h" />
     <ClInclude Include="src\platform.h" />
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\common.h" />
@@ -57,7 +61,6 @@
     <Image Include="img\platform.png" />
     <Image Include="img\player1.png" />
     <Image Include="img\player2.png" />
-    <Image Include="img\portal.png" />
     <Image Include="img\tile1.png" />
     <Image Include="img\tile2.png" />
     <Image Include="img\tile3.png" />

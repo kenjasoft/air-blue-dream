@@ -7,7 +7,6 @@ extern void drawEntities(void);
 extern void drawMap(void);
 extern void initEntities(void);
 extern void initMap(void);
-extern void initPlayer(void);
 
 extern Game game;
 extern Stage stage;

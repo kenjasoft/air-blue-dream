@@ -11,17 +11,66 @@ void initEntities(void) {
 	loadEnts("dat\\e1.dat");
 }
 
+static void addEntFromLine(char *line) {
+	char name[MAX_NAME_LENGTH];
+
+	sscanf(line, "%s", name);
+
+	if (strcmp(name, "PLATFORM") == 0) {
+		initPlatform(line);
+	}
+	else if (strcmp(name, "PLAYER") == 0) {
+		initPlayer(line);
+	}
+	else if (strcmp(name, "PORTAL") == 0) {
+		initPortal(line);
+	}
+}
+
+static void loadEnts(const char *filename) {
+	char line[MAX_LINE_LENGTH];
+	char *data, *p;
+	int n = 0;
+
+	data = readFile(filename);
+	p = data;
+
+	memset(line, '\0', MAX_LINE_LENGTH);
+
+	while (*p) {
+		if (*p == '\n') {
+			addEntFromLine(line);
+			memset(line, '\0', MAX_LINE_LENGTH);
+			n = 0;
+		}
+		else {
+			line[n++] = *p;
+		}
+
+		p++;
+	}
+
+	free(data);
+}
+
 void doEntities(void) {
 	Entity *e, *prev;
-
 	prev = &stage.entityHead;
+	float portalX = 0, portalY = 0;
 
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
 		self = e;
 
-		if (e->tick) e->tick();
+		if (e->flags & EF_PORTAL && e->hit) {
+			portalX = e->x;
+			portalY = e->y;
+			e->hit = 0;
+		}
 
-		move(e);
+		if (e->draw) {
+			if (e->tick) e->tick();
+			move(e);
+		}
 
 		if (e->hp <= 0) {
 			if (e == stage.entityTail) stage.entityTail = prev;
@@ -34,12 +83,21 @@ void doEntities(void) {
 	}
 
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
-		if (e->riding != NULL) {
-			e->x += e->riding->dx;
-			push(e, e->riding->dx, 0);
+		if (e->draw) {
+			if (e->flags & EF_LIGHT && !(portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) {
+				e->n = -5;
+			}
+			if (e->riding != NULL) {
+				e->x += e->riding->dx;
+				push(e, e->riding->dx, 0);
+			}
+			e->x = min(max(e->x, 0), MAP_WIDTH * TILE_SIZE);
+			e->y = min(max(e->y, 0), MAP_HEIGHT * TILE_SIZE);
 		}
-		e->x = min(max(e->x, 0), MAP_WIDTH * TILE_SIZE);
-		e->y = min(max(e->y, 0), MAP_HEIGHT * TILE_SIZE);
+		else if (e->flags & EF_LIGHT && (portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) {
+			e->draw = 1;
+			e->n = 5;
+		}
 	}
 }
 
@@ -66,7 +124,6 @@ static void move(Entity *e) {
 
 static void push(Entity *e, float dx, float dy) {
 	moveToWorld(e, dx, dy);
-
 	moveToEntities(e, dx, dy);
 }
 
@@ -166,46 +223,6 @@ static void moveToEntities(Entity *e, float dx, float dy) {
 void drawEntities(void) {
 	Entity *e;
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
-		blit(e->texture, (int)(e->x - stage.camera.x), (int)(e->y - stage.camera.y));
-	}
-}
-
-static void loadEnts(const char *filename) {
-	char line[MAX_LINE_LENGTH];
-	char *data, *p;
-	int n = 0;
-
-	data = readFile(filename);
-
-	p = data;
-
-	memset(line, '\0', MAX_LINE_LENGTH);
-
-	while (*p) {
-		if (*p == '\n') {
-			addEntFromLine(line);
-			memset(line, '\0', MAX_LINE_LENGTH);
-			n = 0;
-		}
-		else {
-			line[n++] = *p;
-		}
-
-		p++;
-	}
-
-	free(data);
-}
-
-static void addEntFromLine(char *line) {
-	char name[MAX_NAME_LENGTH];
-
-	sscanf(line, "%s", name);
-
-	if (strcmp(name, "PLATFORM") == 0) {
-		initPlatform(line);
-	}
-	else if (strcmp(name, "PORTAL") == 0) {
-		initPortal(line);
+		if (e->draw) blit(e->texture, (int)(e->x - stage.camera.x), (int)(e->y - stage.camera.y));
 	}
 }

@@ -1,8 +1,8 @@
 #include "main.h"
 
 int main(int argc, char *argv[]) {
+	srand((unsigned int)time(NULL));
 	memset(&game, 0, sizeof(Game));
-	game.textureTail = &game.textureHead;
 
 	initSDL();
 

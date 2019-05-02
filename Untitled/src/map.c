@@ -1,6 +1,5 @@
 #include "map.h"
 
-static void loadTiles(void);
 static void loadMap(const char *filename);
 int isInsideMap(int x, int y);
 
@@ -9,7 +8,9 @@ static SDL_Texture *tiles[MAX_TILES];
 void initMap(void) {
 	memset(&stage.map, 0, sizeof(int) * MAP_WIDTH * MAP_HEIGHT);
 
-	loadTiles();
+	tiles[1] = textures[TX_TILE1];
+	tiles[2] = textures[TX_TILE2];
+	tiles[3] = textures[TX_TILE3];
 
 	loadMap("dat\\m1.dat");
 }
@@ -36,15 +37,6 @@ void drawMap(void) {
 		}
 		mx = stage.camera.x / TILE_SIZE;
 		my++;
-	}
-}
-
-static void loadTiles(void) {
-	char filename[MAX_FILENAME_LENGTH];
-
-	for (int i = 1; i <= MAX_TILES; i++) {
-		sprintf(filename, "img\\tile%d.png", i);
-		tiles[i] = getTexture(filename);
 	}
 }
 

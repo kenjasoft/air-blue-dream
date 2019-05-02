@@ -3,6 +3,7 @@
 #include "string.h"
 #include "math.h"
 #include "ctype.h"
+#include "time.h"
 
 #include "SDL.h"
 
@@ -20,6 +21,7 @@
 #define MAX_FILENAME_LENGTH 32
 #define MAX_LINE_LENGTH 128
 #define MAX_NAME_LENGTH 32
+#define MAX_TEXTURES 7
 
 #define MAX_KEYBOARD_KEYS 350
 #define CUR 0
@@ -31,6 +33,7 @@
 #define EF_PLATFORM (2 << 1)
 #define EF_ITEM (2 << 2)
 #define EF_PORTAL (2 << 3)
+#define EF_LIGHT (2 << 4)
 
 enum {
 	SND_ITEM,
@@ -45,19 +48,43 @@ enum {
 	CH_PORTAL
 };
 
-typedef struct Texture Texture;
-typedef struct Entity Entity;
+enum {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT
+};
+
+enum {
+	L_X,
+	L_Y,
+	L_HEIGHT,
+	L_PHASE,
+	L_AMP,
+	L_FREQ,
+	L_SPEED,
+	L_DIR,
+	L_ANGLE,
+	L_PARENT_X,
+	L_PARENT_Y
+};
+
+enum {
+	TX_ITEM,
+	TX_PLATFORM,
+	TX_PLAYER1,
+	TX_PLAYER2,
+	TX_TILE1,
+	TX_TILE2,
+	TX_TILE3
+};
+
+SDL_Texture *textures[MAX_TEXTURES];
 
 typedef struct {
 	void(*draw)(void);
 	void(*logic)(void);
 } Delegate;
-
-struct Texture {
-	char name[MAX_NAME_LENGTH];
-	SDL_Texture *texture;
-	Texture *next;
-};
 
 typedef struct {
 	int debug;
@@ -66,23 +93,21 @@ typedef struct {
 	Delegate delegate;
 	SDL_Renderer *renderer;
 	SDL_Window *window;
-	Texture textureHead;
-	Texture *textureTail;
 } Game;
 
+typedef struct Entity Entity;
 struct Entity {
 	float x;
 	float y;
-	float ex;
-	float ey;
-	float sx;
-	float sy;
 	float dx;
 	float dy;
-	float n;
+	int i[11];
+	int n;
 	int w;
 	int h;
 	int hp;
+	int hit;
+	int draw;
 	int isOnGround;
 	long flags;
 	Entity *riding;

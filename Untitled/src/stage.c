@@ -13,9 +13,6 @@ void initStage(void) {
 	stage.entityTail = &stage.entityHead;
 
 	initEntities();
-
-	initPlayer();
-
 	initMap();
 }
 

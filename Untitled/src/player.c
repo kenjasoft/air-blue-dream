@@ -2,17 +2,16 @@
 
 static SDL_Texture *playerTexture[2];
 
-void initPlayer(void) {
+void initPlayer(char *line) {
 	player = malloc(sizeof(Entity));
 	memset(player, 0, sizeof(Entity));
 	stage.entityTail->next = player;
 	stage.entityTail = player;
-
+	player->draw = 1;
 	player->hp = 1;
-	player->x = 0;
-	player->y = 400;
-	playerTexture[0] = getTexture("img\\player1.png");
-	playerTexture[1] = getTexture("img\\player2.png");
+	sscanf(line, "%*s %f %f", &player->x, &player->y);
+	playerTexture[0] = textures[TX_PLAYER1];
+	playerTexture[1] = textures[TX_PLAYER2];
 	player->texture = playerTexture[0];
 	SDL_QueryTexture(player->texture, NULL, NULL, &player->w, &player->h);
 }
