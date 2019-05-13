@@ -69,6 +69,9 @@
     <None Include="dat\e1.dat" />
     <None Include="dat\m1.dat" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D2C36CB3-6795-4733-8962-0F93E04AD846}</ProjectGuid>

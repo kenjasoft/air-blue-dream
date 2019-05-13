@@ -1,0 +1,46 @@
+Shadings of Meaning
+
+links:
+http://gas13.ru/v3/tutorials/sywtbapa_almighty_grass_tile.php
+http://pixeljoint.com/forum/forum_posts.asp?TID=11299
+https://www.reddit.com/r/gamedev/comments/2hdsdi/everything_you_need_to_know_about_pixel_art_60_of
+https://www.youtube.com/watch?v=KHbQ6ti5BQ0
+
+player is silent
+
+interact with stuff using X. pick up items with X
+
+decide what to do when player faints: return to nearest town? return to beginning of map? previous platform?
+
+need a nice pause menu (inventory?)
+
+game is centered around riddles. driven by clues like Gone Girl; clues lead to clues
+city like Kerning. game opens with you finding a note
+gives an address mixed in with a riddle. place is like the secret basement 1st job hideout in Kerning
+this opens some sort of can of worms (think of something worth going on a journey over)
+small quests for some people in the town. nice, simple, fun, straightforward quests like MS. (make it a rule: you must talk to everyone before you can move on)
+get led to the sewer (like KPQ). inside sewer, jump quest (like lost coin quest)
+exit of the sewer leads to underground train station (do some quest to forge a ticket to get on the train)
+on the train, do some big dramatic arc like Paper Mario. train leads to a place like L Forest, which leads to place like Henesys, which leads to place like Sleepywood
+
+ladders and ropes exactly like MS
+
+import Maria's player, implement animations for idle, run, jump
+
+particles can be used for weather (rain, snow), light sources, fire, water
+
+teleport spots on the map take you to new x/y position on the same screen but on a new "map" (platform)
+already have the screen-drag-catch-up implemented for it. then for any given area I could have all maps on the same screen!
+for towns this would be really useful (houses, sections of town), but also for jump quest dungeons (tele to different parts of dungeon)
+make it like Earthbound, where once you move on from an area you don't come back. getting out of a main area is a big deal (city to sewer, sewer to train, train to forest, etc.)
+
+when the player is teleported: if it's indoors, the place should have a background so it looks like they're inside (so we need background tiles that don't collide)
+make the isInsideMap function switch on some #defines
+one #define for each map. each portal has one of these #defines attached to it so game always knows what map you're in and what the barriers are
+if teleporting within the same map, use the same #define, just different coordinates
+
+kick up dust when player moves. use some glow particles shooting out behind him (left or right) when he starts walking
+
+combine e1 and m1 into one file
+
+see if you can make collision faster (am I checking tiles I don't need to check?)
