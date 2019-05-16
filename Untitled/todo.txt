@@ -41,4 +41,7 @@ if teleporting within the same map, use the same #define, just different coordin
 
 kick up dust when player moves. use some glow particles shooting out behind him (left or right) when he starts walking
 
-combine e1 and m1 into one file
+combine e1 and m1 into one file. all levels and their entities will be stored in 1 file, loaded when the game opens
+store the level/entity data in a 2D array
+[level1data][entitiesforlevel1]
+[level2data][entitiesforlevel2]
