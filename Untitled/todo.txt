@@ -42,5 +42,3 @@ if teleporting within the same map, use the same #define, just different coordin
 kick up dust when player moves. use some glow particles shooting out behind him (left or right) when he starts walking
 
 combine e1 and m1 into one file
-
-see if you can make collision faster (am I checking tiles I don't need to check?)
