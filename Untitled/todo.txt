@@ -14,6 +14,8 @@ decide what to do when player faints: return to nearest town? return to beginnin
 
 need a nice pause menu (inventory?)
 
+Zelda II feel
+
 game is centered around riddles. driven by clues like Gone Girl; clues lead to clues
 city like Kerning. game opens with you finding a note
 gives an address mixed in with a riddle. place is like the secret basement 1st job hideout in Kerning
@@ -40,6 +42,8 @@ one #define for each map. each portal has one of these #defines attached to it s
 if teleporting within the same map, use the same #define, just different coordinates
 
 kick up dust when player moves. use some glow particles shooting out behind him (left or right) when he starts walking
+
+everything needs to be lower resolution. think SNES limitations. decrease the window size, sprite size, tile size, etc.
 
 combine e1 and m1 into one file. all levels and their entities will be stored in 1 file, loaded when the game opens
 store the level/entity data in a 2D array
