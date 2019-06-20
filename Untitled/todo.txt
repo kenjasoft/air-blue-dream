@@ -44,6 +44,7 @@ if teleporting within the same map, use the same #define, just different coordin
 kick up dust when player moves. use some glow particles shooting out behind him (left or right) when he starts walking
 
 everything needs to be lower resolution. think SNES limitations. decrease the window size, sprite size, tile size, etc.
+proportion-wise should look like Super Mario All-Stars SMB2 (US)
 
 combine e1 and m1 into one file. all levels and their entities will be stored in 1 file, loaded when the game opens
 store the level/entity data in a 2D array
