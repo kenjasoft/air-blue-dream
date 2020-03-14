@@ -5,14 +5,18 @@ static void tick(void);
 double degreeToRadian(float deg);
 
 void initLight(float x, float y, float parentX, float parentY, int radius, int red, int green, int blue, int dir, int baseFreq, int baseSpeed) {
-	Entity *e;
+	Entity* e;
 	e = malloc(sizeof(Entity));
+	if (e == NULL) return;
 	memset(e, 0, sizeof(Entity));
 	stage.entityTail->next = e;
 	stage.entityTail = e;
 	e->x = x;
 	e->y = y;
 	e->hp = 1;
+	e->scaleX = 1;
+	e->scaleY = 1;
+	e->flip = SDL_FLIP_NONE;
 	e->draw = 0;
 	radius += rand() % 10;
 	red += rand() % 50;
@@ -24,6 +28,7 @@ void initLight(float x, float y, float parentX, float parentY, int radius, int r
 	SDL_QueryTexture(e->texture, NULL, NULL, &e->w, &e->h);
 	e->flags = EF_WEIGHTLESS + EF_LIGHT;
 	e->tick = tick;
+
 	int x2 = 0, y2 = 0, height = 0, amp = 0;
 	if (dir == UP || dir == DOWN) {
 		x2 = (int)((e->x + (e->w / 2)) - e->w / 14 + rand() % (e->w / 7));
@@ -37,6 +42,7 @@ void initLight(float x, float y, float parentX, float parentY, int radius, int r
 		height = e->w / 5 + rand() % (e->w * 4 / 5);
 		amp = e->h * 5 / 28 + rand() % (e->h / 4);
 	}
+
 	int phase = rand() % 360;
 	int freq = baseFreq + rand() % (baseFreq * 2);
 	int speed = baseSpeed + rand() % baseSpeed;
@@ -84,5 +90,5 @@ static void tick(void) {
 }
 
 double degreeToRadian(float deg) {
-	return (deg / 360) * 2 * 3.14159265358979;
+	return (deg / 360) * 2.0 * 3.14159265358979;
 }

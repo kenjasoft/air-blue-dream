@@ -12,15 +12,11 @@ void initSDL(void) {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) exit(1);
 
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) exit(1);
-
 	Mix_AllocateChannels(MAX_SND_CHANNELS);
 
 	game.window = SDL_CreateWindow("Untitled", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
-
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
-
 	game.renderer = SDL_CreateRenderer(game.window, -1, rendererFlags);
-
 	IMG_Init(IMG_INIT_PNG);
 
 	SDL_Cursor* cursor;

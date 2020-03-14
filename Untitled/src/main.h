@@ -1,5 +1,6 @@
 #include "common.h"
 
+extern void capFrameRate(long* then, float* remainder);
 extern void cleanup(void);
 extern void doInput(void);
 extern void initGame(void);
@@ -9,6 +10,6 @@ extern void prepareScene(void);
 extern void presentScene(void);
 
 Game game;
-Entity *player;
-Entity *self;
+Entity* player;
+Entity* self;
 Stage stage;

@@ -2,8 +2,8 @@
 
 static void loadSounds(void);
 
-static Mix_Chunk *sounds[SND_MAX];
-static Mix_Music *music;
+static Mix_Chunk* sounds[SND_MAX];
+static Mix_Music* music;
 
 void initSounds(void) {
 	memset(sounds, 0, sizeof(Mix_Chunk*) * SND_MAX);
@@ -11,7 +11,7 @@ void initSounds(void) {
 	loadSounds();
 }
 
-void loadMusic(char *filename) {
+void loadMusic(char* filename) {
 	if (music != NULL) {
 		Mix_HaltMusic();
 		Mix_FreeMusic(music);

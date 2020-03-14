@@ -29,8 +29,6 @@
     <ClCompile Include="src\input.c" />
     <ClCompile Include="src\common.c" />
     <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\map.c" />
-    <ClCompile Include="src\item.c" />
     <ClCompile Include="src\player.c" />
     <ClCompile Include="src\portal.c" />
     <ClCompile Include="src\sound.c" />
@@ -48,8 +46,6 @@
     <ClInclude Include="src\init.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\main.h" />
-    <ClInclude Include="src\map.h" />
-    <ClInclude Include="src\item.h" />
     <ClInclude Include="src\player.h" />
     <ClInclude Include="src\portal.h" />
     <ClInclude Include="src\sound.h" />
@@ -57,17 +53,31 @@
     <ClInclude Include="src\textures.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="img\item.png" />
-    <Image Include="img\platform.png" />
-    <Image Include="img\player1.png" />
-    <Image Include="img\player2.png" />
-    <Image Include="img\tile1.png" />
-    <Image Include="img\tile2.png" />
-    <Image Include="img\tile3.png" />
+    <Image Include="img\bush.png" />
+    <Image Include="img\cloud1.png" />
+    <Image Include="img\cloud2.png" />
+    <Image Include="img\flowers.png" />
+    <Image Include="img\grassplatform.png" />
+    <Image Include="img\landscape.png" />
+    <Image Include="img\maple.png" />
+    <Image Include="img\playercrouch.png" />
+    <Image Include="img\playeridle1.png" />
+    <Image Include="img\playeridle2.png" />
+    <Image Include="img\playeridle3.png" />
+    <Image Include="img\playeridle4.png" />
+    <Image Include="img\playerjump.png" />
+    <Image Include="img\playerwalk1.png" />
+    <Image Include="img\playerwalk2.png" />
+    <Image Include="img\playerwalk3.png" />
+    <Image Include="img\playerwalk4.png" />
+    <Image Include="img\sky.png" />
+    <Image Include="img\rockplatform.png" />
+    <Image Include="img\smallrockplatform.png" />
+    <Image Include="img\tree.png" />
+    <Image Include="img\ground.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="dat\e1.dat" />
-    <None Include="dat\m1.dat" />
+    <None Include="dat\1.dat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

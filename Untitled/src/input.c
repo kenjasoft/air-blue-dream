@@ -1,10 +1,10 @@
 #include "input.h"
 
-void doKeyUp(SDL_KeyboardEvent *event) {
+void doKeyUp(SDL_KeyboardEvent* event) {
 	if (event->keysym.scancode < MAX_KEYBOARD_KEYS) game.keyboard[event->keysym.scancode][CUR] = 0;
 }
 
-void doKeyDown(SDL_KeyboardEvent *event) {
+void doKeyDown(SDL_KeyboardEvent* event) {
 	if (event->keysym.scancode < MAX_KEYBOARD_KEYS) game.keyboard[event->keysym.scancode][CUR] = 1;
 
 	if (event->keysym.scancode == SDL_SCANCODE_D && game.debug == 1) {

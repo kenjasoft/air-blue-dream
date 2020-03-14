@@ -7,21 +7,29 @@
 
 #include "SDL.h"
 
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 384
+#define SCREEN_HEIGHT 768
 
-#define MAX_TILES 4
-#define TILE_SIZE 64
-
-#define MAP_WIDTH 40
-#define MAP_HEIGHT 12
-#define MAP_RENDER_WIDTH 20
-#define MAP_RENDER_HEIGHT 12
+#define MAP_WIDTH 384
+#define MAP_HEIGHT 1536
+#define PLAYER_WIDTH 60
+#define PLAYER_HEIGHT 74
 
 #define MAX_FILENAME_LENGTH 32
 #define MAX_LINE_LENGTH 128
 #define MAX_NAME_LENGTH 32
-#define MAX_TEXTURES 7
+#define MAX_TEXTURES 22
+#define MAX_LANDSCAPE 3
+#define LANDSCAPE_WIDTH 64
+#define LANDSCAPE_HEIGHT 170
+#define MAX_SKY 6
+#define SKY_WIDTH 78
+#define SKY_HEIGHT 60
+#define MAX_CLOUDS 3
+#define CLOUD1_WIDTH 96
+#define CLOUD1_HEIGHT 28
+#define CLOUD2_WIDTH 64
+#define CLOUD2_HEIGHT 20
 
 #define MAX_KEYBOARD_KEYS 350
 #define CUR 0
@@ -31,19 +39,18 @@
 
 #define EF_WEIGHTLESS (2 << 0)
 #define EF_PLATFORM (2 << 1)
-#define EF_ITEM (2 << 2)
-#define EF_PORTAL (2 << 3)
-#define EF_LIGHT (2 << 4)
+#define EF_PORTAL (2 << 2)
+#define EF_LIGHT (2 << 3)
+#define EF_PLAYER (2 << 4)
+#define EF_GROUND (2 << 5)
 
 enum {
-	SND_ITEM,
 	SND_JUMP,
 	SND_PORTAL,
 	SND_MAX
 };
 
 enum {
-	CH_ITEM,
 	CH_PLAYER,
 	CH_PORTAL
 };
@@ -70,16 +77,37 @@ enum {
 };
 
 enum {
-	TX_ITEM,
-	TX_PLATFORM,
-	TX_PLAYER1,
-	TX_PLAYER2,
-	TX_TILE1,
-	TX_TILE2,
-	TX_TILE3
+	TX_PLAYERCROUCH,
+	TX_PLAYERIDLE1,
+	TX_PLAYERIDLE2,
+	TX_PLAYERIDLE3,
+	TX_PLAYERIDLE4,
+	TX_PLAYERJUMP,
+	TX_PLAYERWALK1,
+	TX_PLAYERWALK2,
+	TX_PLAYERWALK3,
+	TX_PLAYERWALK4,
+	TX_ROCKPLATFORM,
+	TX_TREE,
+	TX_GROUND,
+	TX_SKY,
+	TX_LANDSCAPE,
+	TX_BUSH,
+	TX_CLOUD1,
+	TX_CLOUD2,
+	TX_FLOWERS,
+	TX_MAPLE,
+	TX_GRASSPLATFORM,
+	TX_SMALLROCKPLATFORM
 };
 
-SDL_Texture *textures[MAX_TEXTURES];
+enum {
+	HIT_OFF,
+	HIT_ON,
+	HIT_ALWAYS
+};
+
+SDL_Texture* textures[MAX_TEXTURES];
 
 typedef struct {
 	void(*draw)(void);
@@ -91,8 +119,8 @@ typedef struct {
 	int map;
 	int keyboard[MAX_KEYBOARD_KEYS][2];
 	Delegate delegate;
-	SDL_Renderer *renderer;
-	SDL_Window *window;
+	SDL_Renderer* renderer;
+	SDL_Window* window;
 } Game;
 
 typedef struct Entity Entity;
@@ -101,6 +129,9 @@ struct Entity {
 	float y;
 	float dx;
 	float dy;
+	float scaleX;
+	float scaleY;
+	float f;
 	int i[11];
 	int n;
 	int w;
@@ -110,11 +141,22 @@ struct Entity {
 	int draw;
 	int isOnGround;
 	long flags;
-	Entity *riding;
-	Entity *next;
-	SDL_Texture *texture;
+	Entity* riding;
+	Entity* next;
+	SDL_RendererFlip flip;
+	SDL_Texture* texture;
 	void(*tick)(void);
-	void(*touch)(Entity *other);
+	void(*touch)(Entity* other);
+};
+
+typedef struct BareEntity BareEntity;
+struct BareEntity {
+	int x;
+	int y;
+	int w;
+	int h;
+	SDL_RendererFlip flip;
+	SDL_Texture* texture;
 };
 
 typedef struct {
@@ -125,8 +167,11 @@ typedef struct {
 } Camera;
 
 typedef struct {
-	int map[MAP_WIDTH][MAP_HEIGHT];
+	int stageNumber;
 	Camera camera;
 	Entity entityHead;
-	Entity *entityTail;
+	Entity* entityTail;
+	BareEntity* sky[MAX_SKY];
+	BareEntity* clouds[MAX_CLOUDS];
+	BareEntity* landscape[MAX_LANDSCAPE];
 } Stage;

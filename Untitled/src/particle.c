@@ -3,11 +3,11 @@
 static float getDistance(SDL_Point p1, SDL_Point p2) {
 	int x = p2.x - p1.x;
 	int y = p2.y - p1.y;
-	float distance = (float)SDL_sqrt(x * x + y * y);
+	float distance = (float)SDL_sqrt((double)x * x + (double)y * y);
 	return distance;
 }
 
-SDL_Texture *createLightParticle(SDL_Renderer* renderer, int radius, int red, int green, int blue, int dim) {
+SDL_Texture* createLightParticle(SDL_Renderer* renderer, int radius, int red, int green, int blue, int dim) {
 	float relativeDist = 0;
 	float distance = 0;
 	int alpha = 0;

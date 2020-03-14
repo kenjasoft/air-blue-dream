@@ -1,21 +1,24 @@
 #include "portal.h"
 
-void initPortal(char *line);
-static void touch(Entity *other);
+void initPortal(char* line);
+static void touch(Entity* other);
 
-void initPortal(char *line) {
-	Entity *e;
+void initPortal(char* line) {
+	Entity* e;
 	e = malloc(sizeof(Entity));
+	if (e == NULL) return;
 	memset(e, 0, sizeof(Entity));
 	stage.entityTail->next = e;
 	stage.entityTail = e;
-	e->hit = 0;
 	e->draw = 1;
-	sscanf(line, "%*s %f %f", &e->x, &e->y);
+	e->scaleX = 1;
+	e->scaleY = 1;
+	e->flip = SDL_FLIP_NONE;
+	if (sscanf(line, "%*s %f %f %d", &e->x, &e->y, &e->hit) <= 0) return;
 	e->hp = 1;
 	e->flags = EF_PORTAL;
 	SDL_Texture* texture = NULL;
-	texture = SDL_CreateTexture(game.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 48, 4);
+	texture = SDL_CreateTexture(game.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, PLAYER_WIDTH, 4);
 	SDL_SetRenderTarget(game.renderer, texture);
 	SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(game.renderer, 0, 0, 0, 0);
@@ -28,10 +31,10 @@ void initPortal(char *line) {
 	}
 }
 
-static void touch(Entity *other) {
+static void touch(Entity* other) {
 	if (other == player) {
-		//check if player presses up. if so, teleport
+		// check if player presses up. if so, teleport
 		//playSound(SND_PORTAL, CH_PORTAL);
-		self->hit = 1;
+		if (self->hit != HIT_ALWAYS) self->hit = HIT_ON;
 	}
 }

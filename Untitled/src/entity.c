@@ -1,22 +1,63 @@
 #include "entity.h"
 
-static void move(Entity *e);
-static void push(Entity *e, float dx, float dy);
-static void moveToWorld(Entity *e, float dx, float dy);
-static void moveToEntities(Entity *e, float dx, float dy);
-static void loadEnts(const char *filename);
-static void addEntFromLine(char *line);
+static void move(Entity* e);
+static void push(Entity* e, float dx, float dy);
+static void moveToEntities(Entity* e, float dx, float dy);
+static void loadEntities(const char* filename);
+static void addEntityFromLine(char* line);
 
 void initEntities(void) {
-	loadEnts("dat\\e1.dat");
+	char fileName[MAX_FILENAME_LENGTH];
+	sprintf(fileName, "dat\\%d.dat", stage.stageNumber);
+	loadEntities(fileName);
 }
 
-static void addEntFromLine(char *line) {
-	char name[MAX_NAME_LENGTH];
+void initEntity(char* line) {
+	Entity* e;
 
-	sscanf(line, "%s", name);
+	e = malloc(sizeof(Entity));
+	if (e == NULL) return;
+	memset(e, 0, sizeof(Entity));
+	stage.entityTail->next = e;
+	stage.entityTail = e;
+	char name[MAX_NAME_LENGTH] = { 0 };
+	if (sscanf(line, "%s %f %f %d", name, &e->x, &e->y, &e->flip) <= 0) return;
 
-	if (strcmp(name, "PLATFORM") == 0) {
+	e->scaleX = 1;
+	e->scaleY = 1;
+	e->hp = 1;
+	e->draw = 1;
+
+	if (strcmp(name, "TREE") == 0) {
+		e->texture = textures[TX_TREE];
+		e->flags = EF_WEIGHTLESS;
+	}
+	else if (strcmp(name, "FLOWERS") == 0) {
+		e->texture = textures[TX_FLOWERS];
+		e->flags = EF_WEIGHTLESS;
+	}
+	else if (strcmp(name, "BUSH") == 0) {
+		e->texture = textures[TX_BUSH];
+		e->flags = EF_WEIGHTLESS;
+	}
+	else if (strcmp(name, "MAPLE") == 0) {
+		e->texture = textures[TX_MAPLE];
+		e->flags = EF_WEIGHTLESS;
+	}
+	else if (strcmp(name, "GROUND") == 0) {
+		e->texture = textures[TX_GROUND];
+		e->flags = EF_GROUND + EF_WEIGHTLESS;
+	}
+	SDL_QueryTexture(e->texture, NULL, NULL, &e->w, &e->h);
+}
+
+static void addEntityFromLine(char* line) {
+	if (line[0] == '#') return;
+
+	char name[MAX_NAME_LENGTH] = { 0 };
+
+	if (sscanf(line, "%s", name) <= 0) return;
+	if (strstr(name, "PLATFORM")) {
 		initPlatform(line);
 	}
 	else if (strcmp(name, "PLAYER") == 0) {
@@ -25,60 +66,53 @@ static void addEntFromLine(char *line) {
 	else if (strcmp(name, "PORTAL") == 0) {
 		initPortal(line);
 	}
+	else {
+		initEntity(line);
+	}
 }
 
-static void loadEnts(const char *filename) {
+static void loadEntities(const char* filename) {
 	char line[MAX_LINE_LENGTH];
-	char *data, *p;
+	char* data, * p;
 	int n = 0;
 
 	data = readFile(filename);
 	p = data;
-
 	memset(line, '\0', MAX_LINE_LENGTH);
-
 	while (*p) {
 		if (*p == '\n') {
-			addEntFromLine(line);
+			addEntityFromLine(line);
 			memset(line, '\0', MAX_LINE_LENGTH);
 			n = 0;
 		}
-		else {
-			line[n++] = *p;
-		}
-
+		else line[n++] = *p;
 		p++;
 	}
-
 	free(data);
 }
 
 void doEntities(void) {
-	Entity *e, *prev;
+	Entity* e, * prev;
 	prev = &stage.entityHead;
 	float portalX = 0, portalY = 0;
 
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
 		self = e;
-
 		if (e->flags & EF_PORTAL && e->hit) {
 			portalX = e->x;
 			portalY = e->y;
-			e->hit = 0;
+			if (e->hit != HIT_ALWAYS) e->hit = HIT_OFF;
 		}
-
 		if (e->draw) {
 			if (e->tick) e->tick();
 			move(e);
 		}
-
 		if (e->hp <= 0) {
 			if (e == stage.entityTail) stage.entityTail = prev;
 			prev->next = e->next;
 			free(e);
 			e = prev;
 		}
-
 		prev = e;
 	}
 
@@ -91,8 +125,10 @@ void doEntities(void) {
 				e->x += e->riding->dx;
 				push(e, e->riding->dx, 0);
 			}
-			e->x = min(max(e->x, 0), MAP_WIDTH * TILE_SIZE);
-			e->y = min(max(e->y, 0), MAP_HEIGHT * TILE_SIZE);
+			if (e->flags & EF_PLAYER) {
+				if (e->x < -e->w) e->x = MAP_WIDTH;
+				else if (e->x > MAP_WIDTH) e->x = (float)-e->w;
+			}
 		}
 		else if (e->flags & EF_LIGHT && (portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) {
 			e->draw = 1;
@@ -101,18 +137,16 @@ void doEntities(void) {
 	}
 }
 
-static void move(Entity *e) {
+static void move(Entity* e) {
 	if (!(e->flags & EF_WEIGHTLESS)) {
 		e->dy += 1.5;
 		e->dy = max(min(e->dy, 18), -999);
 	}
-
 	if (e->riding != NULL && e->riding->dy > 0) {
 		e->dy = e->riding->dy + 1;
 	}
 
 	e->riding = NULL;
-
 	e->isOnGround = 0;
 
 	e->x += e->dx;
@@ -122,8 +156,7 @@ static void move(Entity *e) {
 	push(e, 0, e->dy);
 }
 
-static void push(Entity *e, float dx, float dy) {
-	moveToWorld(e, dx, dy);
+static void push(Entity* e, float dx, float dy) {
 	moveToEntities(e, dx, dy);
 }
 
@@ -131,88 +164,25 @@ static int collision(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int
 	return (max(x1, x2) < min(x1 + w1, x2 + w2)) && (max(y1, y2) < min(y1 + h1, y2 + h2));
 }
 
-static void moveToWorld(Entity *e, float dx, float dy) {
-	int mx, my, hit, adj;
-
-	if (dx != 0) {
-		mx = dx > 0 ? (int)(e->x + e->w) : (int)e->x;
-		mx /= TILE_SIZE;
-
-		my = (int)(e->y / TILE_SIZE);
-
-		hit = 0;
-
-		if (!isInsideMap(mx, my) || stage.map[mx][my] != 0) {
-			hit = 1;
-		}
-
-		my = (int)(e->y + e->h - 1) / TILE_SIZE;
-
-		if (!isInsideMap(mx, my) || stage.map[mx][my] != 0) {
-			hit = 1;
-		}
-
-		if (hit) {
-			adj = dx > 0 ? -e->w : TILE_SIZE;
-
-			e->x = (float)((mx * TILE_SIZE) + adj);
-
-			e->dx = 0;
-		}
-	}
-
-	if (dy != 0) {
-		my = dy > 0 ? (int)(e->y + e->h) : (int)e->y;
-		my /= TILE_SIZE;
-
-		mx = (int)e->x / TILE_SIZE;
-
-		hit = 0;
-
-		if (!isInsideMap(mx, my) || stage.map[mx][my] != 0) {
-			hit = 1;
-		}
-
-		mx = (int)(e->x + e->w - 1) / TILE_SIZE;
-
-		if (!isInsideMap(mx, my) || stage.map[mx][my] != 0) {
-			hit = 1;
-		}
-
-		if (hit) {
-			adj = dy > 0 ? -e->h : TILE_SIZE;
-
-			e->y = (float)((my * TILE_SIZE) + adj);
-
-			e->dy = 0;
-
-			e->isOnGround = dy > 0;
-		}
-	}
-}
-
-static void moveToEntities(Entity *e, float dx, float dy) {
-	Entity *other;
+static void moveToEntities(Entity* e, float dx, float dy) {
+	Entity* other;
 	int adj;
 
 	for (other = stage.entityHead.next; other != NULL; other = other->next) {
-		if (other != e && collision((int)e->x, (int)e->y, e->w, e->h, (int)other->x, (int)other->y, other->w, other->h)) {
-
-			if (other->flags & EF_PLATFORM) {
+		int collide = e->flags & EF_PLAYER ? collision((int)e->x + 18, (int)e->y, e->w - 18, e->h, (int)other->x + 18, (int)other->y, other->w - 18, other->h) :
+			collision((int)e->x, (int)e->y, e->w, e->h, (int)other->x, (int)other->y, other->w, other->h);
+		if (other != e && collide) {
+			if (other->flags & EF_PLATFORM || other->flags & EF_GROUND) {
 				if (dy != 0 && (int)((e->y - e->dy) + e->h) <= other->y) {
 					adj = dy > 0 ? -e->h : other->h;
-
 					e->y = other->y + adj;
-
 					e->dy = 0;
-
 					if (dy > 0) {
 						e->isOnGround = 1;
 						e->riding = other;
 					}
 				}
 			}
-
 			if (e->touch) {
 				e->touch(other);
 			}
@@ -221,8 +191,14 @@ static void moveToEntities(Entity *e, float dx, float dy) {
 }
 
 void drawEntities(void) {
-	Entity *e;
+	Entity* e;
+
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
-		if (e->draw) blit(e->texture, (int)(e->x - stage.camera.x), (int)(e->y - stage.camera.y));
+		if (e->draw) {
+			if (e->flags & EF_PLATFORM || e->flags & EF_GROUND) {
+				blit(e->texture, (int)(e->x - stage.camera.x), (int)((e->y - stage.camera.y) - 8), e->scaleX, e->scaleY, e->flip);
+			}
+			else blit(e->texture, (int)(e->x - stage.camera.x), (int)(e->y - stage.camera.y), e->scaleX, e->scaleY, e->flip);
+		}
 	}
 }

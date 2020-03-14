@@ -13,13 +13,7 @@
     <ClCompile Include="src\input.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\item.c">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\map.c">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\platform.c">
@@ -69,13 +63,7 @@
     <ClInclude Include="src\input.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\item.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\main.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\map.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\platform.h">
@@ -107,35 +95,72 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="img\item.png">
+    <Image Include="img\tree.png">
       <Filter>img</Filter>
     </Image>
-    <Image Include="img\player1.png">
+    <Image Include="img\bush.png">
       <Filter>img</Filter>
     </Image>
-    <Image Include="img\player2.png">
+    <Image Include="img\cloud1.png">
       <Filter>img</Filter>
     </Image>
-    <Image Include="img\tile1.png">
+    <Image Include="img\cloud2.png">
       <Filter>img</Filter>
     </Image>
-    <Image Include="img\tile2.png">
+    <Image Include="img\flowers.png">
       <Filter>img</Filter>
     </Image>
-    <Image Include="img\tile3.png">
+    <Image Include="img\grassplatform.png">
       <Filter>img</Filter>
     </Image>
-    <Image Include="img\platform.png">
+    <Image Include="img\ground.png">
       <Filter>img</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="dat\e1.dat">
-      <Filter>dat</Filter>
-    </None>
-    <None Include="dat\m1.dat">
-      <Filter>dat</Filter>
-    </None>
+    <Image Include="img\landscape.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\maple.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playercrouch.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playeridle1.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playeridle2.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playeridle3.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playeridle4.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playerjump.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playerwalk1.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playerwalk2.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playerwalk3.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\playerwalk4.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\rockplatform.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\sky.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\smallrockplatform.png">
+      <Filter>img</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -147,5 +172,10 @@
     <Filter Include="img">
       <UniqueIdentifier>{a95a6e14-472b-44cd-9bd6-b87d5939751a}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dat\1.dat">
+      <Filter>dat</Filter>
+    </None>
   </ItemGroup>
 </Project>

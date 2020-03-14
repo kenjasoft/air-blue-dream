@@ -1,6 +1,9 @@
 #include "main.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
+	long then = SDL_GetTicks();
+	float remainder = 0;
+
 	srand((unsigned int)time(NULL));
 	memset(&game, 0, sizeof(Game));
 
@@ -9,7 +12,6 @@ int main(int argc, char *argv[]) {
 	atexit(cleanup);
 
 	initGame();
-
 	initStage();
 
 	while (1) {
@@ -21,6 +23,22 @@ int main(int argc, char *argv[]) {
 		game.delegate.draw();
 
 		presentScene();
+		capFrameRate(&then, &remainder);
 	}
 	return 0;
+}
+
+static void capFrameRate(long* then, float* remainder)
+{
+	long wait = (long)(16 + *remainder);
+	*remainder -= (int)*remainder;
+
+	long frameTime = SDL_GetTicks() - *then;
+	wait -= frameTime;
+	if (wait < 1) wait = 1;
+
+	SDL_Delay(wait);
+
+	*remainder += 0.667f;
+	*then = SDL_GetTicks();
 }

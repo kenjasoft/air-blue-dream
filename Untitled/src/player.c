@@ -1,19 +1,30 @@
 #include "player.h"
 
-static SDL_Texture *playerTexture[2];
+static SDL_Texture* playerIdle[4];
+static SDL_Texture* playerWalk[6];
 
-void initPlayer(char *line) {
+void initPlayer(char* line) {
 	player = malloc(sizeof(Entity));
+	if (player == NULL) return;
 	memset(player, 0, sizeof(Entity));
 	stage.entityTail->next = player;
 	stage.entityTail = player;
 	player->draw = 1;
 	player->hp = 1;
-	sscanf(line, "%*s %f %f", &player->x, &player->y);
-	playerTexture[0] = textures[TX_PLAYER1];
-	playerTexture[1] = textures[TX_PLAYER2];
-	player->texture = playerTexture[0];
+	player->scaleX = 1;
+	player->scaleY = 1;
+	if (sscanf(line, "%*s %f %f", &player->x, &player->y) <= 0) return;
+	playerIdle[0] = textures[TX_PLAYERIDLE1];
+	playerIdle[1] = textures[TX_PLAYERIDLE2];
+	playerIdle[2] = textures[TX_PLAYERIDLE3];
+	playerIdle[3] = textures[TX_PLAYERIDLE4];
+	playerWalk[0] = textures[TX_PLAYERWALK1];
+	playerWalk[1] = textures[TX_PLAYERWALK2];
+	playerWalk[2] = textures[TX_PLAYERWALK3];
+	playerWalk[3] = textures[TX_PLAYERWALK4];
+	player->texture = playerIdle[0];
 	SDL_QueryTexture(player->texture, NULL, NULL, &player->w, &player->h);
+	player->flags = EF_PLAYER;
 }
 
 void doPlayer(void) {
@@ -21,26 +32,35 @@ void doPlayer(void) {
 	float fx = .6f;
 	int vx = 5;
 	int vy = -15;
+	int t = SDL_GetTicks();
+	int idleIndex = (t / 256) % 4;
+	int runningIndex = (t / 64) % 4;
 
 	if (player->dx > -(fx / 2) && player->dx < (fx / 2)) player->dx = 0;
 	player->dx *= cf;
 
+	player->texture = playerIdle[idleIndex];
+
 	if (game.map) return;
 
+	int isCrouching = game.keyboard[SDL_SCANCODE_DOWN][CUR] && player->isOnGround && player->riding != NULL;
+	if (isCrouching) player->texture = textures[TX_PLAYERCROUCH];
+
 	if (game.keyboard[SDL_SCANCODE_LEFT][CUR]) {
-		player->texture = playerTexture[1];
+		player->texture = playerWalk[runningIndex];
 		player->dx -= fx;
 		player->dx = max(player->dx, -vx);
+		player->flip = SDL_FLIP_HORIZONTAL;
 	}
-
 	if (game.keyboard[SDL_SCANCODE_RIGHT][CUR]) {
-		player->texture = playerTexture[0];
+		player->texture = playerWalk[runningIndex];
 		player->dx += fx;
 		player->dx = min(player->dx, vx);
+		player->flip = SDL_FLIP_NONE;
 	}
 
 	if (game.keyboard[SDL_SCANCODE_Z][CUR]) {
-		if (game.keyboard[SDL_SCANCODE_DOWN][CUR] && player->isOnGround && player->riding != NULL && player->riding->flags & EF_PLATFORM) {
+		if (isCrouching && player->riding->flags & EF_PLATFORM) {
 			++player->y;
 		}
 		else if (game.keyboard[SDL_SCANCODE_Z][RPT] == 0 && player->isOnGround) {
@@ -51,10 +71,13 @@ void doPlayer(void) {
 			if (player->dx > fx) player->dx += 1;
 			else if (player->dx < -fx) player->dx -= 1;
 
+			player->texture = textures[TX_PLAYERJUMP];
+
 			//playSound(SND_JUMP, CH_PLAYER);
 		}
 		else if (game.keyboard[SDL_SCANCODE_Z][RPT] == 1 && !player->isOnGround) {
-			player->dy *= 1.075f;
+			player->dy *= 1.05f;
+			player->texture = textures[TX_PLAYERJUMP];
 		}
 	}
 	else {
