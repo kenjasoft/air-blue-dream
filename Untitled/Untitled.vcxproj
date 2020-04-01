@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\crow.c" />
+    <ClCompile Include="src\pigeon.c" />
     <ClCompile Include="src\light.c" />
     <ClCompile Include="src\particle.c" />
     <ClCompile Include="src\platform.c" />
@@ -36,6 +38,8 @@
     <ClCompile Include="src\textures.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\crow.h" />
+    <ClInclude Include="src\pigeon.h" />
     <ClInclude Include="src\light.h" />
     <ClInclude Include="src\particle.h" />
     <ClInclude Include="src\platform.h" />
@@ -56,10 +60,22 @@
     <Image Include="img\bush.png" />
     <Image Include="img\cloud1.png" />
     <Image Include="img\cloud2.png" />
+    <Image Include="img\crowfloat1.png" />
+    <Image Include="img\crowfloat2.png" />
+    <Image Include="img\crowfloat3.png" />
+    <Image Include="img\crowfloat4.png" />
     <Image Include="img\flowers.png" />
     <Image Include="img\grassplatform.png" />
     <Image Include="img\landscape.png" />
     <Image Include="img\maple.png" />
+    <Image Include="img\pigeonwalk1.png" />
+    <Image Include="img\pigeonwalk2.png" />
+    <Image Include="img\pigeonwalk3.png" />
+    <Image Include="img\pigeonwalk4.png" />
+    <Image Include="img\pigeonwalk5.png" />
+    <Image Include="img\pigeonwalk6.png" />
+    <Image Include="img\pigeonwalk7.png" />
+    <Image Include="img\pigeonwalk8.png" />
     <Image Include="img\playercrouch.png" />
     <Image Include="img\playeridle1.png" />
     <Image Include="img\playeridle2.png" />

@@ -23,7 +23,19 @@ void loadTextures() {
 		"img\\flowers.png",
 		"img\\maple.png",
 		"img\\grassplatform.png",
-		"img\\smallrockplatform.png"
+		"img\\smallrockplatform.png",
+		"img\\pigeonwalk1.png",
+		"img\\pigeonwalk2.png",
+		"img\\pigeonwalk3.png",
+		"img\\pigeonwalk4.png",
+		"img\\pigeonwalk5.png",
+		"img\\pigeonwalk6.png",
+		"img\\pigeonwalk7.png",
+		"img\\pigeonwalk8.png",
+		"img\\crowfloat1.png",
+		"img\\crowfloat2.png",
+		"img\\crowfloat3.png",
+		"img\\crowfloat4.png"
 	};
 	int size = (sizeof(names) / sizeof(const char*));
 	for (int i = 0; i < size; ++i) {

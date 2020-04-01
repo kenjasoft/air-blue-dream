@@ -46,6 +46,12 @@
     <ClCompile Include="src\particle.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\pigeon.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\crow.c">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\camera.h">
@@ -91,6 +97,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\particle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pigeon.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\crow.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
@@ -159,6 +171,42 @@
       <Filter>img</Filter>
     </Image>
     <Image Include="img\smallrockplatform.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\pigeonwalk1.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\pigeonwalk2.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\pigeonwalk3.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\pigeonwalk4.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\pigeonwalk5.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\pigeonwalk6.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\pigeonwalk7.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\pigeonwalk8.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\crowfloat1.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\crowfloat2.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\crowfloat3.png">
+      <Filter>img</Filter>
+    </Image>
+    <Image Include="img\crowfloat4.png">
       <Filter>img</Filter>
     </Image>
   </ItemGroup>

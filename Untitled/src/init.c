@@ -8,6 +8,7 @@ void initSDL(void) {
 
 	game.debug = 0;
 	game.map = 0;
+	game.freeze = 0;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) exit(1);
 

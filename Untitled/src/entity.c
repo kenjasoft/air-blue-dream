@@ -63,6 +63,12 @@ static void addEntityFromLine(char* line) {
 	else if (strcmp(name, "PLAYER") == 0) {
 		initPlayer(line);
 	}
+	else if (strcmp(name, "PIGEON") == 0) {
+		initPigeon(line);
+	}
+	else if (strcmp(name, "CROW") == 0) {
+		initCrow(line);
+	}
 	else if (strcmp(name, "PORTAL") == 0) {
 		initPortal(line);
 	}
@@ -169,7 +175,8 @@ static void moveToEntities(Entity* e, float dx, float dy) {
 	int adj;
 
 	for (other = stage.entityHead.next; other != NULL; other = other->next) {
-		int collide = e->flags & EF_PLAYER ? collision((int)e->x + 18, (int)e->y, e->w - 18, e->h, (int)other->x + 18, (int)other->y, other->w - 18, other->h) :
+		int collide = (e->flags & EF_PLAYER || e->flags & EF_PIGEON) ?
+			collision((int)e->x + 18, (int)e->y, e->w - 18, e->h, (int)other->x + 18, (int)other->y, other->w - 18, other->h) :
 			collision((int)e->x, (int)e->y, e->w, e->h, (int)other->x, (int)other->y, other->w, other->h);
 		if (other != e && collide) {
 			if (other->flags & EF_PLATFORM || other->flags & EF_GROUND) {
@@ -181,6 +188,18 @@ static void moveToEntities(Entity* e, float dx, float dy) {
 						e->isOnGround = 1;
 						e->riding = other;
 					}
+				}
+				if (e->flags & EF_PIGEON) {
+					if (((e->x + e->w) + 2 >= (other->x + other->w) && e->n == 1)) {
+						e->n = -1;
+					}
+					else if (((e->x) - 2 <= (other->x) && e->n == -1)) {
+						e->n = 1;
+					}
+					if (((e->x + e->w) + 18 >= (other->x + other->w) && e->n == 1) || ((e->x) - 18 <= (other->x) && e->n == -1)) {
+						e->i[P_CAN_JUMP] = 0;
+					}
+					else e->i[P_CAN_JUMP] = 1;
 				}
 			}
 			if (e->touch) {

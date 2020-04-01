@@ -41,7 +41,7 @@ void doPlayer(void) {
 
 	player->texture = playerIdle[idleIndex];
 
-	if (game.map) return;
+	if (game.freeze || game.map) return;
 
 	int isCrouching = game.keyboard[SDL_SCANCODE_DOWN][CUR] && player->isOnGround && player->riding != NULL;
 	if (isCrouching) player->texture = textures[TX_PLAYERCROUCH];

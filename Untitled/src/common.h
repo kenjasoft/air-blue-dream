@@ -11,14 +11,14 @@
 #define SCREEN_HEIGHT 768
 
 #define MAP_WIDTH 384
-#define MAP_HEIGHT 1536
+#define MAP_HEIGHT 4608
 #define PLAYER_WIDTH 60
 #define PLAYER_HEIGHT 74
 
 #define MAX_FILENAME_LENGTH 32
 #define MAX_LINE_LENGTH 128
 #define MAX_NAME_LENGTH 32
-#define MAX_TEXTURES 22
+#define MAX_TEXTURES 34
 #define MAX_LANDSCAPE 3
 #define LANDSCAPE_WIDTH 64
 #define LANDSCAPE_HEIGHT 170
@@ -43,6 +43,7 @@
 #define EF_LIGHT (2 << 3)
 #define EF_PLAYER (2 << 4)
 #define EF_GROUND (2 << 5)
+#define EF_PIGEON (2 << 6)
 
 enum {
 	SND_JUMP,
@@ -98,7 +99,38 @@ enum {
 	TX_FLOWERS,
 	TX_MAPLE,
 	TX_GRASSPLATFORM,
-	TX_SMALLROCKPLATFORM
+	TX_SMALLROCKPLATFORM,
+	TX_PIGEONWALK1,
+	TX_PIGEONWALK2,
+	TX_PIGEONWALK3,
+	TX_PIGEONWALK4,
+	TX_PIGEONWALK5,
+	TX_PIGEONWALK6,
+	TX_PIGEONWALK7,
+	TX_PIGEONWALK8,
+	TX_CROWFLOAT1,
+	TX_CROWFLOAT2,
+	TX_CROWFLOAT3,
+	TX_CROWFLOAT4
+};
+
+enum {
+	P_JUMP_COUNTER,
+	P_JUMP_LIMIT,
+	P_CAN_JUMP,
+	P_ANIMATION_SPEED
+};
+
+enum {
+	C_X_FACTOR_MAJOR,
+	C_Y_FACTOR_MAJOR,
+	C_X_FACTOR_MINOR,
+	C_Y_FACTOR_MINOR
+};
+
+enum {
+	C_X_SIN,
+	C_Y_SIN
 };
 
 enum {
@@ -116,6 +148,7 @@ typedef struct {
 
 typedef struct {
 	int debug;
+	int freeze;
 	int map;
 	int keyboard[MAX_KEYBOARD_KEYS][2];
 	Delegate delegate;
@@ -131,7 +164,7 @@ struct Entity {
 	float dy;
 	float scaleX;
 	float scaleY;
-	float f;
+	float f[4];
 	int i[11];
 	int n;
 	int w;
