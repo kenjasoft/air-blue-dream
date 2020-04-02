@@ -213,6 +213,7 @@ void drawEntities(void) {
 	Entity* e;
 
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
+		if (e->y + e->h < stage.camera.y - e->h || e->y >(stage.camera.y + SCREEN_HEIGHT) + e->h) continue;
 		if (e->draw) {
 			if (e->flags & EF_PLATFORM || e->flags & EF_GROUND) {
 				blit(e->texture, (int)(e->x - stage.camera.x), (int)((e->y - stage.camera.y) - 8), e->scaleX, e->scaleY, e->flip);

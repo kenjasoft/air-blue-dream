@@ -37,7 +37,7 @@ static void tick(void) {
 	int runningIndex = (t / 80) % 4;
 	self->texture = crowFloat[runningIndex];
 
-	if (game.freeze) return;
+	if (game.freeze || (self->y + self->h < stage.camera.y - self->h || self->y >(stage.camera.y + SCREEN_HEIGHT) + self->h)) return;
 
 	// format = x + y
 	// sin(0.01f) + sin(0.01f) OR cos(0.01f) + cos(0.01f) == diagonal

@@ -55,7 +55,7 @@ static void tick(void) {
 
 	self->texture = pigeonWalk[runningIndex];
 
-	if (game.freeze) return;
+	if (game.freeze || (self->y + self->h < stage.camera.y - self->h || self->y >(stage.camera.y + SCREEN_HEIGHT) + self->h)) return;
 
 	if (self->n == -1) {
 		self->dx -= fx;
