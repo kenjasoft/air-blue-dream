@@ -175,36 +175,38 @@ static void moveToEntities(Entity* e, float dx, float dy) {
 	int adj;
 
 	for (other = stage.entityHead.next; other != NULL; other = other->next) {
-		int collide = (e->flags & EF_PLAYER || e->flags & EF_PIGEON) ?
-			collision((int)e->x + 18, (int)e->y, e->w - 18, e->h, (int)other->x + 18, (int)other->y, other->w - 18, other->h) :
-			collision((int)e->x, (int)e->y, e->w, e->h, (int)other->x, (int)other->y, other->w, other->h);
-		if (other != e && collide) {
-			if (other->flags & EF_PLATFORM || other->flags & EF_GROUND) {
-				if (dy != 0 && (int)((e->y - e->dy) + e->h) <= other->y) {
-					adj = dy > 0 ? -e->h : other->h;
-					e->y = other->y + adj;
-					e->dy = 0;
-					if (dy > 0) {
-						e->isOnGround = 1;
-						e->riding = other;
-					}
-				}
-				if (e->flags & EF_PIGEON) {
-					if (((e->x + e->w) + 2 >= (other->x + other->w) && e->n == 1)) {
-						e->n = -1;
-					}
-					else if (((e->x) - 2 <= (other->x) && e->n == -1)) {
-						e->n = 1;
-					}
-					if (((e->x + e->w) + 18 >= (other->x + other->w) && e->n == 1) || ((e->x) - 18 <= (other->x) && e->n == -1)) {
-						e->i[P_CAN_JUMP] = 0;
-					}
-					else e->i[P_CAN_JUMP] = 1;
+		if (other == e) continue;
+		if ((other->flags & EF_PLATFORM || other->flags & EF_GROUND) && (e->flags & EF_PLAYER || e->flags & EF_PIGEON) &&
+			collision((int)e->x + 18, (int)e->y, e->w - 18, e->h, (int)other->x + 18, (int)other->y, other->w - 18, other->h)) {
+			if (dy != 0 && (int)((e->y - e->dy) + e->h) <= other->y) {
+				adj = dy > 0 ? -e->h : other->h;
+				e->y = other->y + adj;
+				e->dy = 0;
+				if (dy > 0) {
+					e->isOnGround = 1;
+					e->riding = other;
 				}
 			}
-			if (e->touch) {
-				e->touch(other);
+			if (e->flags & EF_PIGEON) {
+				if (((e->x + e->w) + 2 >= (other->x + other->w) && e->n == 1)) {
+					e->n = -1;
+				}
+				else if (((e->x) - 2 <= (other->x) && e->n == -1)) {
+					e->n = 1;
+				}
+				if (((e->x + e->w) + 18 >= (other->x + other->w) && e->n == 1) || ((e->x) - 18 <= (other->x) && e->n == -1)) {
+					e->i[P_CAN_JUMP] = 0;
+				}
+				else e->i[P_CAN_JUMP] = 1;
 			}
+		}
+		else if (other->flags & EF_PLAYER && (e->flags & EF_PIGEON || e->flags & EF_CROW) &&
+			collision((int)e->x + 18, (int)e->y + 18, e->w - 18, e->h - 18, (int)other->x + 18, (int)other->y + 18, other->w - 18, other->h - 18)) {
+			if (e->touch) e->touch(other);
+		}
+		else if (other->flags & EF_PLAYER && e->flags & EF_PORTAL &&
+			collision((int)e->x, (int)e->y, e->w, e->h, (int)other->x, (int)other->y, other->w, other->h)) {
+			if (e->touch) e->touch(other);
 		}
 	}
 }

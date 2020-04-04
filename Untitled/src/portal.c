@@ -14,10 +14,10 @@ void initPortal(char* line) {
 	e->scaleX = 1;
 	e->scaleY = 1;
 	e->flip = SDL_FLIP_NONE;
-	// put it 4 pixels above whatever platform it's on. 3rd parameter = 0 for hidden, 2 for visible
+	// 3rd parameter = 0 for hidden, 2 for visible
 	if (sscanf(line, "%*s %f %f %d", &e->x, &e->y, &e->hit) <= 0) return;
 	e->hp = 1;
-	e->flags = EF_PORTAL;
+	e->flags = EF_PORTAL + EF_WEIGHTLESS;
 	SDL_Texture* texture = NULL;
 	texture = SDL_CreateTexture(game.renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, PLAYER_WIDTH, 4);
 	SDL_SetRenderTarget(game.renderer, texture);

@@ -4,6 +4,7 @@ static SDL_Texture* pigeonWalk[8];
 static const float speed[3][2] = { {.6f, 20}, {.4f, 40} , {.0001f, 60} };
 
 static void tick(void);
+static void touch(Entity* other);
 
 void initPigeon(char* line) {
 	Entity* e;
@@ -29,6 +30,7 @@ void initPigeon(char* line) {
 	SDL_QueryTexture(e->texture, NULL, NULL, &e->w, &e->h);
 	e->flags = EF_PIGEON;
 	e->tick = tick;
+	e->touch = touch;
 
 	const int dir[2] = { -1, 1 };
 	e->n = dir[rand() % 2];
@@ -40,6 +42,15 @@ void initPigeon(char* line) {
 	int si = rand() % 3;
 	e->f[0] = speed[si][0];
 	e->i[P_ANIMATION_SPEED] = (int)speed[si][1];
+}
+
+static void touch(Entity* other) {
+	if (other == player) {
+		if (other->x > self->x) player->dx += 2;
+		else if (other->x < self->x) player->dx -= 2;
+		if (other->y > self->y) player->dy += 2;
+		else if (other->y < self->y) player->dy -= 2;
+	}
 }
 
 static void tick(void) {

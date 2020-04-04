@@ -3,6 +3,7 @@
 static SDL_Texture* crowFloat[4];
 
 static void tick(void);
+static void touch(Entity* other);
 
 void initCrow(char* line) {
 	Entity* e;
@@ -24,10 +25,20 @@ void initCrow(char* line) {
 	crowFloat[3] = textures[TX_CROWFLOAT4];
 	e->texture = crowFloat[0];
 	SDL_QueryTexture(e->texture, NULL, NULL, &e->w, &e->h);
-	e->flags = EF_WEIGHTLESS;
+	e->flags = EF_CROW + EF_WEIGHTLESS;
 	e->tick = tick;
+	e->touch = touch;
 	e->f[C_X_FACTOR_MAJOR] = 0;
 	e->f[C_Y_FACTOR_MAJOR] = 0;
+}
+
+static void touch(Entity* other) {
+	if (other == player) {
+		if (other->x > self->x) player->dx += 2;
+		else if (other->x < self->x) player->dx -= 2;
+		if (other->y > self->y) player->dy += 2;
+		else if (other->y < self->y) player->dy -= 2;
+	}
 }
 
 static void tick(void) {

@@ -44,6 +44,7 @@
 #define EF_PLAYER (2 << 4)
 #define EF_GROUND (2 << 5)
 #define EF_PIGEON (2 << 6)
+#define EF_CROW (2 << 7)
 
 enum {
 	SND_JUMP,
