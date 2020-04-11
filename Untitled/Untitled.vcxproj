@@ -93,6 +93,7 @@
     <Image Include="img\ground.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dat\2.dat" />
     <None Include="dat\1.dat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
