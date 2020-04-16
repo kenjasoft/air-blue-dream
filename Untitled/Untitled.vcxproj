@@ -95,6 +95,8 @@
   <ItemGroup>
     <None Include="dat\2.dat" />
     <None Include="dat\1.dat" />
+    <None Include="dat\3.dat" />
+    <None Include="dat\4.dat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

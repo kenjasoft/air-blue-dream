@@ -11,7 +11,7 @@
 #define SCREEN_HEIGHT 768
 
 #define MAP_WIDTH 384
-#define MAP_HEIGHT 4608
+#define MAP_HEIGHT 3072
 #define PLAYER_WIDTH 60
 #define PLAYER_HEIGHT 74
 

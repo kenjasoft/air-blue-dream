@@ -13,7 +13,8 @@ void initPlayer(char* line) {
 	player->hp = 1;
 	player->scaleX = 1;
 	player->scaleY = 1;
-	if (sscanf(line, "%*s %f %f", &player->x, &player->y) <= 0) return;
+	int facing = 0;
+	if (sscanf(line, "%*s %f %f %d", &player->x, &player->y, &facing) <= 0) return;
 	playerIdle[0] = textures[TX_PLAYERIDLE1];
 	playerIdle[1] = textures[TX_PLAYERIDLE2];
 	playerIdle[2] = textures[TX_PLAYERIDLE3];
@@ -23,6 +24,7 @@ void initPlayer(char* line) {
 	playerWalk[2] = textures[TX_PLAYERWALK3];
 	playerWalk[3] = textures[TX_PLAYERWALK4];
 	player->texture = playerIdle[0];
+	player->flip = facing ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
 	SDL_QueryTexture(player->texture, NULL, NULL, &player->w, &player->h);
 	player->flags = EF_PLAYER;
 }
