@@ -234,5 +234,8 @@
     <None Include="dat\4.dat">
       <Filter>dat</Filter>
     </None>
+    <None Include="dat\5.dat">
+      <Filter>dat</Filter>
+    </None>
   </ItemGroup>
 </Project>

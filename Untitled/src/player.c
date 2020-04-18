@@ -54,7 +54,7 @@ void doPlayer(void) {
 		player->dx = max(player->dx, -vx);
 		player->flip = SDL_FLIP_HORIZONTAL;
 	}
-	if (game.keyboard[SDL_SCANCODE_RIGHT][CUR]) {
+	else if (game.keyboard[SDL_SCANCODE_RIGHT][CUR]) {
 		player->texture = playerWalk[runningIndex];
 		player->dx += fx;
 		player->dx = min(player->dx, vx);
