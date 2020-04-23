@@ -12,7 +12,7 @@ void initStage(void) {
 
 	memset(&stage, 0, sizeof(Stage));
 	stage.entityTail = &stage.entityHead;
-	stage.stageNumber = 5;
+	stage.stageNumber = 6;
 
 	initBackground();
 	initEntities();
