@@ -52,8 +52,6 @@ void initEntity(char* line) {
 }
 
 static void addEntityFromLine(char* line) {
-	if (line[0] == '#') return;
-
 	char name[MAX_NAME_LENGTH] = { 0 };
 
 	if (sscanf(line, "%s", name) <= 0) return;
