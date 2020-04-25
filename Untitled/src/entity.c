@@ -202,9 +202,12 @@ static void moveToEntities(Entity* e, float dx, float dy) {
 			collision((int)e->x + 18, (int)e->y + 18, e->w - 18, e->h - 18, (int)other->x + 18, (int)other->y + 18, other->w - 18, other->h - 18)) {
 			if (e->touch) e->touch(other);
 		}
-		else if (other->flags & EF_PLAYER && e->flags & EF_PORTAL &&
-			collision((int)e->x, (int)e->y, e->w, e->h, (int)other->x, (int)other->y, other->w, other->h)) {
-			if (e->touch) e->touch(other);
+		else if (other->flags & EF_PLAYER && e->flags & EF_PORTAL) {
+			if (collision((int)e->x, (int)e->y, e->w, e->h, (int)other->x, (int)other->y, other->w, other->h) && e->touch) e->touch(other);
+			if ((other->y > MAP_HEIGHT) && e->y > 2800) {
+				other->x = e->x;
+				other->y = e->y - (PLAYER_HEIGHT * 2);
+			}
 		}
 	}
 }
