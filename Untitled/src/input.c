@@ -15,6 +15,25 @@ void doKeyDown(SDL_KeyboardEvent* event) {
 	else SDL_ShowCursor(SDL_DISABLE);
 }
 
+void doButton(SDL_ControllerButtonEvent* event, int upOrDown) {
+	switch (event->button) {
+	case SDL_CONTROLLER_BUTTON_A:
+		game.keyboard[SDL_SCANCODE_Z][CUR] = upOrDown;
+		break;
+	case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+		game.keyboard[SDL_SCANCODE_DOWN][CUR] = upOrDown;
+		break;
+	case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+		game.keyboard[SDL_SCANCODE_LEFT][CUR] = upOrDown;
+		break;
+	case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+		game.keyboard[SDL_SCANCODE_RIGHT][CUR] = upOrDown;
+		break;
+	default:
+		break;
+	}
+}
+
 void doInput(void) {
 	SDL_Event event;
 
@@ -30,6 +49,14 @@ void doInput(void) {
 
 		case SDL_KEYUP:
 			doKeyUp(&event.key);
+			break;
+
+		case SDL_CONTROLLERBUTTONDOWN:
+			doButton(&event.cbutton, 1);
+			break;
+
+		case SDL_CONTROLLERBUTTONUP:
+			doButton(&event.cbutton, 0);
 			break;
 
 		default:

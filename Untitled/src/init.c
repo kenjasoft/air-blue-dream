@@ -10,7 +10,7 @@ void initSDL(void) {
 	game.map = 0;
 	game.freeze = 0;
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) exit(1);
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) < 0) exit(1);
 
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) exit(1);
 	Mix_AllocateChannels(MAX_SND_CHANNELS);
@@ -19,6 +19,14 @@ void initSDL(void) {
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 	game.renderer = SDL_CreateRenderer(game.window, -1, rendererFlags);
 	IMG_Init(IMG_INIT_PNG);
+
+	SDL_GameController* controller = NULL;
+	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
+		if (SDL_IsGameController(i)) {
+			controller = SDL_GameControllerOpen(i);
+			if (controller) break;
+		}
+	}
 
 	SDL_Cursor* cursor;
 	cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
