@@ -23,6 +23,7 @@ void initEntity(char* line) {
 	char name[MAX_NAME_LENGTH] = { 0 };
 	if (sscanf(line, "%s %f %f %d", name, &e->x, &e->y, &e->flip) <= 0) return;
 
+	e->y += SCREEN_HEIGHT;
 	e->scaleX = 1;
 	e->scaleY = 1;
 	e->hp = 1;
@@ -122,8 +123,15 @@ void doEntities(void) {
 
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
 		if (e->draw) {
-			if (e->flags & EF_LIGHT && !(portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) {
-				e->n = -5;
+			if (e->flags & EF_LIGHT) {
+				if (!(portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) e->n = -5;
+				if (stage.endStage) {
+					if (e->scaleY < 2) {
+						e->scaleY += .01f;
+						e->y -= 160;
+					}
+					e->scaleX = e->scaleX == .94f ? 1.06f : .94f;
+				}
 			}
 			if (e->riding != NULL) {
 				e->x += e->riding->dx;
@@ -142,6 +150,8 @@ void doEntities(void) {
 }
 
 static void move(Entity* e) {
+	if (game.freeze) return;
+
 	if (!(e->flags & EF_WEIGHTLESS)) {
 		e->dy += 1.5;
 		e->dy = max(min(e->dy, 18), -999);

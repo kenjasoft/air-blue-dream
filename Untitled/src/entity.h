@@ -10,3 +10,4 @@ extern char* readFile(const char* filename);
 
 extern Entity* self;
 extern Stage stage;
+extern Game game;

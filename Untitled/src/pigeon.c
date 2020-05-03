@@ -18,6 +18,7 @@ void initPigeon(char* line) {
 	e->scaleX = 1;
 	e->scaleY = 1;
 	if (sscanf(line, "%*s %f %f", &e->x, &e->y) <= 0) return;
+	e->y += SCREEN_HEIGHT;
 	pigeonWalk[0] = textures[TX_PIGEONWALK1];
 	pigeonWalk[1] = textures[TX_PIGEONWALK2];
 	pigeonWalk[2] = textures[TX_PIGEONWALK3];
@@ -54,6 +55,8 @@ static void touch(Entity* other) {
 }
 
 static void tick(void) {
+	if (game.freeze) return;
+
 	float fx = .4f;
 	int vx = 4;
 	int vy = -8;
@@ -66,7 +69,7 @@ static void tick(void) {
 
 	self->texture = pigeonWalk[runningIndex];
 
-	if (game.freeze || (self->y + self->h < stage.camera.y - self->h || self->y >(stage.camera.y + SCREEN_HEIGHT) + self->h)) return;
+	if (self->y + self->h < stage.camera.y - self->h || self->y >(stage.camera.y + SCREEN_HEIGHT) + self->h) return;
 
 	if (self->n == -1) {
 		self->dx -= fx;

@@ -11,7 +11,7 @@ void doKeyDown(SDL_KeyboardEvent* event) {
 	else if (event->keysym.scancode == SDL_SCANCODE_F) game.freeze = game.freeze ? 0 : 1;
 	else if (event->keysym.scancode == SDL_SCANCODE_M) game.map = game.map ? 0 : 1;
 
-	if (game.debug || game.freeze || game.map) SDL_ShowCursor(SDL_ENABLE);
+	if (game.debug || game.map) SDL_ShowCursor(SDL_ENABLE);
 	else SDL_ShowCursor(SDL_DISABLE);
 }
 
@@ -22,6 +22,9 @@ void doButton(SDL_ControllerButtonEvent* event, int upOrDown) {
 		break;
 	case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
 		game.keyboard[SDL_SCANCODE_DOWN][CUR] = upOrDown;
+		break;
+	case SDL_CONTROLLER_BUTTON_DPAD_UP:
+		game.keyboard[SDL_SCANCODE_UP][CUR] = upOrDown;
 		break;
 	case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
 		game.keyboard[SDL_SCANCODE_LEFT][CUR] = upOrDown;

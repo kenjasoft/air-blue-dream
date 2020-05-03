@@ -6,12 +6,14 @@
 #include "time.h"
 
 #include "SDL.h"
+#include "SDL_ttf.h"
 
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 768
+#define CAMERA_OFFSET 19
 
 #define MAP_WIDTH 384
-#define MAP_HEIGHT 3072
+#define MAP_HEIGHT 3840
 #define PLAYER_WIDTH 60
 #define PLAYER_HEIGHT 74
 
@@ -20,6 +22,7 @@
 #define MAX_NAME_LENGTH 32
 #define MAX_TEXTURES 34
 #define MAX_LANDSCAPE 3
+#define MAX_TEXT 1
 #define LANDSCAPE_WIDTH 64
 #define LANDSCAPE_HEIGHT 170
 #define MAX_SKY 6
@@ -140,6 +143,14 @@ enum {
 	HIT_ALWAYS
 };
 
+enum {
+	UPPER,
+	LOWER
+};
+
+static const int levelTop[6] = { 1442, 1408, 1716, 906, 84, 78 };
+static const int textPositions[1][2] = { {-619, 149} };
+
 SDL_Texture* textures[MAX_TEXTURES];
 
 typedef struct {
@@ -187,6 +198,7 @@ typedef struct BareEntity BareEntity;
 struct BareEntity {
 	int x;
 	int y;
+	int yTarget;
 	int w;
 	int h;
 	SDL_RendererFlip flip;
@@ -202,10 +214,17 @@ typedef struct {
 
 typedef struct {
 	int stageNumber;
+	int holdTextScreen;
+	int showTextScreen;
+	int endStage;
+	int endCamera;
+	int playerAlpha;
+	int endTimer;
 	Camera camera;
 	Entity entityHead;
 	Entity* entityTail;
 	BareEntity* sky[MAX_SKY];
 	BareEntity* clouds[MAX_CLOUDS];
 	BareEntity* landscape[MAX_LANDSCAPE];
+	BareEntity* text[MAX_TEXT];
 } Stage;

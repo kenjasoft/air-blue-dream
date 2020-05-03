@@ -19,6 +19,7 @@ void initCrow(char* line) {
 	// format: CROW x y xIsSin xFactor yIsSin yFactor
 	if (sscanf(line, "%*s %f %f %d %f %d %f", &e->x, &e->y, &e->i[C_X_SIN], &e->f[C_X_FACTOR_MINOR], &e->i[C_Y_SIN], &e->f[C_Y_FACTOR_MINOR]) <= 0)
 		return;
+	e->y += SCREEN_HEIGHT;
 	crowFloat[0] = textures[TX_CROWFLOAT1];
 	crowFloat[1] = textures[TX_CROWFLOAT2];
 	crowFloat[2] = textures[TX_CROWFLOAT3];
@@ -42,13 +43,15 @@ static void touch(Entity* other) {
 }
 
 static void tick(void) {
+	if (game.freeze) return;
+
 	int t = SDL_GetTicks();
 	float oldX = self->x;
 
 	int runningIndex = (t / 80) % 4;
 	self->texture = crowFloat[runningIndex];
 
-	if (game.freeze || (self->y + self->h < stage.camera.y - self->h || self->y >(stage.camera.y + SCREEN_HEIGHT) + self->h)) return;
+	if (self->y + self->h < stage.camera.y - self->h || self->y >(stage.camera.y + SCREEN_HEIGHT) + self->h) return;
 
 	// format = x + y
 	// sin(0.01f) + sin(0.01f) OR cos(0.01f) + cos(0.01f) == diagonal

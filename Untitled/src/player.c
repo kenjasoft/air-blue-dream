@@ -15,6 +15,7 @@ void initPlayer(char* line) {
 	player->scaleY = 1;
 	int facing = 0;
 	if (sscanf(line, "%*s %f %f %d", &player->x, &player->y, &facing) <= 0) return;
+	player->y += SCREEN_HEIGHT;
 	playerIdle[0] = textures[TX_PLAYERIDLE1];
 	playerIdle[1] = textures[TX_PLAYERIDLE2];
 	playerIdle[2] = textures[TX_PLAYERIDLE3];
@@ -30,6 +31,8 @@ void initPlayer(char* line) {
 }
 
 void doPlayer(void) {
+	if (game.freeze || game.map) return;
+
 	float cf = player->isOnGround ? .85f : .95f;
 	float fx = .6f;
 	int vx = 5;
@@ -42,8 +45,6 @@ void doPlayer(void) {
 	player->dx *= cf;
 
 	player->texture = playerIdle[idleIndex];
-
-	if (game.freeze || game.map) return;
 
 	int isCrouching = game.keyboard[SDL_SCANCODE_DOWN][CUR] && player->isOnGround && player->riding != NULL;
 	if (isCrouching) player->texture = textures[TX_PLAYERCROUCH];
@@ -60,7 +61,11 @@ void doPlayer(void) {
 		player->dx = min(player->dx, vx);
 		player->flip = SDL_FLIP_NONE;
 	}
-
+	// TODO
+	if (game.keyboard[SDL_SCANCODE_0][CUR]) {
+		player->y = 0;
+	}
+	// TODO
 	if (game.keyboard[SDL_SCANCODE_Z][CUR]) {
 		if (isCrouching && player->riding->flags & EF_PLATFORM) {
 			++player->y;

@@ -220,6 +220,9 @@
     <Filter Include="img">
       <UniqueIdentifier>{a95a6e14-472b-44cd-9bd6-b87d5939751a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="font">
+      <UniqueIdentifier>{362b167c-9b2b-4ca1-b959-ed98403c25da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="dat\1.dat">
@@ -240,5 +243,10 @@
     <None Include="dat\6.dat">
       <Filter>dat</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="font\CabinSketch-Bold.ttf">
+      <Filter>font</Filter>
+    </Font>
   </ItemGroup>
 </Project>

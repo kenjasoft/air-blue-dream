@@ -11,6 +11,7 @@ void initPlatform(char* line) {
 	e->scaleY = 1;
 	char name[MAX_NAME_LENGTH] = { 0 };
 	if (sscanf(line, "%s %f %f %d", name, &e->x, &e->y, &e->flip) <= 0) return;
+	e->y += SCREEN_HEIGHT;
 	e->hp = 1;
 	e->draw = 1;
 	if (strcmp(name, "ROCKPLATFORM") == 0) {

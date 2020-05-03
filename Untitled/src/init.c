@@ -19,6 +19,7 @@ void initSDL(void) {
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 	game.renderer = SDL_CreateRenderer(game.window, -1, rendererFlags);
 	IMG_Init(IMG_INIT_PNG);
+	TTF_Init();
 
 	SDL_GameController* controller = NULL;
 	for (int i = 0; i < SDL_NumJoysticks(); ++i) {

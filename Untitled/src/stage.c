@@ -5,6 +5,8 @@ static void draw(void);
 static void drawDebug(void);
 static void initBackground(void);
 static void drawBackground(void);
+void doEndStage(void);
+void slideText(int* y, int* yTarget, int yTargetNew);
 
 void initStage(void) {
 	game.delegate.logic = logic;
@@ -12,7 +14,13 @@ void initStage(void) {
 
 	memset(&stage, 0, sizeof(Stage));
 	stage.entityTail = &stage.entityHead;
-	stage.stageNumber = 6;
+	stage.playerAlpha = 0;
+	stage.stageNumber = 1;
+	stage.holdTextScreen = 0;
+	stage.endTimer = 50;
+	stage.endCamera = 0;
+	stage.endStage = 0;
+	stage.showTextScreen = 0;
 
 	initBackground();
 	initEntities();
@@ -22,6 +30,68 @@ static void logic(void) {
 	doPlayer();
 	doEntities();
 	doCamera();
+	if (stage.endStage) doEndStage();
+}
+
+void slideText(int* y, int* yTarget, int yTargetNew) {
+	int slideVal = (int)(.05f * (abs(*y - *yTarget) + CAMERA_OFFSET));
+	if (*y == *yTarget) {
+		--stage.endTimer;
+		if (stage.endTimer == 0) *yTarget = yTargetNew;
+	}
+	else if (*y < *yTarget) *y = (*y + slideVal);
+	else *y = (*y - slideVal);
+}
+
+void doEndStage(void) {
+	if (!stage.endCamera && stage.camera.y == stage.camera.yTarget) {
+		stage.endCamera = 1;
+	}
+	else if (stage.playerAlpha >= 0 && (stage.playerAlpha = fadeTexture(player->texture, -5)) >= 0) {
+		if (stage.playerAlpha % 2 == 0) stage.camera.yTarget -= 1;
+		if (stage.playerAlpha == 0) stage.playerAlpha = -1;
+	}
+	else if (!stage.holdTextScreen && stage.endTimer > 0) {
+		--stage.endTimer;
+		if (stage.endTimer == 0) {
+			stage.camera.yTarget -= (int)(SCREEN_HEIGHT * 1.5);
+			stage.showTextScreen = 1;
+		}
+		else stage.camera.yTarget -= 4;
+	}
+	else if (!stage.holdTextScreen && stage.camera.y == (stage.camera.yTarget + CAMERA_OFFSET)) {
+		stage.endTimer = 300;
+		fadeTexture(player->texture, 255);
+		for (Entity* e = stage.entityHead.next; e != NULL; e = e->next) {
+			e->hp = 0;
+		}
+		stage.holdTextScreen = 1;
+		// TODO: set up the time textures
+	}
+	else if (stage.holdTextScreen) {
+		for (int i = 0; i < MAX_TEXT; ++i) {
+			slideText(&stage.text[i]->y, &stage.text[i]->yTarget, textPositions[i][UPPER]);
+		}
+		if (stage.endTimer == 0 && stage.text[0]->y == stage.text[0]->yTarget) {
+			stage.entityTail = &stage.entityHead;
+			if (stage.stageNumber < 6) ++stage.stageNumber;
+			else {
+				// TODO: end the game
+			}
+			initEntities();
+			stage.camera.y = levelTop[stage.stageNumber - 1] - PLAYER_HEIGHT - (SCREEN_HEIGHT / 2);
+			stage.playerAlpha = 0;
+			stage.holdTextScreen = 0;
+			stage.showTextScreen = 0;
+			stage.endTimer = 50;
+			stage.endStage = 0;
+			stage.endCamera = 0;
+			for (int i = 0; i < MAX_TEXT; ++i) {
+				stage.text[i]->yTarget = textPositions[i][LOWER];
+			}
+			game.freeze = 0;
+		}
+	}
 }
 
 static void draw(void) {
@@ -92,6 +162,21 @@ static void initBackground(void) {
 		stage.landscape[i]->x = x;
 		stage.landscape[i]->y = ((SCREEN_HEIGHT / 2) - LANDSCAPE_HEIGHT);
 	}
+
+	TTF_Font* font = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 72);
+	SDL_Color color = { 255, 255, 255 };
+	SDL_Surface* surfaceClear = TTF_RenderText_Blended(font, "CLEAR", color);
+	SDL_Texture* textureClear = SDL_CreateTextureFromSurface(game.renderer, surfaceClear);
+	stage.text[0] = (BareEntity*)malloc(sizeof(BareEntity));
+	if (stage.text == NULL) return;
+	memset(stage.text[0], 0, sizeof(BareEntity));
+	stage.text[0]->texture = textureClear;
+	stage.text[0]->w = surfaceClear->w;
+	stage.text[0]->h = surfaceClear->h;
+	SDL_QueryTexture(stage.text[0]->texture, NULL, NULL, &stage.text[0]->w, &stage.text[0]->h);
+	stage.text[0]->x = 94;
+	stage.text[0]->y = textPositions[0][UPPER];
+	stage.text[0]->yTarget = textPositions[0][LOWER];
 }
 
 static void drawBackground(void) {
@@ -103,5 +188,11 @@ static void drawBackground(void) {
 	}
 	for (int i = 0; i < MAX_LANDSCAPE; ++i) {
 		blit(stage.landscape[i]->texture, stage.landscape[i]->x, stage.landscape[i]->y, 2, 2, stage.landscape[i]->flip);
+	}
+	if (stage.showTextScreen) {
+		// TODO: maybe flip the text back and forth as it scrolls in and stop when it stops scrolling
+		for (int i = 0; i < MAX_TEXT; ++i) {
+			blit(stage.text[i]->texture, stage.text[i]->x, stage.text[i]->y, 1, 1, SDL_FLIP_NONE);
+		}
 	}
 }

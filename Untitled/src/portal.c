@@ -16,6 +16,7 @@ void initPortal(char* line) {
 	e->flip = SDL_FLIP_NONE;
 	// 3rd parameter = 0 for hidden, 2 for visible
 	if (sscanf(line, "%*s %f %f %d", &e->x, &e->y, &e->hit) <= 0) return;
+	e->y += SCREEN_HEIGHT;
 	e->hp = 1;
 	e->flags = EF_PORTAL + EF_WEIGHTLESS;
 	SDL_Texture* texture = NULL;
@@ -34,8 +35,11 @@ void initPortal(char* line) {
 
 static void touch(Entity* other) {
 	if (other == player) {
-		// check if player presses up. if so, teleport
-		//playSound(SND_PORTAL, CH_PORTAL);
 		if (self->hit != HIT_ALWAYS) self->hit = HIT_ON;
+		if (game.keyboard[SDL_SCANCODE_UP][CUR] && other->y < 2800) {
+			//playSound(SND_PORTAL, CH_PORTAL);
+			stage.endStage = 1;
+			game.freeze = 1;
+		}
 	}
 }

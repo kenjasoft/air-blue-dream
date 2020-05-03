@@ -6,6 +6,7 @@ extern void doEntities(void);
 extern void doPlayer(void);
 extern void drawEntities(void);
 extern void initEntities(void);
+extern int fadeTexture(SDL_Texture* texture, int alpha);
 
 extern Entity* player;
 extern Game game;

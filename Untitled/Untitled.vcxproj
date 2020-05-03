@@ -100,6 +100,9 @@
     <None Include="dat\5.dat" />
     <None Include="dat\6.dat" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="font\CabinSketch-Bold.ttf" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D2C36CB3-6795-4733-8962-0F93E04AD846}</ProjectGuid>
