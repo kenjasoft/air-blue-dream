@@ -34,7 +34,7 @@
 #define CLOUD2_WIDTH 64
 #define CLOUD2_HEIGHT 20
 
-#define MAX_KEYBOARD_KEYS 350
+#define MAX_KEYBOARD_KEYS 6
 #define CUR 0
 #define RPT 1
 
@@ -64,7 +64,9 @@ enum {
 	UP,
 	DOWN,
 	LEFT,
-	RIGHT
+	RIGHT,
+	ACTION,
+	FLY
 };
 
 enum {

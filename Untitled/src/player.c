@@ -46,32 +46,32 @@ void doPlayer(void) {
 
 	player->texture = playerIdle[idleIndex];
 
-	int isCrouching = game.keyboard[SDL_SCANCODE_DOWN][CUR] && player->isOnGround && player->riding != NULL;
+	int isCrouching = game.keyboard[DOWN][CUR] && player->isOnGround && player->riding != NULL;
 	if (isCrouching) player->texture = textures[TX_PLAYERCROUCH];
 
-	if (game.keyboard[SDL_SCANCODE_LEFT][CUR]) {
+	if (game.keyboard[LEFT][CUR]) {
 		player->texture = playerWalk[runningIndex];
 		player->dx -= fx;
 		player->dx = max(player->dx, -vx);
 		player->flip = SDL_FLIP_HORIZONTAL;
 	}
-	else if (game.keyboard[SDL_SCANCODE_RIGHT][CUR]) {
+	else if (game.keyboard[RIGHT][CUR]) {
 		player->texture = playerWalk[runningIndex];
 		player->dx += fx;
 		player->dx = min(player->dx, vx);
 		player->flip = SDL_FLIP_NONE;
 	}
-	// TODO
-	if (game.keyboard[SDL_SCANCODE_0][CUR]) {
+
+	if (game.keyboard[FLY][CUR]) {
 		player->y = 0;
 	}
-	// TODO
-	if (game.keyboard[SDL_SCANCODE_Z][CUR]) {
+
+	if (game.keyboard[ACTION][CUR]) {
 		if (isCrouching && player->riding->flags & EF_PLATFORM) {
 			++player->y;
 		}
-		else if (game.keyboard[SDL_SCANCODE_Z][RPT] == 0 && player->isOnGround) {
-			game.keyboard[SDL_SCANCODE_Z][RPT] = 1;
+		else if (game.keyboard[ACTION][RPT] == 0 && player->isOnGround) {
+			game.keyboard[ACTION][RPT] = 1;
 
 			player->riding = NULL;
 			player->dy = (float)vy;
@@ -82,12 +82,12 @@ void doPlayer(void) {
 
 			//playSound(SND_JUMP, CH_PLAYER);
 		}
-		else if (game.keyboard[SDL_SCANCODE_Z][RPT] == 1 && !player->isOnGround) {
+		else if (game.keyboard[ACTION][RPT] == 1 && !player->isOnGround) {
 			player->dy *= 1.05f;
 			player->texture = textures[TX_PLAYERJUMP];
 		}
 	}
 	else {
-		game.keyboard[SDL_SCANCODE_Z][RPT] = 0;
+		game.keyboard[ACTION][RPT] = 0;
 	}
 }

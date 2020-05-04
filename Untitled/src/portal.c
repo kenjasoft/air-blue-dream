@@ -36,7 +36,7 @@ void initPortal(char* line) {
 static void touch(Entity* other) {
 	if (other == player) {
 		if (self->hit != HIT_ALWAYS) self->hit = HIT_ON;
-		if (game.keyboard[SDL_SCANCODE_UP][CUR] && other->y < 2800) {
+		if (game.keyboard[UP][CUR] && other->y < 2800) {
 			//playSound(SND_PORTAL, CH_PORTAL);
 			stage.endStage = 1;
 			game.freeze = 1;

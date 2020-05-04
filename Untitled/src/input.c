@@ -1,15 +1,53 @@
 #include "input.h"
 
-void doKeyUp(SDL_KeyboardEvent* event) {
-	if (event->keysym.scancode < MAX_KEYBOARD_KEYS) game.keyboard[event->keysym.scancode][CUR] = 0;
-}
+void doKey(SDL_KeyboardEvent* event, int upOrDown) {
+	switch (event->keysym.scancode) {
+	case SDL_SCANCODE_LSHIFT:
+	case SDL_SCANCODE_RSHIFT:
+	case SDL_SCANCODE_LCTRL:
+	case SDL_SCANCODE_RCTRL:
+	case SDL_SCANCODE_SPACE:
+	case SDL_SCANCODE_RETURN:
+	case SDL_SCANCODE_Z:
+	case SDL_SCANCODE_X:
+	case SDL_SCANCODE_C:
+	case SDL_SCANCODE_Q:
+	case SDL_SCANCODE_E:
+		game.keyboard[ACTION][CUR] = upOrDown;
+		break;
+	case SDL_SCANCODE_UP:
+	case SDL_SCANCODE_W:
+		game.keyboard[UP][CUR] = upOrDown;
+		break;
+	case SDL_SCANCODE_DOWN:
+	case SDL_SCANCODE_S:
+		game.keyboard[DOWN][CUR] = upOrDown;
+		break;
+	case SDL_SCANCODE_LEFT:
+	case SDL_SCANCODE_A:
+		game.keyboard[LEFT][CUR] = upOrDown;
+		break;
+	case SDL_SCANCODE_RIGHT:
+	case SDL_SCANCODE_D:
+		game.keyboard[RIGHT][CUR] = upOrDown;
+		break;
 
-void doKeyDown(SDL_KeyboardEvent* event) {
-	if (event->keysym.scancode < MAX_KEYBOARD_KEYS) game.keyboard[event->keysym.scancode][CUR] = 1;
+	case SDL_SCANCODE_1:
+		if (upOrDown) game.debug = game.debug ? 0 : 1;
+		break;
+	case SDL_SCANCODE_2:
+		if (upOrDown) game.map = game.map ? 0 : 1;
+		break;
+	case SDL_SCANCODE_3:
+		if (upOrDown) game.freeze = game.freeze ? 0 : 1;
+		break;
+	case SDL_SCANCODE_4:
+		game.keyboard[FLY][CUR] = upOrDown;
+		break;
 
-	if (event->keysym.scancode == SDL_SCANCODE_D) game.debug = game.debug ? 0 : 1;
-	else if (event->keysym.scancode == SDL_SCANCODE_F) game.freeze = game.freeze ? 0 : 1;
-	else if (event->keysym.scancode == SDL_SCANCODE_M) game.map = game.map ? 0 : 1;
+	default:
+		break;
+	}
 
 	if (game.debug || game.map) SDL_ShowCursor(SDL_ENABLE);
 	else SDL_ShowCursor(SDL_DISABLE);
@@ -18,19 +56,22 @@ void doKeyDown(SDL_KeyboardEvent* event) {
 void doButton(SDL_ControllerButtonEvent* event, int upOrDown) {
 	switch (event->button) {
 	case SDL_CONTROLLER_BUTTON_A:
-		game.keyboard[SDL_SCANCODE_Z][CUR] = upOrDown;
-		break;
-	case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
-		game.keyboard[SDL_SCANCODE_DOWN][CUR] = upOrDown;
+	case SDL_CONTROLLER_BUTTON_B:
+	case SDL_CONTROLLER_BUTTON_X:
+	case SDL_CONTROLLER_BUTTON_Y:
+		game.keyboard[ACTION][CUR] = upOrDown;
 		break;
 	case SDL_CONTROLLER_BUTTON_DPAD_UP:
-		game.keyboard[SDL_SCANCODE_UP][CUR] = upOrDown;
+		game.keyboard[UP][CUR] = upOrDown;
+		break;
+	case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+		game.keyboard[DOWN][CUR] = upOrDown;
 		break;
 	case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
-		game.keyboard[SDL_SCANCODE_LEFT][CUR] = upOrDown;
+		game.keyboard[LEFT][CUR] = upOrDown;
 		break;
 	case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
-		game.keyboard[SDL_SCANCODE_RIGHT][CUR] = upOrDown;
+		game.keyboard[RIGHT][CUR] = upOrDown;
 		break;
 	default:
 		break;
@@ -45,23 +86,18 @@ void doInput(void) {
 		case SDL_QUIT:
 			exit(0);
 			break;
-
 		case SDL_KEYDOWN:
-			doKeyDown(&event.key);
+			doKey(&event.key, 1);
 			break;
-
 		case SDL_KEYUP:
-			doKeyUp(&event.key);
+			doKey(&event.key, 0);
 			break;
-
 		case SDL_CONTROLLERBUTTONDOWN:
 			doButton(&event.cbutton, 1);
 			break;
-
 		case SDL_CONTROLLERBUTTONUP:
 			doButton(&event.cbutton, 0);
 			break;
-
 		default:
 			break;
 		}
