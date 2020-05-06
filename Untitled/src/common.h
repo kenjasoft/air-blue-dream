@@ -22,7 +22,7 @@
 #define MAX_NAME_LENGTH 32
 #define MAX_TEXTURES 34
 #define MAX_LANDSCAPE 3
-#define MAX_TEXT 1
+#define MAX_CLEAR_TEXT 6
 #define LANDSCAPE_WIDTH 64
 #define LANDSCAPE_HEIGHT 170
 #define MAX_SKY 6
@@ -151,7 +151,7 @@ enum {
 };
 
 static const int levelTop[6] = { 1442, 1408, 1716, 906, 84, 78 };
-static const int textPositions[1][2] = { {-619, 149} };
+static const float textPositions[4][2] = { {-615, 153}, {231, 231}, {-469, 299}, {-401, 367} };
 
 SDL_Texture* textures[MAX_TEXTURES];
 
@@ -198,11 +198,12 @@ struct Entity {
 
 typedef struct BareEntity BareEntity;
 struct BareEntity {
-	int x;
-	int y;
-	int yTarget;
+	float x;
+	float y;
+	float yTarget;
 	int w;
 	int h;
+	float f;
 	SDL_RendererFlip flip;
 	SDL_Texture* texture;
 };
@@ -222,11 +223,12 @@ typedef struct {
 	int endCamera;
 	int playerAlpha;
 	int endTimer;
+	int newRecord;
 	Camera camera;
 	Entity entityHead;
 	Entity* entityTail;
 	BareEntity* sky[MAX_SKY];
 	BareEntity* clouds[MAX_CLOUDS];
 	BareEntity* landscape[MAX_LANDSCAPE];
-	BareEntity* text[MAX_TEXT];
+	BareEntity* clearText[MAX_CLEAR_TEXT];
 } Stage;
