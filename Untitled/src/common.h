@@ -150,8 +150,14 @@ enum {
 	LOWER
 };
 
+enum {
+	T_NEW,
+	T_SAVED
+};
+
 static const int levelTop[6] = { 1442, 1408, 1716, 906, 84, 78 };
-static const float textPositions[4][2] = { {-615, 153}, {231, 231}, {-469, 299}, {-401, 367} };
+static const float clearTextPositions[6][2] = { {-615, 153}, {231, 231}, {-469, 299}, {-401, 367}, {-469, 299}, {-401, 367} };
+unsigned int timeLog[7][2];
 
 SDL_Texture* textures[MAX_TEXTURES];
 

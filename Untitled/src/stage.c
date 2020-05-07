@@ -12,6 +12,8 @@ TTF_Font* font72;
 TTF_Font* font54;
 TTF_Font* font36;
 SDL_Color color = { 255, 255, 255 };
+SDL_Surface* surfaceClear;
+SDL_Texture* textureClear;
 
 void initStage(void) {
 	game.delegate.logic = logic;
@@ -72,12 +74,40 @@ void doEndStage(void) {
 			e->hp = 0;
 		}
 		stage.holdTextScreen = 1;
-		// TODO: set up the time textures
+
+		// TODO
+		timeLog[stage.stageNumber - 1][T_NEW] = 12345;
+		timeLog[stage.stageNumber - 1][T_SAVED] = 599999;
+
+		char timestamp[9];
+		int ms[2], min[2], sec[2];
+		for (int i = 0; i < 2; ++i) {
+			int total = timeLog[stage.stageNumber - 1][i];
+			ms[i] = total % 1000;
+			int s = total / 1000;
+			min[i] = s / 60;
+			sec[i] = s % 60;
+		}
+		for (int i = 4; i < 6; ++i) {
+			sprintf(timestamp, "%d:%02d.%d", min[i - 4], sec[i - 4], ms[i - 4]);
+			surfaceClear = TTF_RenderText_Blended(font36, timestamp, color);
+			textureClear = SDL_CreateTextureFromSurface(game.renderer, surfaceClear);
+			stage.clearText[i] = (BareEntity*)malloc(sizeof(BareEntity));
+			if (stage.clearText[i] == NULL) return;
+			memset(stage.clearText[i], 0, sizeof(BareEntity));
+			stage.clearText[i]->texture = textureClear;
+			stage.clearText[i]->w = surfaceClear->w;
+			stage.clearText[i]->h = surfaceClear->h;
+			SDL_QueryTexture(stage.clearText[i]->texture, NULL, NULL, &stage.clearText[i]->w, &stage.clearText[i]->h);
+			stage.clearText[i]->x = (float)(MAP_WIDTH - stage.clearText[i]->w - 17);
+			stage.clearText[i]->y = clearTextPositions[i][UPPER];
+			stage.clearText[i]->yTarget = clearTextPositions[i][LOWER];
+		}
 	}
 	else if (stage.holdTextScreen) {
 		for (int i = 0; i < MAX_CLEAR_TEXT; ++i) {
 			if (stage.clearText[i] == NULL || i == 1) continue;
-			slideText(i, &stage.clearText[i]->y, &stage.clearText[i]->yTarget, textPositions[i][UPPER]);
+			slideText(i, &stage.clearText[i]->y, &stage.clearText[i]->yTarget, clearTextPositions[i][UPPER]);
 		}
 		if (stage.clearText[0] != NULL && stage.clearText[0]->y == stage.clearText[0]->yTarget) {
 			if (stage.endTimer <= 298 && stage.endTimer > 17) fadeTexture(stage.clearText[1]->texture, 15);
@@ -99,9 +129,9 @@ void doEndStage(void) {
 				stage.newRecord = 0;
 				for (int i = 0; i < MAX_CLEAR_TEXT; ++i) {
 					if (stage.clearText[i] == NULL) continue;
-					stage.clearText[i]->yTarget = textPositions[i][LOWER];
+					stage.clearText[i]->yTarget = clearTextPositions[i][LOWER];
 				}
-				stage.clearText[1]->y = textPositions[1][LOWER];
+				stage.clearText[1]->y = clearTextPositions[1][LOWER];
 				game.freeze = 0;
 			}
 		}
@@ -181,8 +211,8 @@ static void initBackground(void) {
 	font54 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 54);
 	font36 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 36);
 
-	SDL_Surface* surfaceClear = TTF_RenderText_Blended(font72, "CLEAR", color);
-	SDL_Texture* textureClear = SDL_CreateTextureFromSurface(game.renderer, surfaceClear);
+	surfaceClear = TTF_RenderText_Blended(font72, "CLEAR", color);
+	textureClear = SDL_CreateTextureFromSurface(game.renderer, surfaceClear);
 	stage.clearText[0] = (BareEntity*)malloc(sizeof(BareEntity));
 	if (stage.clearText[0] == NULL) return;
 	memset(stage.clearText[0], 0, sizeof(BareEntity));
@@ -191,8 +221,8 @@ static void initBackground(void) {
 	stage.clearText[0]->h = surfaceClear->h;
 	SDL_QueryTexture(stage.clearText[0]->texture, NULL, NULL, &stage.clearText[0]->w, &stage.clearText[0]->h);
 	stage.clearText[0]->x = 94;
-	stage.clearText[0]->y = textPositions[0][UPPER];
-	stage.clearText[0]->yTarget = textPositions[0][LOWER];
+	stage.clearText[0]->y = clearTextPositions[0][UPPER];
+	stage.clearText[0]->yTarget = clearTextPositions[0][LOWER];
 
 	surfaceClear = TTF_RenderText_Blended(font54, "NEW RECORD", color);
 	textureClear = SDL_CreateTextureFromSurface(game.renderer, surfaceClear);
@@ -204,8 +234,8 @@ static void initBackground(void) {
 	stage.clearText[1]->h = surfaceClear->h;
 	SDL_QueryTexture(stage.clearText[1]->texture, NULL, NULL, &stage.clearText[1]->w, &stage.clearText[1]->h);
 	stage.clearText[1]->x = 31;
-	stage.clearText[1]->y = textPositions[1][UPPER];
-	stage.clearText[1]->yTarget = textPositions[1][LOWER];
+	stage.clearText[1]->y = clearTextPositions[1][UPPER];
+	stage.clearText[1]->yTarget = clearTextPositions[1][LOWER];
 	fadeTexture(stage.clearText[1]->texture, -255);
 
 	surfaceClear = TTF_RenderText_Blended(font36, "your time", color);
@@ -218,8 +248,8 @@ static void initBackground(void) {
 	stage.clearText[2]->h = surfaceClear->h;
 	SDL_QueryTexture(stage.clearText[2]->texture, NULL, NULL, &stage.clearText[2]->w, &stage.clearText[2]->h);
 	stage.clearText[2]->x = 17;
-	stage.clearText[2]->y = textPositions[2][UPPER];
-	stage.clearText[2]->yTarget = textPositions[2][LOWER];
+	stage.clearText[2]->y = clearTextPositions[2][UPPER];
+	stage.clearText[2]->yTarget = clearTextPositions[2][LOWER];
 
 	surfaceClear = TTF_RenderText_Blended(font36, "your best", color);
 	textureClear = SDL_CreateTextureFromSurface(game.renderer, surfaceClear);
@@ -231,8 +261,8 @@ static void initBackground(void) {
 	stage.clearText[3]->h = surfaceClear->h;
 	SDL_QueryTexture(stage.clearText[3]->texture, NULL, NULL, &stage.clearText[3]->w, &stage.clearText[3]->h);
 	stage.clearText[3]->x = 17;
-	stage.clearText[3]->y = textPositions[3][UPPER];
-	stage.clearText[3]->yTarget = textPositions[3][LOWER];
+	stage.clearText[3]->y = clearTextPositions[3][UPPER];
+	stage.clearText[3]->yTarget = clearTextPositions[3][LOWER];
 }
 
 static void drawBackground(void) {
@@ -246,8 +276,6 @@ static void drawBackground(void) {
 		blit(stage.landscape[i]->texture, (int)stage.landscape[i]->x, (int)stage.landscape[i]->y, 2, 2, stage.landscape[i]->flip);
 	}
 	if (stage.showTextScreen) {
-		// TODO: maybe flip the text back and forth as it scrolls in and stop when it stops scrolling
-		// TODO: make the time in this format: 1:12.123
 		for (int i = 0; i < MAX_CLEAR_TEXT; ++i) {
 			if (stage.clearText[i] == NULL) continue;
 			if (i == 1 && stage.holdTextScreen) {
