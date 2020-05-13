@@ -29,7 +29,7 @@ void initStage(void) {
 	stage.endStage = 0;
 	stage.showTextScreen = 0;
 	stage.winGame = 0;
-	stage.newRecord = 1;// TODO
+	stage.newRecord = 0;
 	stage.runGame = 1;
 	stage.isLevelReady = 0;
 
@@ -93,7 +93,7 @@ void doEndStage(void) {
 					stage.endTimer = 30;
 					stage.endStage = 0;
 					stage.endCamera = 0;
-					stage.newRecord = 0;
+					stage.newRecord = 1;// TODO
 					stage.isLevelReady = 0;
 					game.freeze = 0;
 				}
@@ -168,6 +168,11 @@ void doEndStage(void) {
 				else if (stage.endTimer <= 17 && stage.endTimer > 0) fadeTexture(stage.clearText[1]->texture, -15);
 				else if (stage.endTimer == 0) {
 					stage.entityTail = &stage.entityHead;
+					for (int i = 0; i < MAX_TEXT; ++i) {
+						if (stage.clearText[i] == NULL) continue;
+						stage.clearText[i]->yTarget = textPositions[i][LOWER];
+					}
+					stage.clearText[1]->y = textPositions[1][LOWER];
 					if (stage.stageNumber < 6) {
 						++stage.stageNumber;
 						initEntities();
@@ -178,13 +183,8 @@ void doEndStage(void) {
 						stage.endTimer = 30;
 						stage.endStage = 0;
 						stage.endCamera = 0;
-						stage.newRecord = 0;
+						stage.newRecord = 1;// TODO
 						stage.isLevelReady = 0;
-						for (int i = 0; i < MAX_TEXT; ++i) {
-							if (stage.clearText[i] == NULL) continue;
-							stage.clearText[i]->yTarget = textPositions[i][LOWER];
-						}
-						stage.clearText[1]->y = textPositions[1][LOWER];
 						game.freeze = 0;
 					}
 					else {
