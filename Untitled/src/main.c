@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 	initGame();
 	initStage();
 
-	while (1) {
+	while (stage.runGame) {
 		prepareScene();
 
 		doInput();
@@ -25,6 +25,8 @@ int main(int argc, char* argv[]) {
 		presentScene();
 		capFrameRate(&then, &remainder);
 	}
+
+	SDL_Quit();
 	return 0;
 }
 

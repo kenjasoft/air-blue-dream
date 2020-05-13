@@ -17,14 +17,17 @@ void initLight(float x, float y, float parentX, float parentY, int radius, int r
 	e->scaleX = 1;
 	e->scaleY = 1;
 	e->flip = SDL_FLIP_NONE;
-	e->draw = 0;
 	radius += rand() % 10;
 	red += rand() % 50;
 	green += rand() % 50;
 	blue += rand() % 50;
 	int dim = 3;
 	e->texture = createLightParticle(game.renderer, radius, red, green, blue, dim);
-	fadeTexture(e->texture, -255);
+	if (stage.stageNumber > 0) {
+		fadeTexture(e->texture, -255);
+		e->draw = 0;
+	}
+	else e->draw = 1;
 	SDL_QueryTexture(e->texture, NULL, NULL, &e->w, &e->h);
 	e->flags = EF_WEIGHTLESS + EF_LIGHT;
 	e->tick = tick;

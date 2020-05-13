@@ -14,7 +14,6 @@ void initPortal(char* line) {
 	e->scaleX = 1;
 	e->scaleY = 1;
 	e->flip = SDL_FLIP_NONE;
-	// 3rd parameter = 0 for hidden, 2 for visible
 	if (sscanf(line, "%*s %f %f %d", &e->x, &e->y, &e->hit) <= 0) return;
 	e->y += SCREEN_HEIGHT;
 	e->hp = 1;
@@ -35,11 +34,32 @@ void initPortal(char* line) {
 
 static void touch(Entity* other) {
 	if (other == player) {
+		// TODO: maybe one portal sound for when you enter, another for when you press up
+		if (!other->isOnGround || !((int)(other->y + other->h) == (int)(self->y + self->h))) return;
 		if (self->hit != HIT_ALWAYS) self->hit = HIT_ON;
-		if (game.keyboard[UP][CUR] && other->y < 2800) {
+		if (stage.stageNumber == 0) {
+			switch ((int)self->y) {
+			case MENU_1 + SCREEN_HEIGHT:
+				stage.menu[0] = 1;
+				break;
+			case MENU_2 + SCREEN_HEIGHT:
+				stage.menu[1] = 1;
+				break;
+			case MENU_3 + SCREEN_HEIGHT:
+				stage.menu[2] = 1;
+				break;
+			default:
+				break;
+			}
+			if (game.keyboard[UP][CUR]) {
+				game.freeze = 1;
+				stage.endStage = 1;
+			}
+		}
+		else if (game.keyboard[UP][CUR] && other->y < PORTAL_CUTOFF) {
 			//playSound(SND_PORTAL, CH_PORTAL);
-			stage.endStage = 1;
 			game.freeze = 1;
+			stage.endStage = 1;
 		}
 	}
 }

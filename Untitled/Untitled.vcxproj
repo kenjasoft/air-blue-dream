@@ -35,6 +35,7 @@
     <ClCompile Include="src\portal.c" />
     <ClCompile Include="src\sound.c" />
     <ClCompile Include="src\stage.c" />
+    <ClCompile Include="src\text.c" />
     <ClCompile Include="src\textures.c" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +55,7 @@
     <ClInclude Include="src\portal.h" />
     <ClInclude Include="src\sound.h" />
     <ClInclude Include="src\stage.h" />
+    <ClInclude Include="src\text.h" />
     <ClInclude Include="src\textures.h" />
   </ItemGroup>
   <ItemGroup>
@@ -93,12 +95,14 @@
     <Image Include="img\ground.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dat\0.dat" />
     <None Include="dat\2.dat" />
     <None Include="dat\1.dat" />
     <None Include="dat\3.dat" />
     <None Include="dat\4.dat" />
     <None Include="dat\5.dat" />
     <None Include="dat\6.dat" />
+    <None Include="dat\t.dat" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="font\CabinSketch-Bold.ttf" />

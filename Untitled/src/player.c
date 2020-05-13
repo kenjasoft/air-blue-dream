@@ -46,6 +46,12 @@ void doPlayer(void) {
 
 	player->texture = playerIdle[idleIndex];
 
+	if (!stage.isLevelReady && stage.camera.y > 0 && stage.camera.y == stage.camera.yTarget) {
+		stage.isLevelReady = 1;
+		// TODO: start the timer
+	}
+	if (!stage.isLevelReady) return;
+
 	int isCrouching = game.keyboard[DOWN][CUR] && player->isOnGround && player->riding != NULL;
 	if (isCrouching) player->texture = textures[TX_PLAYERCROUCH];
 

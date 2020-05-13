@@ -1,7 +1,6 @@
 #include "common.h"
 
-#include "SDL_image.h"
-
 extern int fadeTexture(SDL_Texture* texture, int alpha);
 
-extern Game game;
+extern Stage stage;
+extern Entity* self;

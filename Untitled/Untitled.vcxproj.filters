@@ -52,6 +52,9 @@
     <ClCompile Include="src\crow.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\text.c">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\camera.h">
@@ -103,6 +106,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\crow.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\text.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
@@ -241,6 +247,12 @@
       <Filter>dat</Filter>
     </None>
     <None Include="dat\6.dat">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\t.dat">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\0.dat">
       <Filter>dat</Filter>
     </None>
   </ItemGroup>

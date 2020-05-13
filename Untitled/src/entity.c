@@ -71,6 +71,9 @@ static void addEntityFromLine(char* line) {
 	else if (strcmp(name, "PORTAL") == 0) {
 		initPortal(line);
 	}
+	else if (strcmp(name, "TEXT") == 0) {
+		initText(line);
+	}
 	else {
 		initEntity(line);
 	}
@@ -124,7 +127,7 @@ void doEntities(void) {
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
 		if (e->draw) {
 			if (e->flags & EF_LIGHT) {
-				if (!(portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) e->n = -5;
+				if (stage.stageNumber > 0 && !(portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) e->n = -5;
 				if (stage.endStage) {
 					if (e->scaleY < 2) {
 						e->scaleY += .01f;
@@ -142,7 +145,7 @@ void doEntities(void) {
 				else if (e->x > MAP_WIDTH) e->x = (float)-e->w;
 			}
 		}
-		else if (e->flags & EF_LIGHT && (portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) {
+		else if (stage.stageNumber > 0 && e->flags & EF_LIGHT && (portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) {
 			e->draw = 1;
 			e->n = 5;
 		}
@@ -214,7 +217,22 @@ static void moveToEntities(Entity* e, float dx, float dy) {
 		}
 		else if (other->flags & EF_PLAYER && e->flags & EF_PORTAL) {
 			if (collision((int)e->x, (int)e->y, e->w, e->h, (int)other->x, (int)other->y, other->w, other->h) && e->touch) e->touch(other);
-			if ((other->y > MAP_HEIGHT) && e->y > 2800) {
+			else if (stage.stageNumber == 0) {
+				switch ((int)e->y) {
+				case MENU_1 + SCREEN_HEIGHT:
+					stage.menu[0] = 0;
+					break;
+				case MENU_2 + SCREEN_HEIGHT:
+					stage.menu[1] = 0;
+					break;
+				case MENU_3 + SCREEN_HEIGHT:
+					stage.menu[2] = 0;
+					break;
+				default:
+					break;
+				}
+			}
+			if ((other->y > MAP_HEIGHT) && e->y > PORTAL_CUTOFF) {
 				other->x = e->x;
 				other->y = e->y - (PLAYER_HEIGHT * 2);
 			}

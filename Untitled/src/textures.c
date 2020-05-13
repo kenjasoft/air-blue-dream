@@ -41,6 +41,46 @@ void loadTextures() {
 	for (int i = 0; i < size; ++i) {
 		textures[i] = IMG_LoadTexture(game.renderer, names[i]);
 	}
+
+	TTF_Font* font24 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 24);
+	TTF_Font* font48 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 48);
+	TTF_Font* font72 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 72);
+	TTF_Font* font112 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 112);
+	SDL_Color color = { 255, 255, 255 };
+	SDL_Surface* textSurface;
+	textSurface = TTF_RenderText_Blended(font72, "air-blue", color);
+	textures[TX_TEXT1] = SDL_CreateTextureFromSurface(game.renderer, textSurface);
+	textSurface = TTF_RenderText_Blended(font112, "dream", color);
+	textures[TX_TEXT2] = SDL_CreateTextureFromSurface(game.renderer, textSurface);
+	textSurface = TTF_RenderText_Blended(font48, "stroll", color);
+	textures[TX_TEXT3] = SDL_CreateTextureFromSurface(game.renderer, textSurface);
+	textSurface = TTF_RenderText_Blended(font48, "sprint", color);
+	textures[TX_TEXT4] = SDL_CreateTextureFromSurface(game.renderer, textSurface);
+	textSurface = TTF_RenderText_Blended(font48, "quit", color);
+	textures[TX_TEXT5] = SDL_CreateTextureFromSurface(game.renderer, textSurface);
+	textSurface = TTF_RenderText_Blended(font24, "© 2020 quisseh", color);
+	textures[TX_TEXT6] = SDL_CreateTextureFromSurface(game.renderer, textSurface);
+	// TODO: need to rebuild these somewhere if they set a new record
+	char timestamp[20];
+	int ms[2], min[2], sec[2];
+	int total = strollTimeLog[6][T_SAVED];
+	ms[0] = total % 1000;
+	int s = total / 1000;
+	min[0] = s / 60;
+	sec[0] = s % 60;
+	total = sprintTimeLog[6][T_SAVED];
+	ms[1] = total % 1000;
+	s = total / 1000;
+	min[1] = s / 60;
+	sec[1] = s % 60;
+	sprintf(timestamp, "best %02d:%02d.%03d", min[0], sec[0], ms[0]);
+	textSurface = TTF_RenderText_Blended(font24, timestamp, color);
+	textures[TX_TEXT7] = SDL_CreateTextureFromSurface(game.renderer, textSurface);
+	fadeTexture(textures[TX_TEXT7], -255);
+	sprintf(timestamp, "best %02d:%02d.%03d", min[1], sec[1], ms[1]);
+	textSurface = TTF_RenderText_Blended(font24, timestamp, color);
+	textures[TX_TEXT8] = SDL_CreateTextureFromSurface(game.renderer, textSurface);
+	fadeTexture(textures[TX_TEXT8], -255);
 }
 
 int fadeTexture(SDL_Texture* texture, int alpha) {

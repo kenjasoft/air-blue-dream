@@ -11,6 +11,7 @@
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 768
 #define CAMERA_OFFSET 19
+#define PORTAL_CUTOFF 2800
 
 #define MAP_WIDTH 384
 #define MAP_HEIGHT 3840
@@ -20,9 +21,9 @@
 #define MAX_FILENAME_LENGTH 32
 #define MAX_LINE_LENGTH 128
 #define MAX_NAME_LENGTH 32
-#define MAX_TEXTURES 34
+#define MAX_TEXTURES 42
 #define MAX_LANDSCAPE 3
-#define MAX_CLEAR_TEXT 6
+#define MAX_TEXT 6
 #define LANDSCAPE_WIDTH 64
 #define LANDSCAPE_HEIGHT 170
 #define MAX_SKY 6
@@ -33,6 +34,11 @@
 #define CLOUD1_HEIGHT 28
 #define CLOUD2_WIDTH 64
 #define CLOUD2_HEIGHT 20
+
+#define MENU_1 2816
+#define MENU_2 2910
+#define MENU_3 3004
+#define MENU_DIST 43
 
 #define MAX_KEYBOARD_KEYS 6
 #define CUR 0
@@ -117,7 +123,15 @@ enum {
 	TX_CROWFLOAT1,
 	TX_CROWFLOAT2,
 	TX_CROWFLOAT3,
-	TX_CROWFLOAT4
+	TX_CROWFLOAT4,
+	TX_TEXT1,
+	TX_TEXT2,
+	TX_TEXT3,
+	TX_TEXT4,
+	TX_TEXT5,
+	TX_TEXT6,
+	TX_TEXT7,
+	TX_TEXT8
 };
 
 enum {
@@ -155,9 +169,10 @@ enum {
 	T_SAVED
 };
 
-static const int levelTop[6] = { 1442, 1408, 1716, 906, 84, 78 };
-static const float clearTextPositions[6][2] = { {-615, 153}, {231, 231}, {-469, 299}, {-401, 367}, {-469, 299}, {-401, 367} };
-unsigned int timeLog[7][2];
+static const int levelTop[7] = { 2816, 1442, 1408, 1716, 906, 84, 78 };
+static const float textPositions[6][2] = { {-615, 153}, {227, 227}, {-469, 299}, {-401, 367}, {-469, 299}, {-401, 367} };
+unsigned int strollTimeLog[7][2];
+unsigned int sprintTimeLog[7][2];
 
 SDL_Texture* textures[MAX_TEXTURES];
 
@@ -230,11 +245,16 @@ typedef struct {
 	int playerAlpha;
 	int endTimer;
 	int newRecord;
+	int winGame;
+	int runGame;
+	int isLevelReady;
+	int menu[3];
 	Camera camera;
 	Entity entityHead;
 	Entity* entityTail;
 	BareEntity* sky[MAX_SKY];
 	BareEntity* clouds[MAX_CLOUDS];
 	BareEntity* landscape[MAX_LANDSCAPE];
-	BareEntity* clearText[MAX_CLEAR_TEXT];
+	BareEntity* clearText[MAX_TEXT];
+	BareEntity* winText[MAX_TEXT];
 } Stage;

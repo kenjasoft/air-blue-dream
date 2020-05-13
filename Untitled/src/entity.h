@@ -6,6 +6,7 @@ extern void initPlayer(char* line);
 extern void initPigeon(char* line);
 extern void initCrow(char* line);
 extern void initPortal(char* line);
+extern void initText(char* line);
 extern char* readFile(const char* filename);
 
 extern Entity* self;

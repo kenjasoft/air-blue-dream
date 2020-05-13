@@ -35,7 +35,16 @@ void initSDL(void) {
 	SDL_ShowCursor(SDL_DISABLE);
 }
 
+void loadHighScores(void) {
+	// TODO: load both arrays from file
+	for (int i = 0; i < 7; ++i) {
+		strollTimeLog[i][T_SAVED] = i < 6 ? 12345 : 444444;
+		sprintTimeLog[i][T_SAVED] = i < 6 ? 12345 : 555555;
+	}
+}
+
 void initGame(void) {
+	loadHighScores();
 	loadTextures();
 
 	//initSounds();
