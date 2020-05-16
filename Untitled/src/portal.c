@@ -34,18 +34,17 @@ void initPortal(char* line) {
 
 static void touch(Entity* other) {
 	if (other == player) {
-		// TODO: maybe one portal sound for when you enter, another for when you press up
 		if (!other->isOnGround || !((int)(other->y + other->h) == (int)(self->y + self->h))) return;
 		if (self->hit != HIT_ALWAYS) self->hit = HIT_ON;
 		if (stage.stageNumber == 0) {
 			switch ((int)self->y) {
-			case MENU_1 + SCREEN_HEIGHT:
+			case MENU_1_Y + SCREEN_HEIGHT:
 				stage.menu[0] = 1;
 				break;
-			case MENU_2 + SCREEN_HEIGHT:
+			case MENU_2_Y + SCREEN_HEIGHT:
 				stage.menu[1] = 1;
 				break;
-			case MENU_3 + SCREEN_HEIGHT:
+			case MENU_3_Y + SCREEN_HEIGHT:
 				stage.menu[2] = 1;
 				break;
 			default:
@@ -60,6 +59,7 @@ static void touch(Entity* other) {
 			//playSound(SND_PORTAL, CH_PORTAL);
 			game.freeze = 1;
 			stage.endStage = 1;
+			stage.timerFinish = stage.ticks;
 		}
 	}
 }

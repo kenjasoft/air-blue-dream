@@ -38,9 +38,13 @@ void initSDL(void) {
 void loadHighScores(void) {
 	// TODO: load both arrays from file
 	for (int i = 0; i < 7; ++i) {
-		strollTimeLog[i][T_SAVED] = i < 6 ? 12345 : 444444;
-		sprintTimeLog[i][T_SAVED] = i < 6 ? 12345 : 555555;
+		strollTimeLog[i][T_SAVED] = i < 6 ? 4567 : 98765;
 	}
+	sprintTimeLog[T_SAVED] = 300000;
+}
+
+void saveHighScores(void) {
+	// TODO
 }
 
 void initGame(void) {
@@ -50,10 +54,4 @@ void initGame(void) {
 	//initSounds();
 	//loadMusic("snd\\title.mp3");
 	//playMusic(1);
-}
-
-void cleanup(void) {
-	SDL_DestroyRenderer(game.renderer);
-	SDL_DestroyWindow(game.window);
-	SDL_Quit();
 }

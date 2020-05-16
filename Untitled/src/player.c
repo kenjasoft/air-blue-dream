@@ -37,7 +37,7 @@ void doPlayer(void) {
 	float fx = .6f;
 	int vx = 5;
 	int vy = -15;
-	int t = SDL_GetTicks();
+	int t = stage.ticks;
 	int idleIndex = (t / 256) % 4;
 	int runningIndex = (t / 64) % 4;
 
@@ -48,7 +48,7 @@ void doPlayer(void) {
 
 	if (!stage.isLevelReady && stage.camera.y > 0 && stage.camera.y == stage.camera.yTarget) {
 		stage.isLevelReady = 1;
-		// TODO: start the timer
+		if (stage.stageNumber > 0) stage.timerStart = stage.ticks;
 	}
 	if (!stage.isLevelReady) return;
 

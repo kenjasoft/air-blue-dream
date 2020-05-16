@@ -9,8 +9,6 @@ int main(int argc, char* argv[]) {
 
 	initSDL();
 
-	atexit(cleanup);
-
 	initGame();
 	initStage();
 
@@ -26,6 +24,9 @@ int main(int argc, char* argv[]) {
 		capFrameRate(&then, &remainder);
 	}
 
+	saveHighScores();
+	SDL_DestroyRenderer(game.renderer);
+	SDL_DestroyWindow(game.window);
 	SDL_Quit();
 	return 0;
 }
@@ -42,5 +43,5 @@ static void capFrameRate(long* then, float* remainder)
 	SDL_Delay(wait);
 
 	*remainder += 0.667f;
-	*then = SDL_GetTicks();
+	*then = stage.ticks = SDL_GetTicks();
 }

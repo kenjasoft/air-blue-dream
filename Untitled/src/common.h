@@ -21,7 +21,7 @@
 #define MAX_FILENAME_LENGTH 32
 #define MAX_LINE_LENGTH 128
 #define MAX_NAME_LENGTH 32
-#define MAX_TEXTURES 42
+#define MAX_TEXTURES 41
 #define MAX_LANDSCAPE 3
 #define MAX_TEXT 6
 #define LANDSCAPE_WIDTH 64
@@ -35,10 +35,14 @@
 #define CLOUD2_WIDTH 64
 #define CLOUD2_HEIGHT 20
 
-#define MENU_1 2816
-#define MENU_2 2910
-#define MENU_3 3004
-#define MENU_DIST 43
+#define MENU_1 3
+#define MENU_2 4
+#define MENU_3 5
+#define MENU_1_Y 2816
+#define MENU_2_Y 2910
+#define MENU_3_Y 3004
+
+#define TIMER_LIMIT 5999999
 
 #define MAX_KEYBOARD_KEYS 6
 #define CUR 0
@@ -130,8 +134,7 @@ enum {
 	TX_TEXT4,
 	TX_TEXT5,
 	TX_TEXT6,
-	TX_TEXT7,
-	TX_TEXT8
+	TX_TIMER
 };
 
 enum {
@@ -154,6 +157,11 @@ enum {
 };
 
 enum {
+	TYPE,
+	ALPHA
+};
+
+enum {
 	HIT_OFF,
 	HIT_ON,
 	HIT_ALWAYS
@@ -172,8 +180,15 @@ enum {
 static const int levelTop[7] = { 2816, 1442, 1408, 1716, 906, 84, 78 };
 static const float textPositions[6][2] = { {-615, 153}, {227, 227}, {-469, 299}, {-401, 367}, {-469, 299}, {-401, 367} };
 unsigned int strollTimeLog[7][2];
-unsigned int sprintTimeLog[7][2];
+unsigned int sprintTimeLog[2];
 
+TTF_Font* font24;
+TTF_Font* font36;
+TTF_Font* font48;
+TTF_Font* font54;
+TTF_Font* font72;
+TTF_Font* font112;
+static SDL_Color whiteColor = { 255, 255, 255 };
 SDL_Texture* textures[MAX_TEXTURES];
 
 typedef struct {
@@ -237,6 +252,10 @@ typedef struct {
 } Camera;
 
 typedef struct {
+	unsigned int ticks;
+	unsigned int timerStart;
+	unsigned int timerFinish;
+	int timerAlpha;
 	int stageNumber;
 	int holdTextScreen;
 	int showTextScreen;

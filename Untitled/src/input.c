@@ -84,8 +84,8 @@ void doInput(void) {
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		case SDL_QUIT:
-			exit(0);
-			break;
+			stage.runGame = 0;
+			return;
 		case SDL_KEYDOWN:
 			doKey(&event.key, 1);
 			break;

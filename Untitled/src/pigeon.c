@@ -60,7 +60,7 @@ static void tick(void) {
 	float fx = .4f;
 	int vx = 4;
 	int vy = -8;
-	int t = SDL_GetTicks();
+	int t = stage.ticks;
 	int runningIndex = (t / self->i[P_ANIMATION_SPEED]) % 8;
 	int jump = self->i[P_JUMP_COUNTER] >= self->i[P_JUMP_LIMIT] && self->i[P_CAN_JUMP];
 

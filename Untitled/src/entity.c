@@ -219,13 +219,13 @@ static void moveToEntities(Entity* e, float dx, float dy) {
 			if (collision((int)e->x, (int)e->y, e->w, e->h, (int)other->x, (int)other->y, other->w, other->h) && e->touch) e->touch(other);
 			else if (stage.stageNumber == 0) {
 				switch ((int)e->y) {
-				case MENU_1 + SCREEN_HEIGHT:
+				case MENU_1_Y + SCREEN_HEIGHT:
 					stage.menu[0] = 0;
 					break;
-				case MENU_2 + SCREEN_HEIGHT:
+				case MENU_2_Y + SCREEN_HEIGHT:
 					stage.menu[1] = 0;
 					break;
-				case MENU_3 + SCREEN_HEIGHT:
+				case MENU_3_Y + SCREEN_HEIGHT:
 					stage.menu[2] = 0;
 					break;
 				default:

@@ -5,13 +5,10 @@ static void draw(void);
 static void drawDebug(void);
 static void initBackground(void);
 static void drawBackground(void);
+void drawTimer(void);
 void doEndStage(void);
 void slideText(int i, float* y, float* yTarget, float yTargetNew);
 
-TTF_Font* font72;
-TTF_Font* font54;
-TTF_Font* font36;
-SDL_Color color = { 255, 255, 255 };
 SDL_Surface* textSurface;
 SDL_Texture* textTexture;
 
@@ -22,12 +19,15 @@ void initStage(void) {
 	memset(&stage, 0, sizeof(Stage));
 	stage.entityTail = &stage.entityHead;
 	stage.playerAlpha = 0;
-	stage.stageNumber = 0;// TODO
+	stage.stageNumber = 0;
 	stage.holdTextScreen = 0;
 	stage.endTimer = 30;
 	stage.endCamera = 0;
 	stage.endStage = 0;
 	stage.showTextScreen = 0;
+	stage.timerStart = 0;
+	stage.timerAlpha = -255;
+	stage.timerFinish = 0;
 	stage.winGame = 0;
 	stage.newRecord = 0;
 	stage.runGame = 1;
@@ -93,7 +93,7 @@ void doEndStage(void) {
 					stage.endTimer = 30;
 					stage.endStage = 0;
 					stage.endCamera = 0;
-					stage.newRecord = 1;// TODO
+					stage.newRecord = 0;
 					stage.isLevelReady = 0;
 					game.freeze = 0;
 				}
@@ -131,7 +131,13 @@ void doEndStage(void) {
 			}
 			stage.holdTextScreen = 1;
 
-			strollTimeLog[stage.stageNumber - 1][T_NEW] = 599999;// TODO
+			stage.newRecord = 0;
+			strollTimeLog[stage.stageNumber - 1][T_NEW] = stage.timerFinish - stage.timerStart;
+			strollTimeLog[stage.stageNumber - 1][T_NEW] = min(strollTimeLog[stage.stageNumber - 1][T_NEW], TIMER_LIMIT);
+			if (strollTimeLog[stage.stageNumber - 1][T_NEW] < strollTimeLog[stage.stageNumber - 1][T_SAVED]) {
+				stage.newRecord = 1;
+				strollTimeLog[stage.stageNumber - 1][T_SAVED] = strollTimeLog[stage.stageNumber - 1][T_NEW];
+			}
 
 			char timestamp[16];
 			int ms[2], min[2], sec[2];
@@ -144,7 +150,7 @@ void doEndStage(void) {
 			}
 			for (int i = 4; i < 6; ++i) {
 				sprintf(timestamp, "%02d:%02d.%03d", min[i - 4], sec[i - 4], ms[i - 4]);
-				textSurface = TTF_RenderText_Blended(font36, timestamp, color);
+				textSurface = TTF_RenderText_Blended(font36, timestamp, whiteColor);
 				textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 				stage.clearText[i] = (BareEntity*)malloc(sizeof(BareEntity));
 				if (stage.clearText[i] == NULL) return;
@@ -156,6 +162,7 @@ void doEndStage(void) {
 				stage.clearText[i]->x = (float)(MAP_WIDTH - stage.clearText[i]->w - 17);
 				stage.clearText[i]->y = textPositions[i][UPPER];
 				stage.clearText[i]->yTarget = textPositions[i][LOWER];
+				SDL_FreeSurface(textSurface);
 			}
 		}
 		else if (stage.holdTextScreen) {
@@ -168,11 +175,15 @@ void doEndStage(void) {
 				else if (stage.endTimer <= 17 && stage.endTimer > 0) fadeTexture(stage.clearText[1]->texture, -15);
 				else if (stage.endTimer == 0) {
 					stage.entityTail = &stage.entityHead;
+					stage.timerStart = 0;
+					stage.timerFinish = 0;
+					stage.timerAlpha = -255;
 					for (int i = 0; i < MAX_TEXT; ++i) {
 						if (stage.clearText[i] == NULL) continue;
 						stage.clearText[i]->yTarget = textPositions[i][LOWER];
 					}
 					stage.clearText[1]->y = textPositions[1][LOWER];
+					stage.clearText[1]->f = 0;
 					if (stage.stageNumber < 6) {
 						++stage.stageNumber;
 						initEntities();
@@ -183,7 +194,7 @@ void doEndStage(void) {
 						stage.endTimer = 30;
 						stage.endStage = 0;
 						stage.endCamera = 0;
-						stage.newRecord = 1;// TODO
+						stage.newRecord = 0;
 						stage.isLevelReady = 0;
 						game.freeze = 0;
 					}
@@ -191,9 +202,14 @@ void doEndStage(void) {
 						stage.winGame = 1;
 						stage.endTimer = 300;
 
-						stage.newRecord = 1;// TODO
-
-						strollTimeLog[6][T_NEW] = 5999999;// TODO
+						stage.newRecord = 0;
+						strollTimeLog[6][T_NEW] = 0;
+						for (int i = 0; i < 6; ++i) strollTimeLog[6][T_NEW] += strollTimeLog[i][T_NEW];
+						strollTimeLog[6][T_NEW] = min(strollTimeLog[6][T_NEW], TIMER_LIMIT);
+						if (strollTimeLog[6][T_NEW] < strollTimeLog[6][T_SAVED]) {
+							stage.newRecord = 1;
+							strollTimeLog[6][T_SAVED] = strollTimeLog[6][T_NEW];
+						}
 
 						char timestamp[16];
 						int ms[2], min[2], sec[2];
@@ -206,7 +222,7 @@ void doEndStage(void) {
 						}
 						for (int i = 4; i < 6; ++i) {
 							sprintf(timestamp, "%02d:%02d.%03d", min[i - 4], sec[i - 4], ms[i - 4]);
-							textSurface = TTF_RenderText_Blended(font36, timestamp, color);
+							textSurface = TTF_RenderText_Blended(font36, timestamp, whiteColor);
 							textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 							stage.winText[i] = (BareEntity*)malloc(sizeof(BareEntity));
 							if (stage.winText[i] == NULL) return;
@@ -218,6 +234,7 @@ void doEndStage(void) {
 							stage.winText[i]->x = (float)(MAP_WIDTH - stage.winText[i]->w - 17);
 							stage.winText[i]->y = textPositions[i][UPPER];
 							stage.winText[i]->yTarget = textPositions[i][LOWER];
+							SDL_FreeSurface(textSurface);
 						}
 					}
 				}
@@ -251,10 +268,36 @@ void doEndStage(void) {
 					stage.winText[i]->yTarget = textPositions[i][LOWER];
 				}
 				stage.winText[1]->y = textPositions[1][LOWER];
+				stage.winText[1]->f = 0;
 				game.freeze = 0;
 			}
 		}
 	}
+}
+
+void drawTimer(void) {
+	char timestamp[16];
+	int ms, min, sec;
+	int bigTime = stage.endStage ? stage.timerFinish : stage.ticks;
+	int total = bigTime - stage.timerStart;
+	ms = total % 1000;
+	int s = total / 1000;
+	min = s / 60;
+	sec = s % 60;
+	sprintf(timestamp, "%02d:%02d.%03d", min, sec, ms);
+	textSurface = TTF_RenderText_Blended(font36, timestamp, whiteColor);
+	textures[TX_TIMER] = SDL_CreateTextureFromSurface(game.renderer, textSurface);
+	if (!stage.endStage && stage.timerAlpha < 0) {
+		stage.timerAlpha += 17;
+		fadeTexture(textures[TX_TIMER], stage.timerAlpha);
+	}
+	else if (stage.endStage && stage.timerAlpha >= -255) {
+		if (stage.timerAlpha > -255) stage.timerAlpha -= 17;
+		fadeTexture(textures[TX_TIMER], stage.timerAlpha);
+	}
+	blit(textures[TX_TIMER], 11, 6, 1, 1, SDL_FLIP_NONE);
+	SDL_FreeSurface(textSurface);
+	SDL_DestroyTexture(textures[TX_TIMER]);
 }
 
 static void draw(void) {
@@ -263,6 +306,7 @@ static void draw(void) {
 
 	drawBackground();
 	drawEntities();
+	if (stage.timerStart > 0) drawTimer();
 
 	if (game.debug || game.map) drawDebug();
 }
@@ -326,11 +370,7 @@ static void initBackground(void) {
 		stage.landscape[i]->y = ((SCREEN_HEIGHT / 2) - LANDSCAPE_HEIGHT);
 	}
 
-	font72 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 72);
-	font54 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 54);
-	font36 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 36);
-
-	textSurface = TTF_RenderText_Blended(font72, "CLEAR", color);
+	textSurface = TTF_RenderText_Blended(font72, "CLEAR", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 	stage.clearText[0] = (BareEntity*)malloc(sizeof(BareEntity));
 	if (stage.clearText[0] == NULL) return;
@@ -343,7 +383,7 @@ static void initBackground(void) {
 	stage.clearText[0]->y = textPositions[0][UPPER];
 	stage.clearText[0]->yTarget = textPositions[0][LOWER];
 
-	textSurface = TTF_RenderText_Blended(font54, "NEW RECORD", color);
+	textSurface = TTF_RenderText_Blended(font54, "NEW RECORD", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 	stage.clearText[1] = (BareEntity*)malloc(sizeof(BareEntity));
 	if (stage.clearText[1] == NULL) return;
@@ -351,13 +391,14 @@ static void initBackground(void) {
 	stage.clearText[1]->texture = textTexture;
 	stage.clearText[1]->w = textSurface->w;
 	stage.clearText[1]->h = textSurface->h;
+	stage.clearText[1]->f = 0;
 	SDL_QueryTexture(stage.clearText[1]->texture, NULL, NULL, &stage.clearText[1]->w, &stage.clearText[1]->h);
 	stage.clearText[1]->x = 31;
 	stage.clearText[1]->y = textPositions[1][UPPER];
 	stage.clearText[1]->yTarget = textPositions[1][LOWER];
 	fadeTexture(stage.clearText[1]->texture, -255);
 
-	textSurface = TTF_RenderText_Blended(font36, "your time", color);
+	textSurface = TTF_RenderText_Blended(font36, "your time", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 	stage.clearText[2] = (BareEntity*)malloc(sizeof(BareEntity));
 	if (stage.clearText[2] == NULL) return;
@@ -370,7 +411,7 @@ static void initBackground(void) {
 	stage.clearText[2]->y = textPositions[2][UPPER];
 	stage.clearText[2]->yTarget = textPositions[2][LOWER];
 
-	textSurface = TTF_RenderText_Blended(font36, "your best", color);
+	textSurface = TTF_RenderText_Blended(font36, "your best", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 	stage.clearText[3] = (BareEntity*)malloc(sizeof(BareEntity));
 	if (stage.clearText[3] == NULL) return;
@@ -383,7 +424,7 @@ static void initBackground(void) {
 	stage.clearText[3]->y = textPositions[3][UPPER];
 	stage.clearText[3]->yTarget = textPositions[3][LOWER];
 
-	textSurface = TTF_RenderText_Blended(font72, "YOU WIN", color);
+	textSurface = TTF_RenderText_Blended(font72, "YOU WIN", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 	stage.winText[0] = (BareEntity*)malloc(sizeof(BareEntity));
 	if (stage.winText[0] == NULL) return;
@@ -396,7 +437,7 @@ static void initBackground(void) {
 	stage.winText[0]->y = textPositions[0][UPPER];
 	stage.winText[0]->yTarget = textPositions[0][LOWER];
 
-	textSurface = TTF_RenderText_Blended(font54, "NEW RECORD", color);
+	textSurface = TTF_RenderText_Blended(font54, "NEW RECORD", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 	stage.winText[1] = (BareEntity*)malloc(sizeof(BareEntity));
 	if (stage.winText[1] == NULL) return;
@@ -404,13 +445,14 @@ static void initBackground(void) {
 	stage.winText[1]->texture = textTexture;
 	stage.winText[1]->w = textSurface->w;
 	stage.winText[1]->h = textSurface->h;
+	stage.winText[1]->f = 0;
 	SDL_QueryTexture(stage.winText[1]->texture, NULL, NULL, &stage.winText[1]->w, &stage.winText[1]->h);
 	stage.winText[1]->x = 31;
 	stage.winText[1]->y = textPositions[1][UPPER];
 	stage.winText[1]->yTarget = textPositions[1][LOWER];
 	fadeTexture(stage.winText[1]->texture, -255);
 
-	textSurface = TTF_RenderText_Blended(font36, "total time", color);
+	textSurface = TTF_RenderText_Blended(font36, "total time", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 	stage.winText[2] = (BareEntity*)malloc(sizeof(BareEntity));
 	if (stage.winText[2] == NULL) return;
@@ -423,7 +465,7 @@ static void initBackground(void) {
 	stage.winText[2]->y = textPositions[2][UPPER];
 	stage.winText[2]->yTarget = textPositions[2][LOWER];
 
-	textSurface = TTF_RenderText_Blended(font36, "best total", color);
+	textSurface = TTF_RenderText_Blended(font36, "best total", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
 	stage.winText[3] = (BareEntity*)malloc(sizeof(BareEntity));
 	if (stage.winText[3] == NULL) return;
@@ -435,6 +477,8 @@ static void initBackground(void) {
 	stage.winText[3]->x = 17;
 	stage.winText[3]->y = textPositions[3][UPPER];
 	stage.winText[3]->yTarget = textPositions[3][LOWER];
+
+	SDL_FreeSurface(textSurface);
 }
 
 static void drawBackground(void) {
