@@ -51,6 +51,7 @@ void loadHighScores(void) {
 	}
 	sprintTimeLog[T_SAVED] = 180000;
 	char* str = readFile("dat\\t.dat");
+	if (str == NULL) return;
 	if (sscanf(encryptDecrypt(str, "lNSjPehYQpJshkrm"), "%dA%dI%dR%dB%dL%dU%dE%d",
 		&strollTimeLog[0][T_SAVED], &strollTimeLog[1][T_SAVED], &strollTimeLog[2][T_SAVED],
 		&strollTimeLog[3][T_SAVED], &strollTimeLog[4][T_SAVED], &strollTimeLog[5][T_SAVED],
