@@ -215,6 +215,9 @@
     <Image Include="img\crowfloat4.png">
       <Filter>img</Filter>
     </Image>
+    <Image Include="img\subtitle.png">
+      <Filter>img</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

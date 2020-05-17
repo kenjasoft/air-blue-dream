@@ -91,6 +91,7 @@
     <Image Include="img\sky.png" />
     <Image Include="img\rockplatform.png" />
     <Image Include="img\smallrockplatform.png" />
+    <Image Include="img\subtitle.png" />
     <Image Include="img\tree.png" />
     <Image Include="img\ground.png" />
   </ItemGroup>

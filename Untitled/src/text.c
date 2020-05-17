@@ -17,7 +17,7 @@ void initText(char* line) {
 	e->i[TYPE] = type;
 	e->i[ALPHA] = 0;
 	e->y += SCREEN_HEIGHT;
-	if (type > 0 && type < 7) e->texture = textures[33 + type];
+	if (type >= 0 && type < 7) e->texture = textures[TX_SUBTITLE + type];
 	else if (type < 9) {
 		char timestamp[20];
 		int ms, min, sec, total, s;

@@ -35,7 +35,8 @@ void loadTextures() {
 		"img\\crowfloat1.png",
 		"img\\crowfloat2.png",
 		"img\\crowfloat3.png",
-		"img\\crowfloat4.png"
+		"img\\crowfloat4.png",
+		"img\\subtitle.png"
 	};
 	int size = (sizeof(names) / sizeof(const char*));
 	for (int i = 0; i < size; ++i) {
