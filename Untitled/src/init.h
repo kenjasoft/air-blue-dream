@@ -7,5 +7,6 @@
 //extern void loadMusic(char *filename);
 //extern void playMusic(int loop);
 extern void loadTextures();
+extern char* readFile(const char* filename);
 
 extern Game game;
