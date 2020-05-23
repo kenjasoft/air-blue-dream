@@ -47,9 +47,9 @@ char* encryptDecrypt(char* str, const char* key)
 
 void loadHighScores(void) {
 	for (int i = 0; i < 7; ++i) {
-		strollTimeLog[i][T_SAVED] = i < 6 ? 50000 : 300000;
+		strollTimeLog[i][T_SAVED] = i < 6 ? 90000 : 600000;
 	}
-	sprintTimeLog[T_SAVED] = 180000;
+	sprintTimeLog[T_SAVED] = 120000;
 	char* str = readFile("dat\\t.dat");
 	if (str == NULL) return;
 	if (sscanf(encryptDecrypt(str, "lNSjPehYQpJshkrm"), "%dA%dI%dR%dB%dL%dU%dE%d",

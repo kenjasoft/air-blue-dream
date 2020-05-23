@@ -63,9 +63,11 @@ static void addEntityFromLine(char* line) {
 		initPlayer(line);
 	}
 	else if (strcmp(name, "PIGEON") == 0) {
+		if (stage.isSprintMode) return;
 		initPigeon(line);
 	}
 	else if (strcmp(name, "CROW") == 0) {
+		if (stage.isSprintMode) return;
 		initCrow(line);
 	}
 	else if (strcmp(name, "PORTAL") == 0) {
@@ -102,7 +104,7 @@ static void loadEntities(const char* filename) {
 void doEntities(void) {
 	Entity* e, * prev;
 	prev = &stage.entityHead;
-	float portalX = 0, portalY = 0;
+	float portalX = 0, portalY = 0, playerToPortal = 0;
 
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
 		self = e;
@@ -111,6 +113,7 @@ void doEntities(void) {
 			portalY = e->y;
 			if (e->hit != HIT_ALWAYS) e->hit = HIT_OFF;
 		}
+		if (e->flags & EF_PLAYER) playerToPortal = e->y + e->h - 4;
 		if (e->draw) {
 			if (e->tick) e->tick();
 			move(e);
@@ -128,7 +131,7 @@ void doEntities(void) {
 		if (e->draw) {
 			if (e->flags & EF_LIGHT) {
 				if (stage.stageNumber > 0 && !(portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) e->n = -5;
-				if (stage.endStage) {
+				if (!stage.winGame && stage.endStage && playerToPortal == e->i[L_PARENT_Y]) {
 					if (e->scaleY < 2) {
 						e->scaleY += .01f;
 						e->y -= 160;
@@ -232,7 +235,7 @@ static void moveToEntities(Entity* e, float dx, float dy) {
 					break;
 				}
 			}
-			if ((other->y > MAP_HEIGHT) && e->y > PORTAL_CUTOFF) {
+			if (!stage.isSprintMode && (other->y > MAP_HEIGHT) && e->y > PORTAL_CUTOFF) {
 				other->x = e->x;
 				other->y = e->y - (PLAYER_HEIGHT * 2);
 			}

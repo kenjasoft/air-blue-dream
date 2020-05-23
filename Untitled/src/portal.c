@@ -36,7 +36,7 @@ static void touch(Entity* other) {
 	if (other == player) {
 		if (!other->isOnGround || !((int)(other->y + other->h) == (int)(self->y + self->h))) return;
 		if (self->hit != HIT_ALWAYS) self->hit = HIT_ON;
-		if (stage.stageNumber == 0) {
+		if (stage.stageNumber == 0 && stage.isLevelReady) {
 			switch ((int)self->y) {
 			case MENU_1_Y + SCREEN_HEIGHT:
 				stage.menu[0] = 1;

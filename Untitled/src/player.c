@@ -32,6 +32,14 @@ void initPlayer(char* line) {
 
 void doPlayer(void) {
 	if (game.freeze || game.map) return;
+	if (stage.isSprintMode && stage.isLevelReady && !stage.endStage && player->y > (stage.camera.y + SCREEN_HEIGHT + player->h)) {
+		stage.timerFinish = stage.ticks;
+		stage.winGame = stage.endStage = 1;
+		stage.camera.yTarget += (int)(SCREEN_HEIGHT * 1.5);
+		stage.endCamera = 1;
+		stage.pauseSprint = 1;
+		game.freeze = 1;
+	}
 
 	float cf = player->isOnGround ? .85f : .95f;
 	float fx = .6f;
@@ -48,7 +56,8 @@ void doPlayer(void) {
 
 	if (!stage.isLevelReady && stage.camera.y > 0 && stage.camera.y == stage.camera.yTarget) {
 		stage.isLevelReady = 1;
-		if (stage.stageNumber > 0) stage.timerStart = stage.ticks;
+		if (stage.stageNumber > 0 && (!stage.isSprintMode || (stage.isSprintMode && stage.timerStart == 0))) stage.timerStart = stage.ticks;
+		if (stage.isSprintMode && stage.timerFinish > 0) stage.timerStart += (stage.ticks - stage.timerFinish);
 	}
 	if (!stage.isLevelReady) return;
 

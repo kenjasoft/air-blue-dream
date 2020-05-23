@@ -21,7 +21,7 @@
 #define MAX_FILENAME_LENGTH 32
 #define MAX_LINE_LENGTH 128
 #define MAX_NAME_LENGTH 32
-#define MAX_TEXTURES 41
+#define MAX_TEXTURES 42
 #define MAX_LANDSCAPE 3
 #define MAX_TEXT 6
 #define LANDSCAPE_WIDTH 64
@@ -268,6 +268,8 @@ typedef struct {
 	int winGame;
 	int runGame;
 	int isLevelReady;
+	int isSprintMode;
+	int pauseSprint;
 	int menu[3];
 	Camera camera;
 	Entity entityHead;
@@ -277,4 +279,5 @@ typedef struct {
 	BareEntity* landscape[MAX_LANDSCAPE];
 	BareEntity* clearText[MAX_TEXT];
 	BareEntity* winText[MAX_TEXT];
+	BareEntity* gameOverText[MAX_TEXT];
 } Stage;
