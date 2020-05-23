@@ -75,8 +75,7 @@ enum {
 	DOWN,
 	LEFT,
 	RIGHT,
-	ACTION,
-	FLY
+	ACTION
 };
 
 enum {
@@ -198,9 +197,7 @@ typedef struct {
 } Delegate;
 
 typedef struct {
-	int debug;
 	int freeze;
-	int map;
 	int keyboard[MAX_KEYBOARD_KEYS][2];
 	Delegate delegate;
 	SDL_Renderer* renderer;

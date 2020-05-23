@@ -31,7 +31,7 @@ void initPlayer(char* line) {
 }
 
 void doPlayer(void) {
-	if (game.freeze || game.map) return;
+	if (game.freeze) return;
 	if (stage.isSprintMode && stage.isLevelReady && !stage.endStage && player->y > (stage.camera.y + SCREEN_HEIGHT + player->h)) {
 		stage.timerFinish = stage.ticks;
 		stage.winGame = stage.endStage = 1;
@@ -75,10 +75,6 @@ void doPlayer(void) {
 		player->dx += fx;
 		player->dx = min(player->dx, vx);
 		player->flip = SDL_FLIP_NONE;
-	}
-
-	if (game.keyboard[FLY][CUR]) {
-		player->y = 0;
 	}
 
 	if (game.keyboard[ACTION][CUR]) {

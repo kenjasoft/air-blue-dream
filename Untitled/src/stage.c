@@ -2,7 +2,6 @@
 
 static void logic(void);
 static void draw(void);
-static void drawDebug(void);
 static void initBackground(void);
 static void drawBackground(void);
 void drawTimer(void);
@@ -448,15 +447,6 @@ static void draw(void) {
 	drawBackground();
 	drawEntities();
 	if (stage.isLevelReady && stage.timerStart > 0) drawTimer();
-
-	if (game.debug || game.map) drawDebug();
-}
-
-static void drawDebug(void) {
-	int x, y;
-	SDL_GetMouseState(&x, &y);
-	printf("cur(%5d,%5d) pla(%5.0f,%5.0f) cam(x%5d xt%5d,y%5d yt%5d) vlc(%8.4f,%8.4f)\r",
-		x + stage.camera.x, y + stage.camera.y, player->x, player->y, stage.camera.x, stage.camera.xTarget, stage.camera.y, stage.camera.yTarget, player->dx, player->dy);
 }
 
 static void initBackground(void) {

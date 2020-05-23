@@ -31,26 +31,9 @@ void doKey(SDL_KeyboardEvent* event, int upOrDown) {
 	case SDL_SCANCODE_D:
 		game.keyboard[RIGHT][CUR] = upOrDown;
 		break;
-
-	case SDL_SCANCODE_1:
-		if (upOrDown) game.debug = game.debug ? 0 : 1;
-		break;
-	case SDL_SCANCODE_2:
-		if (upOrDown) game.map = game.map ? 0 : 1;
-		break;
-	case SDL_SCANCODE_3:
-		if (upOrDown) game.freeze = game.freeze ? 0 : 1;
-		break;
-	case SDL_SCANCODE_4:
-		game.keyboard[FLY][CUR] = upOrDown;
-		break;
-
 	default:
 		break;
 	}
-
-	if (game.debug || game.map) SDL_ShowCursor(SDL_ENABLE);
-	else SDL_ShowCursor(SDL_DISABLE);
 }
 
 void doButton(SDL_ControllerButtonEvent* event, int upOrDown) {

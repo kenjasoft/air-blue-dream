@@ -5,9 +5,6 @@ void initSDL(void) {
 
 	rendererFlags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
 	windowFlags = 0;
-
-	game.debug = 0;
-	game.map = 0;
 	game.freeze = 0;
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) < 0) exit(1);
@@ -28,11 +25,6 @@ void initSDL(void) {
 			if (controller) break;
 		}
 	}
-
-	SDL_Cursor* cursor;
-	cursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR);
-	SDL_SetCursor(cursor);
-	SDL_ShowCursor(SDL_DISABLE);
 }
 
 char* encryptDecrypt(char* str, const char* key)
