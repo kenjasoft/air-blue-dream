@@ -420,6 +420,7 @@ void drawTimer(void) {
 	int ms, min, sec;
 	int bigTime = stage.endStage ? stage.timerFinish : stage.ticks;
 	int total = bigTime - stage.timerStart;
+	total = min(total, TIMER_LIMIT);
 	ms = total % 1000;
 	int s = total / 1000;
 	min = s / 60;
