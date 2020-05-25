@@ -3,7 +3,7 @@
 void initSDL(void) {
 	int rendererFlags, windowFlags;
 
-	rendererFlags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+	rendererFlags = SDL_RENDERER_ACCELERATED;
 	windowFlags = 0;
 	game.freeze = 0;
 
@@ -25,6 +25,8 @@ void initSDL(void) {
 			if (controller) break;
 		}
 	}
+
+	SDL_ShowCursor(SDL_DISABLE);
 }
 
 char* encryptDecrypt(char* str, const char* key)
