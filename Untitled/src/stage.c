@@ -214,7 +214,10 @@ void doEndStage(void) {
 					slideText(i, &stage.gameOverText[i]->y, &stage.gameOverText[i]->yTarget, textPositions[i][UPPER]);
 				}
 				if (stage.gameOverText[0] != NULL && stage.gameOverText[0]->y == stage.gameOverText[0]->yTarget) {
-					if (stage.endTimer <= 298 && stage.endTimer > 17) fadeTexture(stage.gameOverText[1]->texture, 15);
+					if (stage.endTimer <= 298 && stage.endTimer > 17) {
+						if (stage.endTimer == 100) stopMusic(2500);
+						fadeTexture(stage.gameOverText[1]->texture, 15);
+					}
 					else if (stage.endTimer <= 17 && stage.endTimer > 0) fadeTexture(stage.gameOverText[1]->texture, -15);
 					else if (stage.endTimer == 0) {
 						stage.entityTail = &stage.entityHead;
@@ -388,7 +391,10 @@ void doEndStage(void) {
 		}
 		if (stage.winText[1] == NULL) return;
 		if (stage.winText[0] != NULL && stage.winText[0]->y == stage.winText[0]->yTarget) {
-			if (stage.endTimer <= 298 && stage.endTimer > 17) fadeTexture(stage.winText[1]->texture, 15);
+			if (stage.endTimer <= 298 && stage.endTimer > 17) {
+				if (stage.endTimer == 100) stopMusic(2500);
+				fadeTexture(stage.winText[1]->texture, 15);
+			}
 			else if (stage.endTimer <= 17 && stage.endTimer > 0) fadeTexture(stage.winText[1]->texture, -15);
 			else if (stage.endTimer == 0) {
 				stage.playerAlpha = 0;

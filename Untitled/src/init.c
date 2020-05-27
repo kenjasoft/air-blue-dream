@@ -77,8 +77,5 @@ void saveHighScores(void) {
 void initGame(void) {
 	loadHighScores();
 	loadTextures();
-
-	//initSounds();
-	//loadMusic("snd\\title.mp3");
-	//playMusic(1);
+	initSounds();
 }

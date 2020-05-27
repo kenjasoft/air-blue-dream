@@ -51,6 +51,8 @@ static void touch(Entity* other) {
 				break;
 			}
 			if (game.keyboard[UP][CUR]) {
+				stopMusic(2500);
+				//playSound(SND_PORTAL, CH_PORTAL);
 				game.freeze = 1;
 				stage.endStage = 1;
 			}

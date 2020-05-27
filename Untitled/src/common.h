@@ -66,6 +66,12 @@ enum {
 };
 
 enum {
+	MSC_TITLE,
+	MSC_STROLL,
+	MSC_SPRINT
+};
+
+enum {
 	CH_PLAYER,
 	CH_PORTAL
 };

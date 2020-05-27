@@ -232,6 +232,9 @@
     <Filter Include="font">
       <UniqueIdentifier>{362b167c-9b2b-4ca1-b959-ed98403c25da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ogg">
+      <UniqueIdentifier>{9cfb41f0-236c-45d0-8149-3d12295b77de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="dat\1.dat">
@@ -257,6 +260,15 @@
     </None>
     <None Include="dat\0.dat">
       <Filter>dat</Filter>
+    </None>
+    <None Include="ogg\sprint.ogg">
+      <Filter>ogg</Filter>
+    </None>
+    <None Include="ogg\stroll.ogg">
+      <Filter>ogg</Filter>
+    </None>
+    <None Include="ogg\title.ogg">
+      <Filter>ogg</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

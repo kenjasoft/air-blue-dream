@@ -10,6 +10,9 @@ void initEntities(void) {
 	char fileName[MAX_FILENAME_LENGTH];
 	sprintf(fileName, "dat\\%d.dat", stage.stageNumber);
 	loadEntities(fileName);
+	if (stage.stageNumber == 0) playMusic(MSC_TITLE, 10000);
+	else if (!stage.isSprintMode && stage.stageNumber == 1) playMusic(MSC_STROLL, 10000);
+	else if (stage.isSprintMode && stage.timerStart == 0) playMusic(MSC_SPRINT, 10000);
 }
 
 void initEntity(char* line) {
