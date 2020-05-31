@@ -15,10 +15,16 @@ void initSounds(void) {
 	sprintMusic = NULL;
 	loadSounds();
 	loadMusic();
+	Mix_Volume(CH_CROW, (int)(MIX_MAX_VOLUME * .75f));
+	Mix_Volume(CH_PIGEON, (int)(MIX_MAX_VOLUME * .75f));
+	Mix_VolumeMusic((int)(MIX_MAX_VOLUME * .75f));
 }
 
 static void loadSounds(void) {
-	//sounds[SND_JUMP] = Mix_LoadWAV("snd\\jump.ogg");
+	sounds[SND_CROW] = Mix_LoadWAV("ogg\\crow.ogg");
+	sounds[SND_PIGEON] = Mix_LoadWAV("ogg\\pigeon.ogg");
+	sounds[SND_JUMP] = Mix_LoadWAV("ogg\\jump.ogg");
+	sounds[SND_ASCEND] = Mix_LoadWAV("ogg\\ascend.ogg");
 }
 
 static void loadMusic(void) {
@@ -47,6 +53,14 @@ void stopMusic(int fadeOut) {
 	Mix_FadeOutMusic(fadeOut);
 }
 
+void setMusicVolume(float volume) {
+	Mix_VolumeMusic((int)(MIX_MAX_VOLUME * volume));
+}
+
 void playSound(int id, int channel) {
 	Mix_PlayChannel(channel, sounds[id], 0);
+}
+
+void stopSound(int channel, int fadeOut) {
+	Mix_FadeOutChannel(channel, fadeOut);
 }

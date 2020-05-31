@@ -34,6 +34,7 @@ void initCrow(char* line) {
 
 static void touch(Entity* other) {
 	if (other == player) {
+		playSound(SND_CROW, CH_CROW);
 		if (other->x > self->x) player->dx += 2;
 		else if (other->x < self->x) player->dx -= 2;
 		if (other->y > self->y) player->dy += 2;

@@ -52,13 +52,13 @@ static void touch(Entity* other) {
 			}
 			if (game.keyboard[UP][CUR]) {
 				stopMusic(2500);
-				//playSound(SND_PORTAL, CH_PORTAL);
+				playSound(SND_ASCEND, CH_ASCEND);
 				game.freeze = 1;
 				stage.endStage = 1;
 			}
 		}
 		else if (game.keyboard[UP][CUR] && other->y < PORTAL_CUTOFF) {
-			//playSound(SND_PORTAL, CH_PORTAL);
+			playSound(SND_ASCEND, CH_ASCEND);
 			game.freeze = 1;
 			stage.endStage = 1;
 			stage.timerFinish = stage.ticks;

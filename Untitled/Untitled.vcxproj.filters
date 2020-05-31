@@ -270,6 +270,18 @@
     <None Include="ogg\title.ogg">
       <Filter>ogg</Filter>
     </None>
+    <None Include="ogg\crow.ogg">
+      <Filter>ogg</Filter>
+    </None>
+    <None Include="ogg\pigeon.ogg">
+      <Filter>ogg</Filter>
+    </None>
+    <None Include="ogg\jump.ogg">
+      <Filter>ogg</Filter>
+    </None>
+    <None Include="ogg\ascend.ogg">
+      <Filter>ogg</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="font\CabinSketch-Bold.ttf">

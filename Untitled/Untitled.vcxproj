@@ -104,6 +104,10 @@
     <None Include="dat\5.dat" />
     <None Include="dat\6.dat" />
     <None Include="dat\t.dat" />
+    <None Include="ogg\ascend.ogg" />
+    <None Include="ogg\crow.ogg" />
+    <None Include="ogg\jump.ogg" />
+    <None Include="ogg\pigeon.ogg" />
     <None Include="ogg\sprint.ogg" />
     <None Include="ogg\stroll.ogg" />
     <None Include="ogg\title.ogg" />

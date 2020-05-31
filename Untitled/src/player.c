@@ -33,6 +33,7 @@ void initPlayer(char* line) {
 void doPlayer(void) {
 	if (game.freeze) return;
 	if (stage.isSprintMode && stage.isLevelReady && !stage.endStage && player->y > (stage.camera.y + SCREEN_HEIGHT + player->h)) {
+		stopMusic(500);
 		stage.timerFinish = stage.ticks;
 		stage.winGame = stage.endStage = 1;
 		stage.camera.yTarget += (int)(SCREEN_HEIGHT * 1.5);
@@ -79,19 +80,17 @@ void doPlayer(void) {
 
 	if (game.keyboard[ACTION][CUR]) {
 		if (isCrouching && player->riding->flags & EF_PLATFORM) {
+			playSound(SND_JUMP, CH_JUMP);
 			++player->y;
 		}
 		else if (game.keyboard[ACTION][RPT] == 0 && player->isOnGround) {
+			playSound(SND_JUMP, CH_JUMP);
 			game.keyboard[ACTION][RPT] = 1;
-
 			player->riding = NULL;
 			player->dy = (float)vy;
 			if (player->dx > fx) player->dx += 1;
 			else if (player->dx < -fx) player->dx -= 1;
-
 			player->texture = textures[TX_PLAYERJUMP];
-
-			//playSound(SND_JUMP, CH_PLAYER);
 		}
 		else if (game.keyboard[ACTION][RPT] == 1 && !player->isOnGround) {
 			player->dy *= 1.05f;

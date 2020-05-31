@@ -60,8 +60,10 @@
 #define EF_CROW (2 << 7)
 
 enum {
+	SND_CROW,
+	SND_PIGEON,
 	SND_JUMP,
-	SND_PORTAL,
+	SND_ASCEND,
 	SND_MAX
 };
 
@@ -72,8 +74,10 @@ enum {
 };
 
 enum {
-	CH_PLAYER,
-	CH_PORTAL
+	CH_CROW,
+	CH_PIGEON,
+	CH_JUMP,
+	CH_ASCEND
 };
 
 enum {

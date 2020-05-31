@@ -6,13 +6,16 @@ static void moveToEntities(Entity* e, float dx, float dy);
 static void loadEntities(const char* filename);
 static void addEntityFromLine(char* line);
 
+int lightMoveFactor;
+
 void initEntities(void) {
 	char fileName[MAX_FILENAME_LENGTH];
 	sprintf(fileName, "dat\\%d.dat", stage.stageNumber);
 	loadEntities(fileName);
-	if (stage.stageNumber == 0) playMusic(MSC_TITLE, 10000);
-	else if (!stage.isSprintMode && stage.stageNumber == 1) playMusic(MSC_STROLL, 10000);
-	else if (stage.isSprintMode && stage.timerStart == 0) playMusic(MSC_SPRINT, 10000);
+	lightMoveFactor = 0;
+	if (stage.stageNumber == 0) playMusic(MSC_TITLE, 7500);
+	else if (!stage.isSprintMode && stage.stageNumber == 1) playMusic(MSC_STROLL, 7500);
+	else if (stage.isSprintMode && stage.timerStart == 0) playMusic(MSC_SPRINT, 7500);
 }
 
 void initEntity(char* line) {
@@ -108,6 +111,7 @@ void doEntities(void) {
 	Entity* e, * prev;
 	prev = &stage.entityHead;
 	float portalX = 0, portalY = 0, playerToPortal = 0;
+	int lightMoveFactorUpdated = 0;
 
 	for (e = stage.entityHead.next; e != NULL; e = e->next) {
 		self = e;
@@ -136,8 +140,12 @@ void doEntities(void) {
 				if (stage.stageNumber > 0 && !(portalX == e->i[L_PARENT_X] && portalY == e->i[L_PARENT_Y])) e->n = -5;
 				if (!stage.winGame && stage.endStage && playerToPortal == e->i[L_PARENT_Y]) {
 					if (e->scaleY < 2) {
+						if (lightMoveFactor < 160 && !lightMoveFactorUpdated) {
+							lightMoveFactor += 80;
+							lightMoveFactorUpdated = 1;
+						}
+						e->y -= lightMoveFactor;
 						e->scaleY += .01f;
-						e->y -= 160;
 					}
 					e->scaleX = e->scaleX == .94f ? 1.06f : .94f;
 				}

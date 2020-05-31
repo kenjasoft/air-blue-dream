@@ -2,7 +2,7 @@
 
 extern void initLight(float x, float y, float parentX, float parentY, int radius, int red, int green, int blue, int dir, int baseFreq, int baseSpeed);
 extern void stopMusic(int fadeOut);
-//extern void playSound(int id, int channel);
+extern void playSound(int id, int channel);
 
 extern Entity* player;
 extern Entity* self;

@@ -8,6 +8,7 @@ extern void drawEntities(void);
 extern void initEntities(void);
 extern int fadeTexture(SDL_Texture* texture, int alpha);
 extern void stopMusic(int fadeOut);
+extern void stopSound(int channel, int fadeOut);
 
 extern Entity* player;
 extern Game game;
