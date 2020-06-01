@@ -107,10 +107,13 @@
     <None Include="ogg\ascend.ogg" />
     <None Include="ogg\crow.ogg" />
     <None Include="ogg\jump.ogg" />
+    <None Include="ogg\lose.ogg" />
     <None Include="ogg\pigeon.ogg" />
+    <None Include="ogg\record.ogg" />
     <None Include="ogg\sprint.ogg" />
     <None Include="ogg\stroll.ogg" />
     <None Include="ogg\title.ogg" />
+    <None Include="ogg\win.ogg" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="font\CabinSketch-Bold.ttf" />

@@ -64,6 +64,9 @@ enum {
 	SND_PIGEON,
 	SND_JUMP,
 	SND_ASCEND,
+	SND_WIN,
+	SND_LOSE,
+	SND_RECORD,
 	SND_MAX
 };
 
@@ -77,7 +80,10 @@ enum {
 	CH_CROW,
 	CH_PIGEON,
 	CH_JUMP,
-	CH_ASCEND
+	CH_ASCEND,
+	CH_WIN,
+	CH_LOSE,
+	CH_RECORD
 };
 
 enum {

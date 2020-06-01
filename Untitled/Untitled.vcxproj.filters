@@ -282,6 +282,15 @@
     <None Include="ogg\ascend.ogg">
       <Filter>ogg</Filter>
     </None>
+    <None Include="ogg\win.ogg">
+      <Filter>ogg</Filter>
+    </None>
+    <None Include="ogg\lose.ogg">
+      <Filter>ogg</Filter>
+    </None>
+    <None Include="ogg\record.ogg">
+      <Filter>ogg</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="font\CabinSketch-Bold.ttf">
