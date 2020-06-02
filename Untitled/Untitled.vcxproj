@@ -105,7 +105,7 @@
     <None Include="dat\4.dat" />
     <None Include="dat\5.dat" />
     <None Include="dat\6.dat" />
-    <None Include="dat\t.dat" />
+    <None Include="dat\sav.sav" />
     <None Include="ogg\ascend.ogg" />
     <None Include="ogg\crow.ogg" />
     <None Include="ogg\jump.ogg" />

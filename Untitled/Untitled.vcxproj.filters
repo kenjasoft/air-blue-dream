@@ -259,9 +259,6 @@
     <None Include="dat\6.dat">
       <Filter>dat</Filter>
     </None>
-    <None Include="dat\t.dat">
-      <Filter>dat</Filter>
-    </None>
     <None Include="dat\0.dat">
       <Filter>dat</Filter>
     </None>
@@ -294,6 +291,9 @@
     </None>
     <None Include="ogg\record.ogg">
       <Filter>ogg</Filter>
+    </None>
+    <None Include="dat\sav.sav">
+      <Filter>dat</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
