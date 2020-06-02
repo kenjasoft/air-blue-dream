@@ -111,6 +111,7 @@
     <ClInclude Include="src\text.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\tree.png">
@@ -218,6 +219,9 @@
     <Image Include="img\subtitle.png">
       <Filter>img</Filter>
     </Image>
+    <Image Include="dat\ico.ico">
+      <Filter>dat</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -296,5 +300,8 @@
     <Font Include="font\CabinSketch-Bold.ttf">
       <Filter>font</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Untitled.rc" />
   </ItemGroup>
 </Project>
