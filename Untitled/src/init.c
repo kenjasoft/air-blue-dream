@@ -1,6 +1,6 @@
 #include "init.h"
 
-void initSDL(void) {
+int initSDL(void) {
 	int rendererFlags, windowFlags;
 
 	rendererFlags = SDL_RENDERER_ACCELERATED;
@@ -11,10 +11,12 @@ void initSDL(void) {
 
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) exit(1);
 	Mix_AllocateChannels(CH_MAX);
+	if (initSounds() < 0) return -1;
 
 	game.window = SDL_CreateWindow("air-blue dream", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 	game.renderer = SDL_CreateRenderer(game.window, -1, rendererFlags);
+
 	IMG_Init(IMG_INIT_PNG);
 	TTF_Init();
 
@@ -27,6 +29,7 @@ void initSDL(void) {
 	}
 
 	SDL_ShowCursor(SDL_DISABLE);
+	return 0;
 }
 
 char* encryptDecrypt(char* str, const char* key)
@@ -44,7 +47,7 @@ void loadHighScores(void) {
 		strollTimeLog[i][T_SAVED] = i < 6 ? 90000 : 600000;
 	}
 	sprintTimeLog[T_SAVED] = 120000;
-	char* str = readFile("dat\\sav.sav");
+	char* str = readFile("dat\\abd.sav");
 	if (str == NULL) return;
 	if (sscanf(encryptDecrypt(str, "lNSjPehYQpJshkrm"), "%dA%dI%dR%dB%dL%dU%dE%d",
 		&strollTimeLog[0][T_SAVED], &strollTimeLog[1][T_SAVED], &strollTimeLog[2][T_SAVED],
@@ -54,10 +57,11 @@ void loadHighScores(void) {
 		strollTimeLog[i][T_SAVED] = min(strollTimeLog[i][T_SAVED], TIMER_LIMIT);
 	}
 	sprintTimeLog[T_SAVED] = min(sprintTimeLog[T_SAVED], TIMER_LIMIT);
+	free(str);
 }
 
 void saveHighScores(void) {
-	FILE* file = fopen("dat\\sav.sav", "w");
+	FILE* file = fopen("dat\\abd.sav", "w");
 	if (file == NULL) return;
 	else {
 		for (int i = 0; i < 7; ++i) {
@@ -77,5 +81,4 @@ void saveHighScores(void) {
 void initGame(void) {
 	loadHighScores();
 	loadTextures();
-	initSounds();
 }

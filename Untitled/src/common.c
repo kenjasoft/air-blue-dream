@@ -1,9 +1,9 @@
 #include "common.h"
 
-char* readFile(const char* filename) {
+char* readFile(const char* fileName) {
 	char* buffer = 0;
 	unsigned long length;
-	FILE* file = fopen(filename, "rb");
+	FILE* file = fopen(fileName, "rb");
 	if (file) {
 		fseek(file, 0, SEEK_END);
 		length = ftell(file);

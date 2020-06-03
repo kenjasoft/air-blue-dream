@@ -8,7 +8,6 @@ extern void initCrow(char* line);
 extern void initPortal(char* line);
 extern void initText(char* line);
 extern void playMusic(int id, int fadeIn);
-extern char* readFile(const char* filename);
 
 extern Entity* self;
 extern Stage stage;

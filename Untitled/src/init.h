@@ -3,8 +3,8 @@
 #include "SDL_image.h"
 #include "SDL_mixer.h"
 
-extern void initSounds(void);
+extern int initSounds(void);
 extern void loadTextures();
-extern char* readFile(const char* filename);
+extern char* readFile(const char* fileName);
 
 extern Game game;

@@ -4,7 +4,7 @@ extern void capFrameRate(long* then, float* remainder);
 extern void saveHighScores(void);
 extern void doInput(void);
 extern void initGame(void);
-extern void initSDL(void);
+extern int initSDL(void);
 extern void initStage(void);
 extern void prepareScene(void);
 extern void presentScene(void);

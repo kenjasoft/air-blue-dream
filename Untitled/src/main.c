@@ -1,16 +1,18 @@
 #include "main.h"
 
 int main(int argc, char* argv[]) {
-	long then = SDL_GetTicks();
-	float remainder = 0;
-
 	srand((unsigned int)time(NULL));
 	memset(&game, 0, sizeof(Game));
 
-	initSDL();
-
+	if (initSDL() < 0) {
+		SDL_Quit();
+		return 0;
+	}
 	initGame();
 	initStage();
+
+	long then = SDL_GetTicks();
+	float remainder = 0;
 
 	while (stage.runGame) {
 		prepareScene();
@@ -25,6 +27,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	saveHighScores();
+
 	SDL_DestroyRenderer(game.renderer);
 	SDL_DestroyWindow(game.window);
 	SDL_Quit();
