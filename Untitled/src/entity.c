@@ -3,15 +3,13 @@
 static void move(Entity* e);
 static void push(Entity* e, float dx, float dy);
 static void moveToEntities(Entity* e, float dx, float dy);
-static void loadEntities(const char* filename);
+static void loadEntities();
 static void addEntityFromLine(char* line);
 
 int lightMoveFactor;
 
 void initEntities(void) {
-	char fileName[MAX_FILENAME_LENGTH];
-	sprintf(fileName, "dat\\%d.dat", stage.stageNumber);
-	loadEntities(fileName);
+	loadEntities();
 	lightMoveFactor = 0;
 	if (stage.stageNumber == 0) playMusic(MSC_TITLE, 7500);
 	else if (!stage.isSprintMode && stage.stageNumber == 1) playMusic(MSC_STROLL, 7500);
@@ -87,12 +85,12 @@ static void addEntityFromLine(char* line) {
 	}
 }
 
-static void loadEntities(const char* filename) {
+static void loadEntities() {
 	char line[MAX_LINE_LENGTH];
 	char* data, * p;
 	int n = 0;
 
-	data = readFile(filename);
+	data = levelData[stage.stageNumber];
 	p = data;
 	memset(line, '\0', MAX_LINE_LENGTH);
 	while (*p) {
@@ -104,7 +102,6 @@ static void loadEntities(const char* filename) {
 		else line[n++] = *p;
 		p++;
 	}
-	free(data);
 }
 
 void doEntities(void) {

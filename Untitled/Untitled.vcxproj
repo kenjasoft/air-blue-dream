@@ -60,7 +60,6 @@
     <ClInclude Include="src\textures.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="dat\ico.ico" />
     <Image Include="img\bush.png" />
     <Image Include="img\cloud1.png" />
     <Image Include="img\cloud2.png" />
@@ -70,6 +69,7 @@
     <Image Include="img\crowfloat4.png" />
     <Image Include="img\flowers.png" />
     <Image Include="img\grassplatform.png" />
+    <Image Include="img\ico.ico" />
     <Image Include="img\landscape.png" />
     <Image Include="img\maple.png" />
     <Image Include="img\pigeonwalk1.png" />
@@ -98,24 +98,17 @@
     <Image Include="img\ground.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="dat\0.dat" />
-    <None Include="dat\2.dat" />
-    <None Include="dat\1.dat" />
-    <None Include="dat\3.dat" />
-    <None Include="dat\4.dat" />
-    <None Include="dat\5.dat" />
-    <None Include="dat\6.dat" />
+    <None Include="dat\ascend.ogg" />
+    <None Include="dat\crow.ogg" />
+    <None Include="dat\jump.ogg" />
+    <None Include="dat\lose.ogg" />
+    <None Include="dat\pigeon.ogg" />
+    <None Include="dat\record.ogg" />
     <None Include="dat\sav.sav" />
-    <None Include="ogg\ascend.ogg" />
-    <None Include="ogg\crow.ogg" />
-    <None Include="ogg\jump.ogg" />
-    <None Include="ogg\lose.ogg" />
-    <None Include="ogg\pigeon.ogg" />
-    <None Include="ogg\record.ogg" />
-    <None Include="ogg\sprint.ogg" />
-    <None Include="ogg\stroll.ogg" />
-    <None Include="ogg\title.ogg" />
-    <None Include="ogg\win.ogg" />
+    <None Include="dat\sprint.ogg" />
+    <None Include="dat\stroll.ogg" />
+    <None Include="dat\title.ogg" />
+    <None Include="dat\win.ogg" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="font\CabinSketch-Bold.ttf" />

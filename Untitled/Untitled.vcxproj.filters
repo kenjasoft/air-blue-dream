@@ -219,8 +219,8 @@
     <Image Include="img\subtitle.png">
       <Filter>img</Filter>
     </Image>
-    <Image Include="dat\ico.ico">
-      <Filter>dat</Filter>
+    <Image Include="img\ico.ico">
+      <Filter>img</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -236,63 +236,39 @@
     <Filter Include="font">
       <UniqueIdentifier>{362b167c-9b2b-4ca1-b959-ed98403c25da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ogg">
-      <UniqueIdentifier>{9cfb41f0-236c-45d0-8149-3d12295b77de}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="dat\1.dat">
-      <Filter>dat</Filter>
-    </None>
-    <None Include="dat\2.dat">
-      <Filter>dat</Filter>
-    </None>
-    <None Include="dat\3.dat">
-      <Filter>dat</Filter>
-    </None>
-    <None Include="dat\4.dat">
-      <Filter>dat</Filter>
-    </None>
-    <None Include="dat\5.dat">
-      <Filter>dat</Filter>
-    </None>
-    <None Include="dat\6.dat">
-      <Filter>dat</Filter>
-    </None>
-    <None Include="dat\0.dat">
-      <Filter>dat</Filter>
-    </None>
-    <None Include="ogg\sprint.ogg">
-      <Filter>ogg</Filter>
-    </None>
-    <None Include="ogg\stroll.ogg">
-      <Filter>ogg</Filter>
-    </None>
-    <None Include="ogg\title.ogg">
-      <Filter>ogg</Filter>
-    </None>
-    <None Include="ogg\crow.ogg">
-      <Filter>ogg</Filter>
-    </None>
-    <None Include="ogg\pigeon.ogg">
-      <Filter>ogg</Filter>
-    </None>
-    <None Include="ogg\jump.ogg">
-      <Filter>ogg</Filter>
-    </None>
-    <None Include="ogg\ascend.ogg">
-      <Filter>ogg</Filter>
-    </None>
-    <None Include="ogg\win.ogg">
-      <Filter>ogg</Filter>
-    </None>
-    <None Include="ogg\lose.ogg">
-      <Filter>ogg</Filter>
-    </None>
-    <None Include="ogg\record.ogg">
-      <Filter>ogg</Filter>
-    </None>
     <None Include="dat\sav.sav">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\ascend.ogg">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\crow.ogg">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\jump.ogg">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\lose.ogg">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\pigeon.ogg">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\record.ogg">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\sprint.ogg">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\stroll.ogg">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\title.ogg">
+      <Filter>dat</Filter>
+    </None>
+    <None Include="dat\win.ogg">
       <Filter>dat</Filter>
     </None>
   </ItemGroup>

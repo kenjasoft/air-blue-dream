@@ -22,19 +22,19 @@ void initSounds(void) {
 }
 
 static void loadSounds(void) {
-	sounds[SND_CROW] = Mix_LoadWAV("ogg\\crow.ogg");
-	sounds[SND_PIGEON] = Mix_LoadWAV("ogg\\pigeon.ogg");
-	sounds[SND_JUMP] = Mix_LoadWAV("ogg\\jump.ogg");
-	sounds[SND_ASCEND] = Mix_LoadWAV("ogg\\ascend.ogg");
-	sounds[SND_WIN] = Mix_LoadWAV("ogg\\win.ogg");
-	sounds[SND_LOSE] = Mix_LoadWAV("ogg\\lose.ogg");
-	sounds[SND_RECORD] = Mix_LoadWAV("ogg\\record.ogg");
+	sounds[SND_CROW] = Mix_LoadWAV("dat\\crow.ogg");
+	sounds[SND_PIGEON] = Mix_LoadWAV("dat\\pigeon.ogg");
+	sounds[SND_JUMP] = Mix_LoadWAV("dat\\jump.ogg");
+	sounds[SND_ASCEND] = Mix_LoadWAV("dat\\ascend.ogg");
+	sounds[SND_WIN] = Mix_LoadWAV("dat\\win.ogg");
+	sounds[SND_LOSE] = Mix_LoadWAV("dat\\lose.ogg");
+	sounds[SND_RECORD] = Mix_LoadWAV("dat\\record.ogg");
 }
 
 static void loadMusic(void) {
-	titleMusic = Mix_LoadMUS("ogg\\title.ogg");
-	strollMusic = Mix_LoadMUS("ogg\\stroll.ogg");
-	sprintMusic = Mix_LoadMUS("ogg\\sprint.ogg");
+	titleMusic = Mix_LoadMUS("dat\\title.ogg");
+	strollMusic = Mix_LoadMUS("dat\\stroll.ogg");
+	sprintMusic = Mix_LoadMUS("dat\\sprint.ogg");
 }
 
 void playMusic(int id, int fadeIn) {

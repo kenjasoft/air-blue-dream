@@ -10,7 +10,7 @@ void initSDL(void) {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) < 0) exit(1);
 
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) exit(1);
-	Mix_AllocateChannels(MAX_SND_CHANNELS);
+	Mix_AllocateChannels(CH_MAX);
 
 	game.window = SDL_CreateWindow("air-blue dream", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
