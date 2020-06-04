@@ -108,7 +108,6 @@
     <None Include="dat\7.abd" />
     <None Include="dat\8.abd" />
     <None Include="dat\9.abd" />
-    <None Include="dat\abd.sav" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Untitled.rc" />

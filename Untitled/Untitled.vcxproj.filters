@@ -265,9 +265,6 @@
     <None Include="dat\9.abd">
       <Filter>dat</Filter>
     </None>
-    <None Include="dat\abd.sav">
-      <Filter>dat</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Untitled.rc" />
