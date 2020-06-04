@@ -111,9 +111,6 @@
     <None Include="dat\abd.sav" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="font\CabinSketch-Bold.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Untitled.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

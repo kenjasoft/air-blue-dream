@@ -14,3 +14,6 @@ extern void stopSound(int channel, int fadeOut);
 extern Entity* player;
 extern Game game;
 extern Stage stage;
+
+static const int levelTop[MAX_LEVELS] = { 2816, 1442, 1408, 1716, 906, 84, 78 };
+static const float textPositions[MAX_TEXT][TEXT_MAX] = { {-615, 153}, {227, 227}, {-469, 299}, {-401, 367}, {-469, 299}, {-401, 367} };

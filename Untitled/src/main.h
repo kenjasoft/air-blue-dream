@@ -1,5 +1,7 @@
 #include "common.h"
 
+#include "SDL_image.h"
+
 extern void capFrameRate(long* then, float* remainder);
 extern void saveHighScores(void);
 extern void doInput(void);

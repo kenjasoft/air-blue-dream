@@ -28,6 +28,8 @@ int main(int argc, char* argv[]) {
 
 	saveHighScores();
 
+	TTF_Quit();
+	IMG_Quit();
 	SDL_DestroyRenderer(game.renderer);
 	SDL_DestroyWindow(game.window);
 	SDL_Quit();

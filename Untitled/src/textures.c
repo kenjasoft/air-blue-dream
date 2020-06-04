@@ -43,12 +43,19 @@ void loadTextures() {
 		textures[i] = IMG_LoadTexture(game.renderer, names[i]);
 	}
 
-	font24 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 24);
-	font36 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 36);
-	font48 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 48);
-	font54 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 54);
-	font72 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 72);
-	font112 = TTF_OpenFont("font\\CabinSketch-Bold.ttf", 112);
+	SDL_RWops* rw = SDL_RWFromConstMem(fontBin, sizeof(fontBin));
+	SDL_RWseek(rw, 0, RW_SEEK_SET);
+	font24 = TTF_OpenFontRW(rw, 1, 24);
+	SDL_RWseek(rw, 0, RW_SEEK_SET);
+	font36 = TTF_OpenFontRW(rw, 1, 36);
+	SDL_RWseek(rw, 0, RW_SEEK_SET);
+	font48 = TTF_OpenFontRW(rw, 1, 48);
+	SDL_RWseek(rw, 0, RW_SEEK_SET);
+	font54 = TTF_OpenFontRW(rw, 1, 54);
+	SDL_RWseek(rw, 0, RW_SEEK_SET);
+	font72 = TTF_OpenFontRW(rw, 1, 72);
+	SDL_RWseek(rw, 0, RW_SEEK_SET);
+	font112 = TTF_OpenFontRW(rw, 1, 112);
 
 	SDL_Surface* surface = TTF_RenderText_Blended(font72, "air-blue", whiteColor);
 	textures[TX_TEXT1] = SDL_CreateTextureFromSurface(game.renderer, surface);
