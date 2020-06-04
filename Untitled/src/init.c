@@ -47,7 +47,7 @@ void loadHighScores(void) {
 		strollTimeLog[i][T_SAVED] = i < 6 ? 90000 : 600000;
 	}
 	sprintTimeLog[T_SAVED] = 120000;
-	char* str = readFile("dat\\abd.sav");
+	char* str = readFile("abd.sav");
 	if (str == NULL) return;
 	if (sscanf(encryptDecrypt(str, "lNSjPehYQpJshkrm"), "%dA%dI%dR%dB%dL%dU%dE%d",
 		&strollTimeLog[0][T_SAVED], &strollTimeLog[1][T_SAVED], &strollTimeLog[2][T_SAVED],
@@ -61,7 +61,7 @@ void loadHighScores(void) {
 }
 
 void saveHighScores(void) {
-	FILE* file = fopen("dat\\abd.sav", "w");
+	FILE* file = fopen("abd.sav", "w");
 	if (file == NULL) return;
 	else {
 		for (int i = 0; i < 7; ++i) {
