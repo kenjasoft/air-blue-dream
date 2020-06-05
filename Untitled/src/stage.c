@@ -532,6 +532,7 @@ static void initBackground(void) {
 	stage.clearText[0]->x = 94;
 	stage.clearText[0]->y = textPositions[0][UPPER];
 	stage.clearText[0]->yTarget = textPositions[0][LOWER];
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font54, "NEW RECORD", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -547,6 +548,7 @@ static void initBackground(void) {
 	stage.clearText[1]->y = textPositions[1][UPPER];
 	stage.clearText[1]->yTarget = textPositions[1][LOWER];
 	fadeTexture(stage.clearText[1]->texture, -255);
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font36, "your time", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -560,6 +562,7 @@ static void initBackground(void) {
 	stage.clearText[2]->x = 17;
 	stage.clearText[2]->y = textPositions[2][UPPER];
 	stage.clearText[2]->yTarget = textPositions[2][LOWER];
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font36, "your best", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -573,6 +576,7 @@ static void initBackground(void) {
 	stage.clearText[3]->x = 17;
 	stage.clearText[3]->y = textPositions[3][UPPER];
 	stage.clearText[3]->yTarget = textPositions[3][LOWER];
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font72, "YOU WIN", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -586,6 +590,7 @@ static void initBackground(void) {
 	stage.winText[0]->x = 48;
 	stage.winText[0]->y = textPositions[0][UPPER];
 	stage.winText[0]->yTarget = textPositions[0][LOWER];
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font54, "NEW RECORD", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -601,6 +606,7 @@ static void initBackground(void) {
 	stage.winText[1]->y = textPositions[1][UPPER];
 	stage.winText[1]->yTarget = textPositions[1][LOWER];
 	fadeTexture(stage.winText[1]->texture, -255);
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font36, "total time", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -614,6 +620,7 @@ static void initBackground(void) {
 	stage.winText[2]->x = 17;
 	stage.winText[2]->y = textPositions[2][UPPER];
 	stage.winText[2]->yTarget = textPositions[2][LOWER];
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font36, "best total", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -627,6 +634,7 @@ static void initBackground(void) {
 	stage.winText[3]->x = 17;
 	stage.winText[3]->y = textPositions[3][UPPER];
 	stage.winText[3]->yTarget = textPositions[3][LOWER];
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font72, "GAME OVER", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -640,6 +648,7 @@ static void initBackground(void) {
 	stage.gameOverText[0]->x = 6;
 	stage.gameOverText[0]->y = textPositions[0][UPPER];
 	stage.gameOverText[0]->yTarget = textPositions[0][LOWER];
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font54, "NEW RECORD", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -655,6 +664,7 @@ static void initBackground(void) {
 	stage.gameOverText[1]->y = textPositions[1][UPPER];
 	stage.gameOverText[1]->yTarget = textPositions[1][LOWER];
 	fadeTexture(stage.gameOverText[1]->texture, -255);
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font36, "total time", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -668,6 +678,7 @@ static void initBackground(void) {
 	stage.gameOverText[2]->x = 17;
 	stage.gameOverText[2]->y = textPositions[2][UPPER];
 	stage.gameOverText[2]->yTarget = textPositions[2][LOWER];
+	SDL_FreeSurface(textSurface);
 
 	textSurface = TTF_RenderText_Blended(font36, "best total", whiteColor);
 	textTexture = SDL_CreateTextureFromSurface(game.renderer, textSurface);
@@ -681,7 +692,6 @@ static void initBackground(void) {
 	stage.gameOverText[3]->x = 17;
 	stage.gameOverText[3]->y = textPositions[3][UPPER];
 	stage.gameOverText[3]->yTarget = textPositions[3][LOWER];
-
 	SDL_FreeSurface(textSurface);
 }
 
