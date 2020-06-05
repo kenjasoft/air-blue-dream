@@ -1,6 +1,6 @@
 #include "init.h"
 
-int initSDL(void) {
+void initSDL(void) {
 	int rendererFlags, windowFlags;
 
 	rendererFlags = SDL_RENDERER_ACCELERATED;
@@ -11,7 +11,6 @@ int initSDL(void) {
 
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) exit(1);
 	Mix_AllocateChannels(CH_MAX);
-	if (initSounds() < 0) return -1;
 
 	game.window = SDL_CreateWindow("air-blue dream", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
@@ -29,7 +28,6 @@ int initSDL(void) {
 	}
 
 	SDL_ShowCursor(SDL_DISABLE);
-	return 0;
 }
 
 char* encryptDecrypt(char* str, const char* key)
@@ -79,6 +77,7 @@ void saveHighScores(void) {
 }
 
 void initGame(void) {
-	loadHighScores();
+	initSounds();
 	loadTextures();
+	loadHighScores();
 }

@@ -4,10 +4,7 @@ int main(int argc, char* argv[]) {
 	srand((unsigned int)time(NULL));
 	memset(&game, 0, sizeof(Game));
 
-	if (initSDL() < 0) {
-		SDL_Quit();
-		return 0;
-	}
+	initSDL();
 	initGame();
 	initStage();
 

@@ -2,7 +2,6 @@
 #include "stdio.h"
 #include "string.h"
 #include "math.h"
-#include "ctype.h"
 #include "time.h"
 
 #include "SDL.h"
@@ -97,7 +96,8 @@ enum {
 enum {
 	MSC_TITLE,
 	MSC_STROLL,
-	MSC_SPRINT
+	MSC_SPRINT,
+	MSC_MAX
 };
 
 enum {
