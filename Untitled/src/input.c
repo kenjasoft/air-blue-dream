@@ -7,7 +7,6 @@ void doKey(SDL_KeyboardEvent* event, int upOrDown) {
 	case SDL_SCANCODE_LCTRL:
 	case SDL_SCANCODE_RCTRL:
 	case SDL_SCANCODE_SPACE:
-	case SDL_SCANCODE_RETURN:
 	case SDL_SCANCODE_Z:
 	case SDL_SCANCODE_X:
 	case SDL_SCANCODE_C:
