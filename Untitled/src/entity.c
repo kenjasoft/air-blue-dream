@@ -180,6 +180,7 @@ static void move(Entity* e) {
 	e->x += e->dx;
 	push(e, e->dx, 0);
 
+	e->dy = max(e->dy, -20.0f);
 	e->y += e->dy;
 	push(e, 0, e->dy);
 }
