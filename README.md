@@ -49,34 +49,34 @@ The game window is 384×768 pixels — a tall, narrow aspect ratio that suits ve
 
 ```
 air-blue-dream/
-├── Untitled.sln                 # Visual Studio solution
+├── Untitled.sln                     # Visual Studio solution
 ├── Untitled/
-│   ├── Untitled.vcxproj         # Visual Studio project
+│   ├── Untitled.vcxproj             # Visual Studio project
 │   ├── src/
-│   │   ├── main.c / main.h      # Entry point, game loop, frame cap
-│   │   ├── common.c / common.h  # Shared types, constants, enums, structs
-│   │   ├── init.c / init.h      # SDL init, asset loading, high score save/load
-│   │   ├── stage.c / stage.h    # Stage lifecycle, background, end-of-stage screens
-│   │   ├── entity.c / entity.h  # Entity system, physics, collision, level data
-│   │   ├── player.c / player.h  # Player input and movement
-│   │   ├── camera.c / camera.h  # Camera logic
-│   │   ├── draw.c / draw.h      # Renderer helpers (blit, prepareScene, presentScene)
-│   │   ├── input.c / input.h    # Keyboard and gamepad input
-│   │   ├── crow.c / crow.h      # Crow enemy entity
-│   │   ├── pigeon.c / pigeon.h  # Pigeon enemy entity
+│   │   ├── main.c / main.h          # Entry point, game loop, frame cap
+│   │   ├── common.c / common.h      # Shared types, constants, enums, structs
+│   │   ├── init.c / init.h          # SDL init, asset loading, high score save/load
+│   │   ├── stage.c / stage.h        # Stage lifecycle, background, end-of-stage screens
+│   │   ├── entity.c / entity.h      # Entity system, physics, collision, level data
+│   │   ├── player.c / player.h      # Player input and movement
+│   │   ├── camera.c / camera.h      # Camera logic
+│   │   ├── draw.c / draw.h          # Renderer helpers (blit, prepareScene, presentScene)
+│   │   ├── input.c / input.h        # Keyboard and gamepad input
+│   │   ├── crow.c / crow.h          # Crow enemy entity
+│   │   ├── pigeon.c / pigeon.h      # Pigeon enemy entity
 │   │   ├── platform.c / platform.h  # Platform entity
-│   │   ├── portal.c / portal.h  # Portal entity (stage exit trigger)
-│   │   ├── light.c / light.h    # Light particle effects
+│   │   ├── portal.c / portal.h      # Portal entity (stage exit trigger)
+│   │   ├── light.c / light.h        # Light particle effects
 │   │   ├── particle.c / particle.h  # Particle texture generation
-│   │   ├── text.c / text.h      # In-world text entity (menu labels, subtitles)
+│   │   ├── text.c / text.h          # In-world text entity (menu labels, subtitles)
 │   │   ├── textures.c / textures.h  # (binary) All image assets as C arrays
-│   │   ├── sound.c / sound.h    # (binary) Sound effects and music playback
-│   │   ├── stroll.h             # (binary) Stroll music
-│   │   ├── sprint.h             # (binary) Sprint music
-│   │   └── title.h              # (binary) Title music
-│   ├── img/                     # Source PNG assets (used to generate textures.h)
-│   ├── ogg/                     # Source OGG audio files (used to generate audio headers)
-│   └── resource.h / Untitled.rc # Windows resource file (application icon)
+│   │   ├── sound.c / sound.h        # (binary) Sound effects and music playback
+│   │   ├── stroll.h                 # (binary) Stroll music
+│   │   ├── sprint.h                 # (binary) Sprint music
+│   │   └── title.h                  # (binary) Title music
+│   ├── img/                         # Source PNG assets (used to generate textures.h)
+│   ├── ogg/                         # Source OGG audio files (used to generate audio headers)
+│   └── resource.h / Untitled.rc     # Windows resource file (application icon)
 ```
 
 ---
