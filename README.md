@@ -1,5 +1,9 @@
 # air-blue dream
 
+![air-blue dream screenshot 1](readme-assets/air-blue-dream-screenshot-1.png)
+![air-blue dream screenshot 2](readme-assets/air-blue-dream-screenshot-2.png)
+![air-blue dream screenshot 3](readme-assets/air-blue-dream-screenshot-3.png)
+
 A small 2D platformer written in C using SDL2. Jump, explore, avoid enemies, and try to reach the portal at the top of each stage as fast as you can.
 
 This project is intended as a clean, readable template for anyone who wants to make a 2D game in C and SDL2. The codebase is deliberately small and straightforward — no engine, no framework, just C and a few SDL2 libraries.
